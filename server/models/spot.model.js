@@ -5,7 +5,7 @@ const spotSchema = new mongoose.Schema({
   description: String,
   imagePaths: [String],
   lat: Number,
-  Lng: Number,
+  lng: Number,
 })
 
-module.exports = mongoose.model("User", spotSchema)
+module.exports = mongoose.model("Spots", spotSchema)
