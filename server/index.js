@@ -2,6 +2,7 @@
 const express = require("express")
 const cors = require("cors")
 const fileUpload = require('express-fileupload')
+const router = require('./router')
 
 //port
 const port = 3000
@@ -18,6 +19,7 @@ const app = express()
 app.use(cors(corsConfig))
 app.use(fileUpload())
 app.use(express.json())
+app.use(router)
 
 app.listen(port, function () {
   console.log("http://localhost:3000")
