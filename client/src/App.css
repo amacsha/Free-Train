@@ -21,3 +21,10 @@
   align-items: center;
   gap: 40px;
 }
+
+.addSpotButton {
+  border: none;
+  border-radius: 5px;
+  padding: 8px;
+  background-color: greenyellow;
+}
