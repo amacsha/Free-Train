@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import { BrowserRouter, Routes, Route} from 'react-router-dom'
 import MapScreen from './components/MapScreen'
@@ -10,7 +10,7 @@ function App() {
     <div id='app'>
       <BrowserRouter>
         <Routes>
-          <Route path="/mapScreen" element={<><MapScreen /><Options /></>} />
+          <Route path="/mapScreen" element={<div className='dashboard'><MapScreen /><Options /></div>} />
         </Routes>
       </BrowserRouter>
     </div>
