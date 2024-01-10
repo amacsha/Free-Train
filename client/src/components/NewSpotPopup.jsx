@@ -2,15 +2,14 @@ import { useState } from "react";
 import { Marker, Popup, useMapEvent} from "react-leaflet";
 
 
-function NewSpotPopup() {
-  const [position, setPosition] = useState(null)
+function NewSpotPopup(props) {
   const map = useMapEvent({
     click(e) {
-      setPosition(e.latlng)
+      props.setNewSpotPosition(e.latlng)
     }
   })
-  return position == null ? null : (
-    <Popup position={position}>
+  return props.newSpotPosition == null ? null : (
+    <Popup position={props.newSpotPosition}>
       <button className="addSpotButton">Add Spot</button>
     </Popup>
   );
