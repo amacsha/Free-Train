@@ -10,7 +10,7 @@ function NewSpotPopup(props) {
   })
   return props.newSpotPosition == null ? null : (
     <Popup position={props.newSpotPosition}>
-      <button className="addSpotButton">Add Spot</button>
+      <button className="add-spot-button">Add Spot</button>
     </Popup>
   );
 }
