@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Marker, Popup, useMapEvent} from "react-leaflet";
+import { Link } from "react-router-dom";
 
 
 function NewSpotPopup(props) {
@@ -10,7 +11,7 @@ function NewSpotPopup(props) {
   })
   return props.newSpotPosition == null ? null : (
     <Popup position={props.newSpotPosition}>
-      <button className="add-spot-button">Add Spot</button>
+      <Link to="/newSpot"><button className="add-spot-button" >Add Spot</button></Link>
     </Popup>
   );
 }
