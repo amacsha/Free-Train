@@ -10,7 +10,7 @@ function App() {
     <div id='app'>
       <BrowserRouter>
         <Routes>
-          <Route path="/mapScreen" element={<div><MapScreen /><Options /></div>} />
+          <Route path="/mapScreen" element={<><MapScreen /><Options /></>} />
         </Routes>
       </BrowserRouter>
     </div>
