@@ -3,9 +3,6 @@
   width: 100vw;
 }
 
-.dashboard{
-  height: 100%;
-}
 
 #map-screen {
   width: 100%;
@@ -22,9 +19,26 @@
   gap: 40px;
 }
 
+#new-spot-form{
+  height: 100%;
+  width: 100%;
+  padding: 10px;
+}
+
 .add-spot-button {
   border: none;
   border-radius: 5px;
   padding: 8px;
   background-color: greenyellow;
+}
+
+.back-button{
+  background-color: lightgreen;
+  border-radius: 40px;
+  padding: 5px;
+  border: none;
+}
+
+.dashboard{
+  height: 100%;
 }
