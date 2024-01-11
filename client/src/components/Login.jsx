@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 
-function Login() {
+function Login(props) {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const navigate = useNavigate()
@@ -27,7 +27,8 @@ function Login() {
     let data = new FormData()
     data.append("email", email)
     data.append("password", password)
-    axios.post("http://localhost:3000/", data).then(res => {
+    axios.post("http://localhost:3000/user/checkUser", data).then(res => {
+      props.setUser(username)
       navigate("/mapScreen")
     })
   }
@@ -40,7 +41,7 @@ function Login() {
           <input type="text" id="email" placeholder="example@exampleDomain.com" onChange={updateEmail} value={email}/>
         </div>
         <div className="login-form-item">
-          <label htmlFor="password">Enter you email</label>
+          <label htmlFor="password">Enter you password</label>
           <input type="password" id="password" onChange={updatePassword} value={password}/>
         </div>
         <button type="submit">Log in</button>

@@ -42,28 +42,29 @@ function Register() {
     data.append("email", email)
     data.append("username", username)
     data.append("password", password)
-    axios.post("http://localhost:3000/", data).then(res => {
+    axios.post("http://localhost:3000/user/createUser", data).then(res => {
+      props.setUser(username)
       navigate("/mapScreen")
     })
   }
   return ( 
     <div id="register">
-      <form >       
+      <form onSubmit={sendUser}>       
         <div className="register-form-item">
-          <label htmlFor="">Enter your email</label>
-          <input type="text" onChange={updateEmail} value={email}/>
+          <label htmlFor="email">Enter your email</label>
+          <input type="email" onChange={updateEmail} value={email} id="email"/>
         </div>
         <div className="register-form-item">
-          <label htmlFor="">Choose a username</label>
-          <input type="text" onChange={updateUsername} value={username}/>
+          <label htmlFor="username">Choose a username</label>
+          <input type="text" onChange={updateUsername} value={username} id="username"/>
         </div>
         <div className="register-form-item">
-          <label htmlFor="">Create a secure password</label>
-          <input type="password" onChange={updatePassword} value={password}/>
+          <label htmlFor="password">Create a secure password</label>
+          <input type="password" onChange={updatePassword} value={password} id="password"/>
         </div>
         <div className="register-form-item">
-          <label htmlFor="">Confirm your secure password</label>
-          <input type="password" onChange={updateConfirmPassword} value={confirmPassword}/>
+          <label htmlFor="confirmPassword">Confirm your secure password</label>
+          <input type="password" onChange={updateConfirmPassword} value={confirmPassword} id="confimPassword"/>
         </div>
         <button type="submit">Register</button>
       </form>

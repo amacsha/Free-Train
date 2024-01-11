@@ -12,6 +12,7 @@ import Register from './components/Register'
 function App() {
   const [newSpotPosition, setNewSpotPosition] = useState(null)
   const [spotList, setSpotList] = useState([])
+  const [user, setUser] = useState("")
   useEffect(() => {
     axios.get("http://localhost:3000/spot/getAll").then(res => {
       setSpotList([...res.data])
@@ -33,9 +34,9 @@ function App() {
               <Options />
             </div>} />
             <Route path='/newSpot' element={<NewSpotForm newSpotPosition={newSpotPosition} />} />
-            <Route path="/spotExpanded/:spotName" element={<SpotExpanded />}/>
-            <Route path="/" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+            <Route path="/spotExpanded/:spotName" element={<SpotExpanded user={user}/>}/>
+            <Route path="/" element={<Login setUser={setUser}/>} />
+            <Route path="/register" element={<Register setUser={setUser}/>} />
         </Routes>
       </BrowserRouter>
     </div>
