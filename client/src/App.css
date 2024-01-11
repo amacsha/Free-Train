@@ -108,6 +108,22 @@
   color:#FBFBFB ;
 } 
 
+#spot-marker{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 2px;
+}
+
+#spot-marker button{
+  padding: 5px;
+  font-size: small;
+  background-color: #85B79D;
+  border: none;
+  border-radius: 10px;
+}
+
 .add-spot-button {
   border: none;
   border-radius: 5px;
