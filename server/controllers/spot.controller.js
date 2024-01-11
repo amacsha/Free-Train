@@ -37,4 +37,14 @@ spotController.getAll = async (req, res) => {
   }
 }
 
+spotController.getImage = async(req, res) => {
+  try {
+    console.log(req.params)
+    res.status(200)
+    res.sendFile(path.join(uploadsFolder, `${req.params.spotName}/${req.params.imageName}`))
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 module.exports = spotController
