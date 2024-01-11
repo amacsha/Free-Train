@@ -5,6 +5,7 @@ import MapScreen from './components/MapScreen'
 import Options from './components/Options'
 import NewSpotForm from './components/NewSpotForm'
 import axios from 'axios'
+import SpotExpanded from './components/spotExpanded'
 
 function App() {
   const [newSpotPosition, setNewSpotPosition] = useState(null)
@@ -30,7 +31,7 @@ function App() {
               <Options />
             </div>} />
             <Route path='/newSpot' element={<NewSpotForm newSpotPosition={newSpotPosition} />} />
-            <Route path="/spotExpanded/:spotName"></Route>
+            <Route path="/spotExpanded/:spotName" element={<SpotExpanded />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
