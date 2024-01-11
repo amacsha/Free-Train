@@ -8,11 +8,14 @@ import axios from 'axios'
 import SpotExpanded from './components/spotExpanded'
 import Login from './components/Login'
 import Register from './components/Register'
+import Profile from './components/Profile'
 
 function App() {
   const [newSpotPosition, setNewSpotPosition] = useState(null)
   const [spotList, setSpotList] = useState([])
   const [user, setUser] = useState("")
+  const [search, setSearch] = useState(false)
+
   useEffect(() => {
     axios.get("http://localhost:3000/spot/getAll").then(res => {
       setSpotList([...res.data])
@@ -30,13 +33,15 @@ function App() {
                 setNewSpotPosition={setNewSpotPosition}
                 spotList={spotList}
                 setSpotList={setSpotList}
+                search={search}
               />
-              <Options />
+              <Options setSearch={setSearch} search={search}/>
             </div>} />
-            <Route path='/newSpot' element={<NewSpotForm newSpotPosition={newSpotPosition} />} />
+            <Route path='/newSpot' element={<NewSpotForm newSpotPosition={newSpotPosition} user={user}/>} />
             <Route path="/spotExpanded/:spotName" element={<SpotExpanded user={user}/>}/>
             <Route path="/" element={<Login setUser={setUser}/>} />
             <Route path="/register" element={<Register setUser={setUser}/>} />
+            <Route path="/profile" element={<Profile user={user} />} />
         </Routes>
       </BrowserRouter>
     </div>

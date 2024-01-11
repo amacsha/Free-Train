@@ -1,6 +1,7 @@
 import { MapContainer, TileLayer, useMap, Marker, Popup } from 'react-leaflet'
 import NewSpotPopup from './NewSpotPopup';
 import SpotMarker from './spotMarker';
+import SearchField from './SearchField';
 
 function MapScreen(props) {
   return ( 
@@ -14,6 +15,7 @@ function MapScreen(props) {
         {props.spotList.map(spot => {
           return <SpotMarker spot={spot} key={spot.name}/>
         })}
+        {props.search == false? null : <SearchField />}
       </MapContainer>
     </div>
   );

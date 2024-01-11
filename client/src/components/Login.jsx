@@ -28,7 +28,7 @@ function Login(props) {
     data.append("email", email)
     data.append("password", password)
     axios.post("http://localhost:3000/user/checkUser", data).then(res => {
-      props.setUser(username)
+      props.setUser(res.data.username)
       navigate("/mapScreen")
     })
   }

@@ -38,6 +38,7 @@ function NewSpotForm(props) {
     data.append("description", description)
     data.append("lat", props.newSpotPosition.lat)
     data.append("lng", props.newSpotPosition.lng)
+    data.append("author", props.user)
     let fileCount = 0
     for(let image of files) {
       data.append(`file${fileCount}`, image)
