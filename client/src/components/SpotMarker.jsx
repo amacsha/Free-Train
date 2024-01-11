@@ -1,4 +1,5 @@
 import { Marker, Popup } from "react-leaflet";
+import { Link } from "react-router-dom";
 
 function SpotMarker(props) {
 
@@ -6,7 +7,11 @@ function SpotMarker(props) {
     <div>
       <Marker position={props.spot}>
         <Popup>
-          <h1>{props.spot.name}</h1>
+          <div>
+            <h5>{props.spot.name}</h5>
+            <img src={`http://localhost:3000/spot/getImage/${props.spot.name}/${props.spot.imagePaths[0]}`} width="50px"/>
+            <Link to={`/spotExpanded/${props.spot.name}`}><button>Explore Spot</button></Link>
+          </div>
         </Popup>
       </Marker>
     </div>

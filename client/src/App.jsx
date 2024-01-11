@@ -30,7 +30,7 @@ function App() {
               <Options />
             </div>} />
             <Route path='/newSpot' element={<NewSpotForm newSpotPosition={newSpotPosition} />} />
-
+            <Route path="/spotExpanded/:spotName"></Route>
         </Routes>
       </BrowserRouter>
     </div>
