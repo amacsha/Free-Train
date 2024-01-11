@@ -6,6 +6,8 @@ import Options from './components/Options'
 import NewSpotForm from './components/NewSpotForm'
 import axios from 'axios'
 import SpotExpanded from './components/spotExpanded'
+import Login from './components/Login'
+import Register from './components/Register'
 
 function App() {
   const [newSpotPosition, setNewSpotPosition] = useState(null)
@@ -31,7 +33,9 @@ function App() {
               <Options />
             </div>} />
             <Route path='/newSpot' element={<NewSpotForm newSpotPosition={newSpotPosition} />} />
-            <Route path="/spotExpanded/:spotName" element={<SpotExpanded />}></Route>
+            <Route path="/spotExpanded/:spotName" element={<SpotExpanded />}/>
+            <Route path="/" element={<Login />} />
+            <Route path="/register" element={<Register />} />
         </Routes>
       </BrowserRouter>
     </div>
