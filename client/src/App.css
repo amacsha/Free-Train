@@ -23,7 +23,90 @@
   height: 100%;
   width: 100%;
   padding: 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  background-color: #7A6563;
+  
 }
+#new-spot-form h1 {
+  color: #FBFBFB;
+}
+#new-spot-form  form{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  background-color: #85B79D;
+  padding: 20px;
+  border-radius: 20px;
+  border: 2px solid #0B3954;
+  gap: 20px;
+  max-width: 75%;
+  min-width: 400px;
+}
+
+.formItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.formItem input {
+  padding: 4px;
+}
+
+.itemDiv {
+  border-bottom: 2px solid #D00000; 
+  width: 80%;
+}
+
+.imageUpload {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.imageUpload input {
+  border: 2px solid #0B3954;
+  padding: 5px;
+}
+
+.imageDisplay {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  max-width: 90%;
+  gap: 10px;
+  padding-bottom: 5px;
+  overflow-x: scroll;
+}
+
+.imageDisplay::-webkit-scrollbar {
+  background-color: #0B3954;
+  border-radius: 5px;
+  height: 5px;
+}
+
+.imageDisplay::-webkit-scrollbar-thumb{
+  background-color: #D00000;
+  border-radius: 5px;
+}
+
+#new-spot-form form button {
+  width: auto;
+  padding: 5px;
+  font-size: large;
+  border-radius: 15px;
+  border: none;
+  background-color: #7A6563;
+  color:#FBFBFB ;
+} 
 
 .add-spot-button {
   border: none;
@@ -37,6 +120,10 @@
   border-radius: 40px;
   padding: 5px;
   border: none;
+}
+
+.back-link{
+  align-self: flex-start;
 }
 
 .dashboard{
