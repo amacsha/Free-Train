@@ -1,5 +1,6 @@
 import { MapContainer, TileLayer, useMap, Marker, Popup } from 'react-leaflet'
 import NewSpotPopup from './NewSpotPopup';
+import SpotMarker from './spotMarker';
 
 function MapScreen(props) {
   return ( 
@@ -10,6 +11,9 @@ function MapScreen(props) {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <NewSpotPopup newSpotPosition={props.newSpotPosition} setNewSpotPosition={props.setNewSpotPosition}/>
+        {props.spotList.map(spot => {
+          return <SpotMarker spot={spot} key={spot.name}/>
+        })}
       </MapContainer>
     </div>
   );
