@@ -6,6 +6,7 @@ const spotSchema = new mongoose.Schema({
   imagePaths: [String],
   lat: Number,
   lng: Number,
+  author: String,
 })
 
 module.exports = mongoose.model("Spots", spotSchema)

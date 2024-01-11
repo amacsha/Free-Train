@@ -9,7 +9,7 @@ userController.checkUser = async (req, res) => {
     let passwordCheck = await bcrypt.compare(req.body.password, user.password)
     if(passwordCheck == true) {
       res.status(200)
-      res.send({loginStatus: true})
+      res.send({username: user.username})
     } else {
       res.status(400)
       res.send({loginStatus: false})

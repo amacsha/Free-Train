@@ -56,4 +56,15 @@ spotController.getSpot = async(req, res) => {
   }
 }
 
+spotController.getAuthorSpot = async (req, res) => {
+  try {
+    console.log(req.params)
+    let spots =  await Spot.find({author: req.params.author})
+    res.status(200)
+    res.send(spots)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 module.exports = spotController
