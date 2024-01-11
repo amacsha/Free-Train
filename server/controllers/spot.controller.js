@@ -39,9 +39,18 @@ spotController.getAll = async (req, res) => {
 
 spotController.getImage = async(req, res) => {
   try {
-    console.log(req.params)
     res.status(200)
     res.sendFile(path.join(uploadsFolder, `${req.params.spotName}/${req.params.imageName}`))
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+spotController.getSpot = async(req, res) => {
+  try {
+    let spot = await Spot.findOne({ name: req.params.spotName})
+    res.status(200)
+    res.send(spot)
   } catch (error) {
     console.log(error)
   }
