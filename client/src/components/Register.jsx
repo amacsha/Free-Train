@@ -61,11 +61,11 @@ function Register() {
         <form onSubmit={sendUser}>       
           <div className="login-form-item">
             <label htmlFor="email">Enter your email</label>
-            <input type="email" onChange={updateEmail} value={email} id="email"/>
+            <input type="email" onChange={updateEmail} value={email} id="email" placeholder="example@domain.com"/>
           </div>
           <div className="login-form-item">
             <label htmlFor="username">Choose a username</label>
-            <input type="text" onChange={updateUsername} value={username} id="username"/>
+            <input type="text" onChange={updateUsername} value={username} id="username" placeholder="user123"/>
           </div>
           <div className="login-form-item">
             <label htmlFor="password">Create a secure password</label>
