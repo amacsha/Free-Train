@@ -59,6 +59,10 @@
   padding: 4px;
 }
 
+.formItem textarea {
+  padding: 4px;
+}
+
 .itemDiv {
   border-bottom: 2px solid #D00000; 
   width: 80%;
@@ -276,4 +280,9 @@
 
 .dashboard{
   height: 100%;
+}
+
+.problem-display {
+  color: red;
+  font-weight: bolder;
 }

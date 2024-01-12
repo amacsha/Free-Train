@@ -8,6 +8,7 @@ function Register() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
+  const [problem, setProblem] = useState("")
 
   function updateUsername(e) {
     setUsername(e.target.value)
@@ -28,16 +29,16 @@ function Register() {
   function sendUser(e) {
     e.preventDefault()
     if(email == "") {
-      console.log("enter an email")
+      setProblem("enter an email")
       return
     } else if (username == "") {
-      console.log("enter a username")
+      setProblem("enter a username")
       return
     } else if(password == "") {
-      console.log("enter a password")
+      setProblem("enter a password")
       return
     } else if(confirmPassword == "") {
-      console.log("please confirm your password")
+      setProblem("please confirm your password")
       return
     }
     const data = new FormData()
@@ -75,6 +76,7 @@ function Register() {
             <label htmlFor="confirmPassword">Confirm your secure password</label>
             <input type="password" onChange={updateConfirmPassword} value={confirmPassword} id="confimPassword"/>
           </div>
+          {problem == "" ? null : <h2 className="problem-display">{problem}</h2>}
           <button type="submit" className="login-button">Register</button>
           <Link to="/"><button type="button" className="login-button">Log in</button></Link>
         </form>

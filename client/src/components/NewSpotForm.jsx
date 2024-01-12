@@ -9,6 +9,7 @@ function NewSpotForm(props) {
   let [name, setName] = useState("")
   let [description, setDescription] = useState("")
   let [files, setFiles] = useState([])
+  const [problem, setProblem] = useState("")
   let navigate = useNavigate()
 
   function updateName(e){
@@ -26,13 +27,13 @@ function NewSpotForm(props) {
   function validateAndSend(event) {
     event.preventDefault()
     if(name == "") {
-      console.log("name empty")
+      setProblem("give your spot a name")
       return
     } else if(description == "") {
-      console.log("description is empty")
+      setProblem("give your spot a description")
       return
     } else if (files.length == 0) {
-      console.log("no images uploaded")
+      setProblem("Show everyone a picture")
       return
     }
     const data = new FormData()
@@ -75,6 +76,7 @@ function NewSpotForm(props) {
           </div>
         </div>
         <div className="itemDiv"></div>
+        {problem == "" ? null : <h2 className="problem-display">{problem}</h2>}
         <button type="submit">submit</button>
       </form>
     </div>

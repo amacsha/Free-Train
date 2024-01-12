@@ -6,6 +6,7 @@ import logo from '../assets/FreeTrainLogo.png'
 function Login(props) {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [problem, setProblem] = useState("")
   const navigate = useNavigate()
 
   function updateEmail(e) {
@@ -19,10 +20,10 @@ function Login(props) {
   function checkEmailAndPassword(e) {
     e.preventDefault()
     if(email == "") {
-      console.log("enter your email")
+      setProblem("enter your email")
       return
     } else if (password == "") {
-      console.log("enter your password")
+      setProblem("enter your password")
       return
     }
     let data = new FormData()
@@ -52,6 +53,7 @@ function Login(props) {
             <label htmlFor="password">Enter you password</label>
             <input type="password" id="password" onChange={updatePassword} value={password}/>
           </div>
+          {problem == "" ? null : <h2 className="problem-display">{problem}</h2>}
           <button type="submit" className="login-button">Log in</button>
           <Link to="/register"><button className="login-button">Register</button></Link>
         </form>
