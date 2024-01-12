@@ -11,8 +11,8 @@ userController.checkUser = async (req, res) => {
       res.status(200)
       res.send({username: user.username})
     } else {
-      res.status(400)
-      res.send({loginStatus: false})
+      res.status(418)
+      res.send({status: "incorrect details"})
     }
   } catch (error) {
     console.log(error)
@@ -21,12 +21,28 @@ userController.checkUser = async (req, res) => {
 
 userController.createUser = async (req, res) => {
   try {
-    const passwordHash = await bcrypt.hash(req.body.password, 10)
-    let newUser = new User({
-      ...req.body,
-      password: passwordHash
-    })
-    await newUser.save()
+    let userEmail = await User.findOne({email: req.body.email})
+    console.log(userEmail)
+    let userName = await User.findOne({username: req.body.username})
+    console.log(userName)
+    if(userEmail == null && userName == null) {
+      const passwordHash = await bcrypt.hash(req.body.password, 10)
+      let newUser = new User({
+        ...req.body,
+        password: passwordHash
+      })
+      await newUser.save()
+      res.status(200)
+      res.send({status: "complete"})
+    } else if(userEmail != null) {
+      res.status(400)
+      res.send({status: "email already exists"})
+    } else if(userName != null) {
+      res.status(400)
+      res.send({status: "username already exists"})
+    }
+    
+    
   } catch (error) {
     console.log(error)
   }

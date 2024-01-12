@@ -49,6 +49,8 @@ function NewSpotForm(props) {
     }
     axios.post("http://localhost:3000/spot/addSpot", data).then(res => {
       navigate("/mapScreen")
+    }).catch(error => {
+      setProblem(error.response.data.status)
     })
   }
 
@@ -72,7 +74,7 @@ function NewSpotForm(props) {
           <label htmlFor="uploadImage">Post some pictures</label>
           <input type="file" accept=".jpg,.png," id="uploadImage" onChange={(e) => updateFiles(e.target.files)}/>
           <div className="imageDisplay">
-            {files.map(image => {return (<img key={image.url} src={URL.createObjectURL(image)} max-width="200px" min-width="100px" max-height="150px" min-height="100px"/>)})}
+            {files.map(image => {return (<img key={image.url} src={URL.createObjectURL(image)}/>)})}
           </div>
         </div>
         <div className="itemDiv"></div>

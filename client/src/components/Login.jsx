@@ -32,6 +32,8 @@ function Login(props) {
     axios.post("http://localhost:3000/user/checkUser", data).then(res => {
       props.setUser(res.data.username)
       navigate("/mapScreen")
+    }).catch(error => {
+      setProblem(error.response.data.status)
     })
   }
 
@@ -47,7 +49,7 @@ function Login(props) {
         <form onSubmit={checkEmailAndPassword}>
           <div className="login-form-item">
             <label htmlFor="email">Enter you email</label>
-            <input type="text" id="email" placeholder="example@exampleDomain.com" onChange={updateEmail} value={email}/>
+            <input type="email" id="email" placeholder="example@domain.com" onChange={updateEmail} value={email}/>
           </div>
           <div className="login-form-item">
             <label htmlFor="password">Enter you password</label>

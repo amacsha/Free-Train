@@ -1,3 +1,6 @@
+//boilerplate code used from the leaflet-geosearch library can be found at https://github.com/smeijer/leaflet-geosearch
+
+
 import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch';
 import { useMap } from 'react-leaflet';
 import { useEffect } from 'react';

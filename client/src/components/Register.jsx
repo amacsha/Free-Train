@@ -2,13 +2,15 @@ import { useState } from "react";
 import axios from "axios";
 import logo from '../assets/FreeTrainLogo.png'
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-function Register() {
+function Register(props) {
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
   const [problem, setProblem] = useState("")
+  const navigate = useNavigate()
 
   function updateUsername(e) {
     setUsername(e.target.value)
@@ -40,6 +42,9 @@ function Register() {
     } else if(confirmPassword == "") {
       setProblem("please confirm your password")
       return
+    } else if(confirmPassword != password) {
+      setProblem("Ensure passwords match")
+      return
     }
     const data = new FormData()
     data.append("email", email)
@@ -48,6 +53,9 @@ function Register() {
     axios.post("http://localhost:3000/user/createUser", data).then(res => {
       props.setUser(username)
       navigate("/mapScreen")
+    }).catch(error => {
+      console.log(error)
+      setProblem(error.response.data.status)
     })
   }
   return ( 

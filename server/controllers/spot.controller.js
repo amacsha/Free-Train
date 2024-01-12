@@ -8,20 +8,26 @@ const uploadsFolder = `${__dirname}/../uploads`
 
 spotController.addSpot = async (req, res) => {
   try {
-    fs.mkdirSync(path.join(uploadsFolder, req.body.name))
-    const imageNames = []
-    for(let image in req.files) {
-      req.files[image].mv(path.join(uploadsFolder, req.body.name, req.files[image].name))
-      imageNames.push(req.files[image].name)
+    const spot = await Spot.findOne({name: req.body.name})
+    if(spot == null) {
+      fs.mkdirSync(path.join(uploadsFolder, req.body.name))
+      const imageNames = []
+      for(let image in req.files) {
+        req.files[image].mv(path.join(uploadsFolder, req.body.name, req.files[image].name))
+        imageNames.push(req.files[image].name)
+      }
+      let dbObject = {
+        ...req.body,
+        imagePaths: imageNames
+      }
+      const newDocument = new Spot(dbObject)
+      await newDocument.save()
+      res.status(200)
+      res.send({status: "working"})
+    } else {
+      res.status(400)
+      res.send({status: "spot already exists"})
     }
-    let dbObject = {
-      ...req.body,
-      imagePaths: imageNames
-    }
-    const newDocument = new Spot(dbObject)
-    await newDocument.save()
-    res.status(200)
-    res.send({status: "working"})
   } catch (error) {
     console.log(error)
   }
