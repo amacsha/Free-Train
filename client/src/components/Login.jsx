@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import logo from '../assets/FreeTrainLogo.png'
 
 function Login(props) {
   const [email, setEmail] = useState("")
@@ -35,18 +36,26 @@ function Login(props) {
 
   return ( 
     < div id="login">
-      <form onSubmit={checkEmailAndPassword}>
-        <div className="login-form-item">
-          <label htmlFor="email">Enter you email</label>
-          <input type="text" id="email" placeholder="example@exampleDomain.com" onChange={updateEmail} value={email}/>
+      <div className="logoSide">
+        <div className="logoDiv">
+          <img src={logo} alt="" width="150px"/>
+          <h1>Free-train</h1>
         </div>
-        <div className="login-form-item">
-          <label htmlFor="password">Enter you password</label>
-          <input type="password" id="password" onChange={updatePassword} value={password}/>
-        </div>
-        <button type="submit">Log in</button>
-      </form>
-      <Link to="/register"><button>Register</button></Link>
+      </div>
+      <div className="formSide">
+        <form onSubmit={checkEmailAndPassword}>
+          <div className="login-form-item">
+            <label htmlFor="email">Enter you email</label>
+            <input type="text" id="email" placeholder="example@exampleDomain.com" onChange={updateEmail} value={email}/>
+          </div>
+          <div className="login-form-item">
+            <label htmlFor="password">Enter you password</label>
+            <input type="password" id="password" onChange={updatePassword} value={password}/>
+          </div>
+          <button type="submit" className="login-button">Log in</button>
+          <Link to="/register"><button className="login-button">Register</button></Link>
+        </form>
+      </div>
     </div>
    );
 }

@@ -175,6 +175,80 @@
   border-bottom: 2px solid #0B3954;
 }
 
+#login{
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.formSide{
+  width: 50%;
+  background-color: #0B3954;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.formSide form {
+  background-color: #85B79D;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px
+}
+
+.login-form-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.login-form-item input{
+  padding: 2px;
+}
+
+.login-button {
+  width: 150px;
+  padding: 2px;
+  
+}
+
+.logoSide {
+  height: 100%;
+  background-image: url('./assets/loginBackground.jpg');
+  background-size: cover;
+  background-position: center;
+  width: 50%;
+}
+
+.logoDiv {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  height: 100px;
+  margin-top: min(200px, 30%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logoDiv{
+  color: white;
+}
+
+.login-form-item{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 .add-spot-button {
   border: none;
   border-radius: 5px;
