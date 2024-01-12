@@ -9,6 +9,7 @@ import SpotExpanded from './components/spotExpanded'
 import Login from './components/Login'
 import Register from './components/Register'
 import Profile from './components/Profile'
+import NotFound from './components/NotFound'
 
 function App() {
   const [newSpotPosition, setNewSpotPosition] = useState(null)
@@ -42,6 +43,7 @@ function App() {
             <Route path="/" element={<Login setUser={setUser}/>} />
             <Route path="/register" element={<Register setUser={setUser}/>} />
             <Route path="/profile" element={<Profile user={user} />} />
+            <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </div>
