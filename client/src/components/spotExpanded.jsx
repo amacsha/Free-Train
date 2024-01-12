@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
+import { useDispatch, useSelector } from "react-redux";
 
 function SpotExpanded() {
   let params = useParams()

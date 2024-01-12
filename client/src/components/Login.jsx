@@ -2,13 +2,16 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import logo from '../assets/FreeTrainLogo.png'
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../slices/userSlice";
 
-function Login(props) {
+function Login() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [problem, setProblem] = useState("")
   const navigate = useNavigate()
-
+  const dispatch = useDispatch()
+  const user = useSelector(state => state.user)
   function updateEmail(e) {
     setEmail(e.target.value)
   }
@@ -31,8 +34,10 @@ function Login(props) {
     data.append("password", password)
     axios.post("http://localhost:3000/user/checkUser", data).then(res => {
       props.setUser(res.data.username)
+      dispatch(setUser(res.data.username))
       navigate("/mapScreen")
     }).catch(error => {
+      console.log(error)
       setProblem(error.response.data.status)
     })
   }

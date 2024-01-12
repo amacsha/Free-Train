@@ -2,23 +2,27 @@ import { Link } from "react-router-dom";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
-function Profile(props) {
+function Profile() {
   let [spots, setSpots] = useState([])
+  const user = useSelector(state => state.user)
+
   useEffect(() => {
-    axios.get(`http://localhost:3000/spot/getAuthorSpots/${props.user}`).then(res => {
+    axios.get(`http://localhost:3000/spot/getAuthorSpots/${user.value}`).then(res => {
       setSpots([...spots, res.data[0]])
     }).catch(error => {
       console.log(error)
     })
   }, [])
+
   return (
     <div id="profile">
       <div id="profile-body">
         <Link to="/mapScreen">
           <button className="back-button"><IoArrowBackCircleOutline size="40"/></button>
         </Link>
-        <h1 className="profile-item">{props.user}</h1>
+        <h1 className="profile-item">{user.value}</h1>
         <h2 className="profile-header">Your Spots</h2>
         <div className="your-spots">
           {spots.map(spot => {

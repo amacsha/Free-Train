@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
+import { useSelector} from "react-redux";
 
 
 function NewSpotForm(props) {
@@ -11,6 +12,8 @@ function NewSpotForm(props) {
   let [files, setFiles] = useState([])
   const [problem, setProblem] = useState("")
   let navigate = useNavigate()
+  const newSpotPosition = useSelector(state => state.newSpotPosition)
+  const user = useSelector(state => state.user)
 
   function updateName(e){
     setName(e.target.value)
@@ -39,9 +42,9 @@ function NewSpotForm(props) {
     const data = new FormData()
     data.append("name", name)
     data.append("description", description)
-    data.append("lat", props.newSpotPosition.lat)
-    data.append("lng", props.newSpotPosition.lng)
-    data.append("author", props.user)
+    data.append("lat", newSpotPosition.value.lat)
+    data.append("lng", newSpotPosition.value.lng)
+    data.append("author", user.value)
     let fileCount = 0
     for(let image of files) {
       data.append(`file${fileCount}`, image)
@@ -50,6 +53,7 @@ function NewSpotForm(props) {
     axios.post("http://localhost:3000/spot/addSpot", data).then(res => {
       navigate("/mapScreen")
     }).catch(error => {
+      console.log(error)
       setProblem(error.response.data.status)
     })
   }
