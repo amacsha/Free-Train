@@ -1,7 +1,12 @@
 const mongoose = require('mongoose')
+require('dotenv').config()
+
+const DB_NAME = process.env.DATABASE_NAME
+const DB_COLLECTION = process.env.DATABASE_COLLECTION
+
 
 async function connectDB () {
-  await mongoose.connect('mongodb://127.0.0.1:27017/FreeTrain')
+  await mongoose.connect(`${DB_NAME}/${DB_COLLECTION}`)
 }
 
 connectDB()

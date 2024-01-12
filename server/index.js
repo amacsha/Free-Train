@@ -3,9 +3,10 @@ const express = require("express")
 const cors = require("cors")
 const fileUpload = require('express-fileupload')
 const router = require('./router')
+require('dotenv').config()
 
 //port
-const port = 3000
+const port = process.env.PORT
 
 //set the cors allowed cors origin
 const corsConfig = {
