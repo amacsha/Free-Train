@@ -7,12 +7,16 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { setSpotListR } from '../slices/spotList';
 import { useDispatch } from 'react-redux';
+import auth from '../auth/auth';
 
 function MapScreen() {
   const dispatch = useDispatch()
   let spotList = useSelector(state => state.spotListR)
   let search = useSelector(state => state.search)
+  let user = useSelector(state => state.user)
+
   useEffect(() => {
+    auth(user.value)
     axios.get("http://localhost:3000/spot/getAll").then(res => {
       dispatch(setSpotListR([...res.data]))
     })

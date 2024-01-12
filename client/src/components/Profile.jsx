@@ -1,16 +1,21 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { IoMdLogOut } from "react-icons/io";
+import { setUser } from "../slices/userSlice";
+import auth from "../auth/auth";
 
 
 function Profile() {
   let [spots, setSpots] = useState([])
   const user = useSelector(state => state.user)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   useEffect(() => {
+    auth(user.value)
     axios.get(`http://localhost:3000/spot/getAuthorSpots/${user.value}`).then(res => {
       console.log(res.data)
       setSpots([...spots, res.data[0]])
@@ -20,7 +25,8 @@ function Profile() {
   }, [])
 
   function logout() {
-    
+    dispatch(setUser(""))
+    navigate("/")
   }
 
   return (

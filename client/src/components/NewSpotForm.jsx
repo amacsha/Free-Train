@@ -1,9 +1,10 @@
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 import { useSelector} from "react-redux";
+import auth from "../auth/auth";
 
 
 function NewSpotForm(props) {
@@ -14,7 +15,10 @@ function NewSpotForm(props) {
   let navigate = useNavigate()
   const newSpotPosition = useSelector(state => state.newSpotPosition)
   const user = useSelector(state => state.user)
-  
+
+  useEffect(() => {
+    auth(user.value)
+  })
 
   function updateName(e){
     setName(e.target.value)
