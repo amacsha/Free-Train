@@ -1,5 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
+import logo from '../assets/FreeTrainLogo.png'
+import { Link } from "react-router-dom";
 
 function Register() {
   const [username, setUsername] = useState("")
@@ -49,25 +51,35 @@ function Register() {
   }
   return ( 
     <div id="register">
-      <form onSubmit={sendUser}>       
-        <div className="register-form-item">
-          <label htmlFor="email">Enter your email</label>
-          <input type="email" onChange={updateEmail} value={email} id="email"/>
+      <div className="logoSide">
+        <div className="logoDiv">
+          <img src={logo} alt="" width="150px"/>
+          <h1>Free-train</h1>
         </div>
-        <div className="register-form-item">
-          <label htmlFor="username">Choose a username</label>
-          <input type="text" onChange={updateUsername} value={username} id="username"/>
-        </div>
-        <div className="register-form-item">
-          <label htmlFor="password">Create a secure password</label>
-          <input type="password" onChange={updatePassword} value={password} id="password"/>
-        </div>
-        <div className="register-form-item">
-          <label htmlFor="confirmPassword">Confirm your secure password</label>
-          <input type="password" onChange={updateConfirmPassword} value={confirmPassword} id="confimPassword"/>
-        </div>
-        <button type="submit">Register</button>
-      </form>
+      </div>
+      <div className="formSide">
+        <form onSubmit={sendUser}>       
+          <div className="login-form-item">
+            <label htmlFor="email">Enter your email</label>
+            <input type="email" onChange={updateEmail} value={email} id="email"/>
+          </div>
+          <div className="login-form-item">
+            <label htmlFor="username">Choose a username</label>
+            <input type="text" onChange={updateUsername} value={username} id="username"/>
+          </div>
+          <div className="login-form-item">
+            <label htmlFor="password">Create a secure password</label>
+            <input type="password" onChange={updatePassword} value={password} id="password"/>
+          </div>
+          <div className="login-form-item">
+            <label htmlFor="confirmPassword">Confirm your secure password</label>
+            <input type="password" onChange={updateConfirmPassword} value={confirmPassword} id="confimPassword"/>
+          </div>
+          <button type="submit" className="login-button">Register</button>
+          <Link to="/"><button type="button" className="login-button">Log in</button></Link>
+        </form>
+        
+      </div>
     </div>
   );
 }

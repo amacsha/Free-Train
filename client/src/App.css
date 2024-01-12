@@ -249,6 +249,13 @@
   flex-direction: column;
 }
 
+#register{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
 .add-spot-button {
   border: none;
   border-radius: 5px;
