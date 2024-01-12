@@ -14,6 +14,7 @@ function NewSpotForm(props) {
   let navigate = useNavigate()
   const newSpotPosition = useSelector(state => state.newSpotPosition)
   const user = useSelector(state => state.user)
+  
 
   function updateName(e){
     setName(e.target.value)

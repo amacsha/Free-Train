@@ -5,6 +5,7 @@ import logo from '../assets/FreeTrainLogo.png'
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../slices/userSlice";
 
+
 function Login() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -33,7 +34,6 @@ function Login() {
     data.append("email", email)
     data.append("password", password)
     axios.post("http://localhost:3000/user/checkUser", data).then(res => {
-      props.setUser(res.data.username)
       dispatch(setUser(res.data.username))
       navigate("/mapScreen")
     }).catch(error => {

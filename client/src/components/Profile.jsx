@@ -3,6 +3,8 @@ import { IoArrowBackCircleOutline } from "react-icons/io5";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { IoMdLogOut } from "react-icons/io";
+
 
 function Profile() {
   let [spots, setSpots] = useState([])
@@ -10,11 +12,16 @@ function Profile() {
 
   useEffect(() => {
     axios.get(`http://localhost:3000/spot/getAuthorSpots/${user.value}`).then(res => {
+      console.log(res.data)
       setSpots([...spots, res.data[0]])
     }).catch(error => {
       console.log(error)
     })
   }, [])
+
+  function logout() {
+    
+  }
 
   return (
     <div id="profile">
@@ -23,6 +30,9 @@ function Profile() {
           <button className="back-button"><IoArrowBackCircleOutline size="40"/></button>
         </Link>
         <h1 className="profile-item">{user.value}</h1>
+        <div className="logout">
+          <IoMdLogOut size="40" color="black" onClick={logout}/>
+        </div>
         <h2 className="profile-header">Your Spots</h2>
         <div className="your-spots">
           {spots.map(spot => {
@@ -38,7 +48,7 @@ function Profile() {
                 </div>
               </div>
             )
-          })}
+          })} 
         </div>
         <div className="field-divider"></div>
       </div>
