@@ -28,6 +28,11 @@ function Profile() {
 
   function logout() {
     dispatch(setUser(""))
+    axios.get("http://localhost:3000/user/logout", {
+      withCredentials: true
+    }).catch(error => {
+      console.log(error)
+    })
     navigate("/")
   }
 

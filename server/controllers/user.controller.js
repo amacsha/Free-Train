@@ -8,6 +8,8 @@ userController.checkUser = async (req, res) => {
     let user = await User.findOne({email: req.body.email})
     let passwordCheck = await bcrypt.compare(req.body.password, user.password)
     if(passwordCheck == true) {
+      req.session.userId = user.username
+      console.log("userId", req.session)
       res.status(200)
       res.send({username: user.username})
     } else {
@@ -31,6 +33,7 @@ userController.createUser = async (req, res) => {
         ...req.body,
         password: passwordHash
       })
+      req.session.userId = newUser.username
       await newUser.save()
       res.status(200)
       res.send({status: "complete"})
@@ -46,6 +49,18 @@ userController.createUser = async (req, res) => {
   } catch (error) {
     console.log(error)
   }
+}
+
+userController.logout = async (req, res) => {
+  req.session.destroy((error) => {
+    if(error) {
+      res.status(400)
+      res.send({status: "could not log out"})
+    } else {
+      res.clearCookie("sid")
+      res.status(200).send({status: "logged out"})
+    }
+  })
 }
 
 
