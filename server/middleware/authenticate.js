@@ -2,9 +2,13 @@ const User = require('../models/user.model')
 
 async function authenticate(req, res, next) {
   try {
+    //gets the session id
     const {userId} = req.session
+
+    //the session id is the username so checks if a user exists 
     const checkUser = await User.findOne({username: req.session.userId})
-    console.log(req.session)
+    
+    //if one does, the next midddleware is initiated, if not an error is thrown
     if(checkUser == null) {
       throw new Error()
     } else {
