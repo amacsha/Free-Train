@@ -29,6 +29,7 @@ function MapScreen() {
       dispatch(setSpotListR([...res.data]))
     })
   }, [])
+  
   return ( 
     <div id="map-screen">
       <MapContainer center={[51.505, -0.09]} zoom={12.6} scrollWheelZoom={false} >
