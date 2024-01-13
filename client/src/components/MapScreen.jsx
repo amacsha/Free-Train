@@ -17,7 +17,9 @@ function MapScreen() {
 
   useEffect(() => {
     auth(user.value)
-    axios.get("http://localhost:3000/spot/getAll").then(res => {
+    axios.get("http://localhost:3000/spot/getAll", {
+      withCredentials: true,
+    }).then(res => {
       dispatch(setSpotListR([...res.data]))
     })
   }, [])

@@ -54,7 +54,9 @@ function Register() {
     data.append("email", email)
     data.append("username", username)
     data.append("password", password)
-    axios.post("http://localhost:3000/user/createUser", data).then(res => {
+    axios.post("http://localhost:3000/user/createUser", data, {
+      withCredentials: true
+    }).then(res => {
       dispatch(setUser(username))
       navigate("/mapScreen")
     }).catch(error => {

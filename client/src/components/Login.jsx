@@ -33,8 +33,12 @@ function Login() {
     let data = new FormData()
     data.append("email", email)
     data.append("password", password)
-    axios.post("http://localhost:3000/user/checkUser", data).then(res => {
+    axios.post("http://localhost:3000/user/checkUser", data, {
+      withCredentials: true
+    }).then(res => {
+      console.log(res)
       dispatch(setUser(res.data.username))
+      // dispatch(setCookie)
       navigate("/mapScreen")
     }).catch(error => {
       console.log(error)

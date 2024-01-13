@@ -55,7 +55,9 @@ function NewSpotForm(props) {
       data.append(`file${fileCount}`, image)
       fileCount++
     }
-    axios.post("http://localhost:3000/spot/addSpot", data).then(res => {
+    axios.post("http://localhost:3000/spot/addSpot", data, {
+      withCredentials: true
+    }).then(res => {
       navigate("/mapScreen")
     }).catch(error => {
       console.log(error)

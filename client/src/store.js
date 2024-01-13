@@ -9,6 +9,6 @@ export default configureStore({
     newSpotPosition: newSpotPositionSliceReducer,
     spotListR: spotListReducer,
     search: searchSlice,
-    user: userSlice
+    user: userSlice,
   },
 })

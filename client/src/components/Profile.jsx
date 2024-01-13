@@ -16,7 +16,9 @@ function Profile() {
 
   useEffect(() => {
     auth(user.value)
-    axios.get(`http://localhost:3000/spot/getAuthorSpots/${user.value}`).then(res => {
+    axios.get(`http://localhost:3000/spot/getAuthorSpots/${user.value}`, {
+      withCredentials: true
+    }).then(res => {
       console.log(res.data)
       setSpots([...spots, res.data[0]])
     }).catch(error => {
