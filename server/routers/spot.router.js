@@ -4,6 +4,8 @@ const spotController = require("../controllers/spot.controller")
 const spotRouter = express.Router()
 
 spotRouter.post("/addSpot", spotController.addSpot)
+spotRouter.post("/like/:spotName", spotController.like)
+spotRouter.post("/unLike/:spotName", spotController.unLike)
 
 spotRouter.get("/getAll", spotController.getAll)
 spotRouter.get("/getImage/:spotName/:imageName", spotController.getImage)

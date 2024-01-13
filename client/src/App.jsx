@@ -14,17 +14,6 @@ import NotFound from './components/NotFound'
 import { setUser } from './slices/userSlice'
 
 function App() {
-  //TODO fix local storage
-  // const user = useSelector(state => state.user)
-  // const dispatch = useDispatch()
-  // useEffect(() => {
-  //   let localName = localStorage.getItem("username")
-  //   if (localName != null) {
-  //     dispatch(setUser(localName))
-  //   } else {
-  //     window.location.replace("/")
-  //   }
-  // }, [])
 
   return (
     <div id='app'>

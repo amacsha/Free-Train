@@ -28,7 +28,9 @@ spotController.addSpot = async (req, res) => {
       //creates the image to store the spot in the database
       let dbObject = {
         ...req.body,
-        imagePaths: imageNames
+        imagePaths: imageNames,
+        likes: 0,
+        likedBy: []
       }
 
       //saves the new spot
@@ -83,6 +85,32 @@ spotController.getAuthorSpot = async (req, res) => {
     let spots =  await Spot.find({author: req.params.author})
     res.status(200)
     res.send(spots)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+spotController.like = async (req, res) => {
+  try {
+    let spot = await Spot.findOne({name: req.params.spotName})
+    let newList = [...spot.likedBy]
+    newList.push(req.body.user)
+    await Spot.updateOne({name: req.params.spotName}, {likedBy: newList })
+    res.status(200)
+    res.send({working: "this works"})
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+spotController.unLike = async (req, res) => {
+  try {
+    let spot = await Spot.findOne({name: req.params.spotName})
+    let newList = [...spot.likedBy]
+    newList.splice(newList.indexOf(req.body.user), 1)
+    await Spot.updateOne({name: req.params.spotName}, {likedBy: newList })
+    res.status(200)
+    res.send({working: "this works"})
   } catch (error) {
     console.log(error)
   }

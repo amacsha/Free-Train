@@ -333,6 +333,13 @@
   background-color: #85B79D;
 }
 
+.likes {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 4rem;
+}
+
 #not-found{
   height: 100%;
   background-image: url('./assets/eror404page.jpg');

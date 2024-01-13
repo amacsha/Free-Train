@@ -72,7 +72,6 @@ function Register() {
       withCredentials: true
     }).then(res => {
       dispatch(setUser(username))
-      //TODO fix local storage
       localStorage.setItem("username",username)
       navigate("/mapScreen")
     }).catch(error => {

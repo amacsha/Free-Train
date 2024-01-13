@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { BiSolidLike } from "react-icons/bi";
+import { BiLike } from "react-icons/bi";
 
 import axios from "axios";
 import auth from "../auth/auth";
@@ -16,6 +18,8 @@ function SpotExpanded() {
   //local states
   const [parkourSpot, setSpot] = useState({})
   const [imagePaths, setImagePaths] = useState([])
+  const [likes, setLikes] = useState(0)
+  const [liked, setLiked] = useState(false)
 
 
   useEffect(() => {
@@ -27,10 +31,36 @@ function SpotExpanded() {
       console.log(res.data)
       setSpot(res.data)
       setImagePaths(res.data.imagePaths)
+      setLikes(res.data.likedBy.length)
+      if(res.data.likedBy.includes(user.value)) {
+        setLiked(true)
+      }
     }).catch(error => {
       console.log(error)
     }) 
   }, [])
+
+  function like() {
+    axios.post(`http://localhost:3000/spot/like/${parkourSpot.name}`, {user: user.value}, {
+      withCredentials: true
+    }).then(res => {
+      setLikes(likes + 1)
+      setLiked(!liked)
+    }).catch(error => {
+      console.log(error)
+    })
+  }
+
+  function unLike() {
+    axios.post(`http://localhost:3000/spot/unLike/${parkourSpot.name}`, {user: user.value}, {
+      withCredentials: true
+    }).then(res => {
+      setLikes(likes - 1)
+      setLiked(!liked)
+    }).catch(error => {
+      console.log(error)
+    })
+  }
 
   return ( 
     <div id="spot-expanded">
@@ -47,6 +77,10 @@ function SpotExpanded() {
           })}
         </div>
         <div className="divider expanded-item"></div>
+        <div className="likes">
+          <h1>{likes}</h1>
+          {liked ? <BiSolidLike size="80" onClick={unLike}/> : <BiLike size="80" onClick={like}/>}
+        </div>
         <p className="description expanded-item">{parkourSpot.description}</p>
       </div>
     </div>
