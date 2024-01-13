@@ -57,8 +57,7 @@ function Profile() {
         </div>
         <h2 className="profile-header">Your Spots</h2>
         <div className="your-spots">
-          {spots.map(spot => {
-            console.log(spot)
+          {spots == 0 ? <h2>You have authored no spots</h2> : spots.map(spot => {
             return (
               <div key={spot.name} className="profile-spot">
                 <div className="profile-spot-info">
