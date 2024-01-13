@@ -8,7 +8,6 @@ import axios from "axios";
 import { setUser } from "../slices/userSlice";
 import auth from "../auth/auth";
 
-
 function Profile() {
   //functional hooks
   const dispatch = useDispatch()
@@ -62,7 +61,7 @@ function Profile() {
               <div key={spot.name} className="profile-spot">
                 <div className="profile-spot-info">
                   <h3>{spot.name}</h3>
-                  <button>more info</button>
+                  <Link to={`/spotExpanded/${spot.name}`}><button className="visit">more info</button></Link>
                 </div>
                 <div>
                   <img src={`http://localhost:3000/spot/getImage/${spot.name}/${spot.imagePaths[0]}`} height="100px"/>

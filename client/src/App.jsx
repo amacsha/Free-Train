@@ -1,5 +1,8 @@
 import './App.css'
 import { BrowserRouter, Routes, Route} from 'react-router-dom'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
 import MapScreen from './components/MapScreen'
 import Options from './components/Options'
 import NewSpotForm from './components/NewSpotForm'
@@ -8,8 +11,20 @@ import Login from './components/Login'
 import Register from './components/Register'
 import Profile from './components/Profile'
 import NotFound from './components/NotFound'
+import { setUser } from './slices/userSlice'
 
 function App() {
+  //TODO fix local storage
+  // const user = useSelector(state => state.user)
+  // const dispatch = useDispatch()
+  // useEffect(() => {
+  //   let localName = localStorage.getItem("username")
+  //   if (localName != null) {
+  //     dispatch(setUser(localName))
+  //   } else {
+  //     window.location.replace("/")
+  //   }
+  // }, [])
 
   return (
     <div id='app'>

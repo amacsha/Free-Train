@@ -52,6 +52,8 @@ function Login() {
     }).then(res => {
       console.log(res)
       dispatch(setUser(res.data.username))
+      //TODO fix local storage
+      // localStorage.setItem("username", JSON.stringify(res.data.username))
       navigate("/mapScreen")
     }).catch(error => {
       console.log(error)

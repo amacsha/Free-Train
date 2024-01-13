@@ -9,6 +9,7 @@ import SearchField from './SearchField';
 import auth from '../auth/auth';
 import axios from 'axios';
 import { setSpotListR } from '../slices/spotList';
+import { setUser } from '../slices/userSlice';
 
 function MapScreen() {
   //functional hooks
