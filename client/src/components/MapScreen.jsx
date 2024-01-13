@@ -1,21 +1,27 @@
+import { useEffect } from 'react';
 import { MapContainer, TileLayer, useMap, Marker, Popup } from 'react-leaflet'
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+
 import NewSpotPopup from './NewSpotPopup';
 import SpotMarker from './spotMarker';
 import SearchField from './SearchField';
-import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import auth from '../auth/auth';
 import axios from 'axios';
 import { setSpotListR } from '../slices/spotList';
-import { useDispatch } from 'react-redux';
-import auth from '../auth/auth';
 
 function MapScreen() {
+  //functional hooks
   const dispatch = useDispatch()
+
+  //global states
   let spotList = useSelector(state => state.spotListR)
   let search = useSelector(state => state.search)
   let user = useSelector(state => state.user)
 
+
   useEffect(() => {
+    //authenticates user and then gets all spots from the database to display on the map
     auth(user.value)
     axios.get("http://localhost:3000/spot/getAll", {
       withCredentials: true,

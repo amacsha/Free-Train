@@ -1,21 +1,28 @@
 import { useState } from "react";
-import axios from "axios";
-import logo from '../assets/FreeTrainLogo.png'
-import { Link, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+
+import axios from "axios";
+import logo from '../assets/FreeTrainLogo.png'
 import { setUser } from "../slices/userSlice";
 
 function Register() {
+  //functional components
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  //global states
+  const user = useSelector(state => state.user)
+
+  //local states
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
   const [problem, setProblem] = useState("")
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const user = useSelector(state => state.user)
 
+  //updates all of the inputs
   function updateUsername(e) {
     setUsername(e.target.value)
   }
@@ -32,8 +39,11 @@ function Register() {
     setConfirmPassword(e.target.value)
   }
 
+
   function sendUser(e) {
     e.preventDefault()
+
+    //ensures all inputs have something in them
     if(email == "") {
       setProblem("enter an email")
       return
@@ -50,10 +60,14 @@ function Register() {
       setProblem("Ensure passwords match")
       return
     }
+
+    //sets up data object to send
     const data = new FormData()
     data.append("email", email)
     data.append("username", username)
     data.append("password", password)
+
+    //sends data to the server to be added, if it is successful the user is logged in
     axios.post("http://localhost:3000/user/createUser", data, {
       withCredentials: true
     }).then(res => {
@@ -64,6 +78,7 @@ function Register() {
       setProblem(error.response.data.status)
     })
   }
+  
   return ( 
     <div id="register">
       <div className="logoSide">

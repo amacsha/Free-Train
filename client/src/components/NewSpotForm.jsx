@@ -1,25 +1,33 @@
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 import { useSelector} from "react-redux";
+
+import axios from 'axios'
 import auth from "../auth/auth";
 
 
 function NewSpotForm(props) {
+  //functional hooks
+  let navigate = useNavigate()
+
+  //local states
   let [name, setName] = useState("")
   let [description, setDescription] = useState("")
   let [files, setFiles] = useState([])
   const [problem, setProblem] = useState("")
-  let navigate = useNavigate()
+  
+  //global states
   const newSpotPosition = useSelector(state => state.newSpotPosition)
   const user = useSelector(state => state.user)
 
   useEffect(() => {
+    //authenticates the user
     auth(user.value)
   })
 
+  //updates all of the inputs
   function updateName(e){
     setName(e.target.value)
   }
@@ -32,8 +40,11 @@ function NewSpotForm(props) {
     setFiles([...files, file[0]])
   }
 
+  //sends the new spot to the server
   function validateAndSend(event) {
     event.preventDefault()
+
+    //checks the all input is given
     if(name == "") {
       setProblem("give your spot a name")
       return
@@ -44,6 +55,8 @@ function NewSpotForm(props) {
       setProblem("Show everyone a picture")
       return
     }
+
+    //creates the body to send to the server
     const data = new FormData()
     data.append("name", name)
     data.append("description", description)
@@ -51,10 +64,13 @@ function NewSpotForm(props) {
     data.append("lng", newSpotPosition.value.lng)
     data.append("author", user.value)
     let fileCount = 0
+    //loops through all files and adds them to the data object
     for(let image of files) {
       data.append(`file${fileCount}`, image)
       fileCount++
     }
+
+    //sends the data to the server
     axios.post("http://localhost:3000/spot/addSpot", data, {
       withCredentials: true
     }).then(res => {

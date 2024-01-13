@@ -1,20 +1,27 @@
 import { Link, useNavigate } from "react-router-dom";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IoMdLogOut } from "react-icons/io";
+
+import axios from "axios";
 import { setUser } from "../slices/userSlice";
 import auth from "../auth/auth";
 
 
 function Profile() {
-  let [spots, setSpots] = useState([])
-  const user = useSelector(state => state.user)
+  //functional hooks
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
+  //global states
+  const user = useSelector(state => state.user)
+
+  //local states
+  let [spots, setSpots] = useState([])
+
   useEffect(() => {
+    //authenticates user and then gets a list of spots that they found
     auth(user.value)
     axios.get(`http://localhost:3000/spot/getAuthorSpots/${user.value}`, {
       withCredentials: true
@@ -26,7 +33,9 @@ function Profile() {
     })
   }, [])
 
+
   function logout() {
+    //sets the users name to empty string, tells the server to log out and then sends the user back to the login page
     dispatch(setUser(""))
     axios.get("http://localhost:3000/user/logout", {
       withCredentials: true

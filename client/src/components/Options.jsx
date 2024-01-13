@@ -2,11 +2,15 @@ import { CgProfile } from "react-icons/cg";
 import { GrMapLocation } from "react-icons/gr";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+
 import { setSearch } from "../slices/searchSlice";
 
 function Options() {
-  const search = useSelector(state => state.search)
+  //functional hooks
   const dispatch = useDispatch()
+
+  //global sates
+  const search = useSelector(state => state.search)
 
   return ( 
     <div id="options">

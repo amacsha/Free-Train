@@ -1,16 +1,25 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import axios from "axios";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
+
+import axios from "axios";
 import auth from "../auth/auth";
 
 function SpotExpanded() {
+  //functional hooks
   let params = useParams()
+
+  //global states
+  const user = useSelector(state => state.user)
+
+  //local states
   const [parkourSpot, setSpot] = useState({})
   const [imagePaths, setImagePaths] = useState([])
-  const user = useSelector(state => state.user)
+
+
   useEffect(() => {
+    //authenticates a the user then gets the specific spot from the database
     auth(user.value)
     axios.get(`http://localhost:3000/spot/getSpot/${params.spotName}`, {
       withCredentials: true

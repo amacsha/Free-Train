@@ -1,18 +1,25 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
-import logo from '../assets/FreeTrainLogo.png'
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import logo from '../assets/FreeTrainLogo.png'
 import { setUser } from "../slices/userSlice";
 
 
 function Login() {
+  //functional hooks
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  //local states
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [problem, setProblem] = useState("")
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+
+  //global states
   const user = useSelector(state => state.user)
+
+  //functions to update input boxes
   function updateEmail(e) {
     setEmail(e.target.value)
   }
@@ -21,8 +28,11 @@ function Login() {
     setPassword(e.target.value)
   }
 
+  //authentication and validation from the server
   function checkEmailAndPassword(e) {
     e.preventDefault()
+
+    //ensures all boxes are filled
     if(email == "") {
       setProblem("enter your email")
       return
@@ -30,15 +40,18 @@ function Login() {
       setProblem("enter your password")
       return
     }
+
+    //sets up form data
     let data = new FormData()
     data.append("email", email)
     data.append("password", password)
+
+    //sends the axios request to the server, sets the user state to the username or the local problem state to the problem
     axios.post("http://localhost:3000/user/checkUser", data, {
       withCredentials: true
     }).then(res => {
       console.log(res)
       dispatch(setUser(res.data.username))
-      // dispatch(setCookie)
       navigate("/mapScreen")
     }).catch(error => {
       console.log(error)
