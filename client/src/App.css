@@ -362,6 +362,13 @@
   background-color: #85B79D;
 }
 
+.delete{
+  padding: 2px;
+  border-radius: 4px;
+  border: none;
+  background-color: #e02c2c;
+}
+
 .likes {
   display: flex;
   justify-content: space-around;

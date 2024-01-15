@@ -44,6 +44,19 @@ function Profile() {
     navigate("/")
   }
 
+  function deleteSpot (spotName) {
+    axios.delete(`http://localhost:3000/spot/deleteSpot/${spotName}`, {
+      withCredentials: true
+    }).then(res => {
+      let newSpots = spots.filter(spot => {
+        return spot.name != spotName
+      })
+      setSpots(newSpots)
+    }).catch(error => {
+      console.log(error)
+    })
+  }
+
   return (
     <div id="profile">
       <div id="profile-body">
@@ -56,13 +69,14 @@ function Profile() {
         </div>
         <h2 className="profile-header">Your Spots</h2>
         <div className="your-spots">
-          {spots == 0 ? <h2>You have authored no spots</h2> : spots.map(spot => {
+          {spots == 0 ? <h2>You have not found any spots</h2> : spots.map(spot => {
             return (
               <div key={spot.name} className="profile-spot">
                 <div className="profile-spot-info">
                   <h3>{spot.name}</h3>
                   <h3>Likes: {spot.likedBy.length}</h3>
                   <Link to={`/spotExpanded/${spot.name}`}><button className="visit">more info</button></Link>
+                  <button className="delete" onClick={() => deleteSpot(spot.name)}>Delete Spot</button>
                 </div>
                 <div>
                   <img src={`http://localhost:3000/spot/getImage/${spot.name}/${spot.imagePaths[0]}`} height="100px"/>

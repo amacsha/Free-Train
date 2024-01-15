@@ -13,4 +13,6 @@ spotRouter.get("/getImage/:spotName/:imageName", spotController.getImage)
 spotRouter.get("/getSpot/:spotName", spotController.getSpot)
 spotRouter.get("/getAuthorSpots/:author", spotController.getAuthorSpot)
 
+spotRouter.delete("/deleteSpot/:spotName", spotController.deleteSpot)
+
 module.exports = spotRouter

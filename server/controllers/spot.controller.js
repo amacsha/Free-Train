@@ -125,6 +125,25 @@ spotController.addComment = async (req, res) => {
     newList.push(req.body)
     console.log(newList)
     await Spot.updateOne({name: req.params.spotName}, {comments: newList})
+    res.status(200)
+    res.send({status: true})
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+spotController.deleteSpot = async (req, res) => {
+  try {
+    await Spot.deleteOne({name: req.params.spotName})
+    fs.rm(path.join(uploadsFolder, req.params.spotName), { recursive: true, force: true }, err => {
+      if(err) {
+        console.log(err)
+      } else {
+        console.log("delete worked")
+        res.status(200)
+        res.send({status: true})
+      }
+    })
   } catch (error) {
     console.log(error)
   }
