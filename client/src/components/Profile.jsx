@@ -3,6 +3,9 @@ import { IoArrowBackCircleOutline } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IoMdLogOut } from "react-icons/io";
+import { MdDelete } from "react-icons/md";
+import { MdClose } from "react-icons/md";
+
 
 import axios from "axios";
 import { setUser } from "../slices/userSlice";
@@ -18,6 +21,8 @@ function Profile() {
 
   //local states
   let [spots, setSpots] = useState([])
+  let [deleteUser, setDeleteUser] = useState(false)
+  let [password, setPassword] = useState("")
 
   useEffect(() => {
     //authenticates user and then gets a list of spots that they found
@@ -38,10 +43,13 @@ function Profile() {
     dispatch(setUser(""))
     axios.get("http://localhost:3000/user/logout", {
       withCredentials: true
+    }).then(res => {
+      dispatch(setUser(null))
+      navigate("/")
     }).catch(error => {
       console.log(error)
     })
-    navigate("/")
+    
   }
 
   function deleteSpot (spotName) {
@@ -57,32 +65,62 @@ function Profile() {
     })
   }
 
+  function deleteUserConfirmed() {
+    axios.post('http://localhost:3000/user/deleteUser', {
+      user: user.value,
+      password: password
+    }, {
+      withCredentials: true
+    }).then(res => {
+      dispatch(setUser(null))
+      window.location.replace("/")
+    }).catch(error => {
+      console.log(error)
+    })
+  }
+
+  function updatePassword(e) {
+    setPassword(e.target.value)
+  }
+
   return (
     <div id="profile">
+      {deleteUser ? <div className="deleteCheck">
+        <div className="delete-box">
+          <MdClose size="20" className="close-icon" onClick={() => setDeleteUser(false)}/>
+          <h2>Are you sure you want to delete your account</h2>
+          <h3>This action is permanent and you cannot recover your account once deleted</h3>
+          <input type="text" onChange={updatePassword} value={password} placeholder="enter your password"/>
+          <button onClick={deleteUserConfirmed} className="delete">Delete account</button>
+        </div>
+      </div> : null}
       <div id="profile-body">
         <Link to="/mapScreen">
           <button className="back-button"><IoArrowBackCircleOutline size="40"/></button>
         </Link>
         <h1 className="profile-item">{user.value}</h1>
         <div className="logout">
+          <MdDelete size="40" color="black" onClick={() => setDeleteUser(true)}/>
           <IoMdLogOut size="40" color="black" onClick={logout}/>
         </div>
         <h2 className="profile-header">Your Spots</h2>
         <div className="your-spots">
           {spots == 0 ? <h2>You have not found any spots</h2> : spots.map(spot => {
-            return (
-              <div key={spot.name} className="profile-spot">
-                <div className="profile-spot-info">
-                  <h3>{spot.name}</h3>
-                  <h3>Likes: {spot.likedBy.length}</h3>
-                  <Link to={`/spotExpanded/${spot.name}`}><button className="visit">more info</button></Link>
-                  <button className="delete" onClick={() => deleteSpot(spot.name)}>Delete Spot</button>
+            if(spot) {
+              return (
+                <div key={spot.name} className="profile-spot">
+                  <div className="profile-spot-info">
+                    <h3>{spot.name}</h3>
+                    <h3>Likes: {spot.likedBy.length}</h3>
+                    <Link to={`/spotExpanded/${spot.name}`}><button className="visit">more info</button></Link>
+                    <button className="delete" onClick={() => deleteSpot(spot.name)}>Delete Spot</button>
+                  </div>
+                  <div>
+                    <img src={`http://localhost:3000/spot/getImage/${spot.name}/${spot.imagePaths[0]}`} height="100px"/>
+                  </div>
                 </div>
-                <div>
-                  <img src={`http://localhost:3000/spot/getImage/${spot.name}/${spot.imagePaths[0]}`} height="100px"/>
-                </div>
-              </div>
-            )
+              )
+            }
           })} 
         </div>
         <div className="field-divider"></div>

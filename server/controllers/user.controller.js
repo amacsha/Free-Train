@@ -7,17 +7,22 @@ userController.checkUser = async (req, res) => {
   try {
     //checks that the required user does exist
     let user = await User.findOne({email: req.body.email})
-    let passwordCheck = await bcrypt.compare(req.body.password, user.password)
-
-    if(passwordCheck == true) {
-      //sets the session id to the username
-      req.session.userId = user.username
-
-      res.status(200)
-      res.send({username: user.username})
-    } else {
+    if(user == null) {
       res.status(418)
       res.send({status: "incorrect details"})
+    } else {
+      let passwordCheck = await bcrypt.compare(req.body.password, user.password)
+  
+      if(passwordCheck == true) {
+        //sets the session id to the username
+        req.session.userId = user.username
+  
+        res.status(200)
+        res.send({username: user.username})
+      } else {
+        res.status(418)
+        res.send({status: "incorrect details"})
+      }
     }
   } catch (error) {
     console.log(error)
@@ -71,5 +76,29 @@ userController.logout = async (req, res) => {
   })
 }
 
+userController.deleteUser = async (req, res) => {
+  try {
+    console.log(req.body)
+    const user = await User.findOne({username: req.body.user})
+    if(user == null) {
+      console.log(user)
+      res.status(418)
+      res.send({status: "could not delete account"})
+    } else {
+      let passwordCheck = await bcrypt.compare(req.body.password, user.password)
+      if(passwordCheck == true) {
+        await User.deleteOne({username: req.body.user})
+        res.status(200)
+        res.send({status: "account deleted"})
+      } else {
+        res.status(418)
+        res.send({status: "could not delete account"})
+      }
+    }
+    
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 module.exports = userController

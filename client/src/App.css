@@ -338,7 +338,6 @@
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
-  flex-direction: column;
 }
 
 .profile-header {
@@ -374,6 +373,36 @@
   justify-content: space-around;
   align-items: center;
   font-size: 4rem;
+}
+
+.deleteCheck{
+  position: absolute;
+  height: 100%;
+  width: 100%; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: -20px;
+}
+
+.delete-box{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #85B79D;
+  padding: 10px;
+  border: 2px solid #D00000;
+  border-radius: 5px;
+  gap: 10px;
+}
+
+.close-icon{
+  align-self: flex-end;
+}
+
+.delete-box input {
+  padding: 5px;
 }
 
 #not-found{
