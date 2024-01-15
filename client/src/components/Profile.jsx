@@ -23,15 +23,24 @@ function Profile() {
   let [spots, setSpots] = useState([])
   let [deleteUser, setDeleteUser] = useState(false)
   let [password, setPassword] = useState("")
+  let [likedSpots, setLikedSpots] = useState([])
 
   useEffect(() => {
     //authenticates user and then gets a list of spots that they found
     auth(user.value)
-    axios.get(`http://localhost:3000/spot/getAuthorSpots/${user.value}`, {
+    let requests = []
+    let foundSpots = axios.get(`http://localhost:3000/spot/getAuthorSpots/${user.value}`, {
       withCredentials: true
-    }).then(res => {
-      console.log(res.data)
-      setSpots([...spots, res.data[0]])
+    })
+    requests.push(foundSpots)
+    let likesSpots = axios.get(`http://localhost:3000/spot/getLikedSpots/${user.value}`, {
+      withCredentials: true
+    })
+    requests.push(likesSpots)
+    Promise.all(requests).then(values => {
+      console.log(values)
+      setLikedSpots(values[1].data.content)
+      setSpots(values[0].data)
     }).catch(error => {
       console.log(error)
     })
@@ -105,23 +114,40 @@ function Profile() {
         </div>
         <h2 className="profile-header">Your Spots</h2>
         <div className="your-spots">
-          {spots == 0 ? <h2>You have not found any spots</h2> : spots.map(spot => {
-            if(spot) {
-              return (
-                <div key={spot.name} className="profile-spot">
-                  <div className="profile-spot-info">
-                    <h3>{spot.name}</h3>
-                    <h3>Likes: {spot.likedBy.length}</h3>
-                    <Link to={`/spotExpanded/${spot.name}`}><button className="visit">more info</button></Link>
-                    <button className="delete" onClick={() => deleteSpot(spot.name)}>Delete Spot</button>
-                  </div>
-                  <div>
-                    <img src={`http://localhost:3000/spot/getImage/${spot.name}/${spot.imagePaths[0]}`} height="100px"/>
-                  </div>
+          {spots.length == 0 ? <h2>You have discovered no spots</h2> : spots.map(spot => {
+            return (
+              <div key={spot.name} className="profile-spot">
+                <div className="profile-spot-info">
+                  <h3>{spot.name}</h3>
+                  <h3>likes: {spot.likedBy.length}</h3>
+                  <Link to={`/spotExpanded/${spot.name}`}><button className="visit">more info</button></Link>
+                  <button className="delete" onClick={() => deleteSpot(spot.name)}>Delete Spot</button>
                 </div>
-              )
-            }
-          })} 
+                <div>
+                  <img src={`http://localhost:3000/spot/getImage/${spot.name}/${spot.imagePaths[0]}`} height="100px"/>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+        <div className="field-divider"></div>
+        <h2 className="profile-header">Liked spots</h2>
+        <div className="your-spots">
+        {likedSpots.length == 0 ? <h2>You haven't liked any spots</h2> : likedSpots.map(spot => {
+            return (
+              <div key={spot.name} className="profile-spot">
+                <div className="profile-spot-info">
+                  <h3>{spot.name}</h3>
+                  <h3>likes: {spot.likedBy.length}</h3>
+                  <Link to={`/spotExpanded/${spot.name}`}><button className="visit">more info</button></Link>
+                  <button className="delete" onClick={() => deleteSpot(spot.name)}>Delete Spot</button>
+                </div>
+                <div>
+                  <img src={`http://localhost:3000/spot/getImage/${spot.name}/${spot.imagePaths[0]}`} height="100px"/>
+                </div>
+              </div>
+            )
+          })}
         </div>
         <div className="field-divider"></div>
       </div>

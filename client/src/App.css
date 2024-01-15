@@ -145,7 +145,7 @@
 }
 
 .image-show{
-  grid-column: span 3;
+  grid-column: span 2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -168,8 +168,10 @@
 }
 
 .description{
-  grid-column: 2;
-  max-height: 100px
+  max-height: 100px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 .expanded-item{

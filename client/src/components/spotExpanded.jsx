@@ -4,6 +4,7 @@ import { IoArrowBackCircleOutline } from "react-icons/io5";
 import { useSelector } from "react-redux";
 import { BiSolidLike } from "react-icons/bi";
 import { BiLike } from "react-icons/bi";
+import { IoIosStarOutline } from "react-icons/io";
 
 import axios from "axios";
 import auth from "../auth/auth";
@@ -96,13 +97,13 @@ function SpotExpanded() {
             return <img key={image} src={`http://localhost:3000/spot/getImage/${parkourSpot.name}/${image}`} width="200px"/>
           })}
         </div>
+        <p className="description">{parkourSpot.description}</p>
         <div className="divider expanded-item"></div>
         <div className="likes">
           <h1>{likes}</h1>
           {liked ? <BiSolidLike size="80" onClick={unLike}/> : <BiLike size="80" onClick={like}/>}
         </div>
-        <p className="description expanded-item">{parkourSpot.description}</p>
-        <div className="comments">
+        < div className="comments">
           <form onSubmit={addComment}>
             <textarea cols="50" rows="3" value={comment} onChange={updateComment} className="create-comment"></textarea>
             <button type="submit" className="add-comment">Add Comment</button>

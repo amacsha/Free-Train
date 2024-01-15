@@ -12,6 +12,7 @@ spotRouter.get("/getAll", spotController.getAll)
 spotRouter.get("/getImage/:spotName/:imageName", spotController.getImage)
 spotRouter.get("/getSpot/:spotName", spotController.getSpot)
 spotRouter.get("/getAuthorSpots/:author", spotController.getAuthorSpot)
+spotRouter.get("/getLikedSpots/:userName", spotController.getLikedSpots)
 
 spotRouter.delete("/deleteSpot/:spotName", spotController.deleteSpot)
 

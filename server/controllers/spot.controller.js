@@ -149,4 +149,17 @@ spotController.deleteSpot = async (req, res) => {
   }
 }
 
+spotController.getLikedSpots = async (req, res) => {
+  try {
+    let allSpots = await Spot.find()
+    let likedSpots = allSpots.filter(spot => {
+      return spot.likedBy.includes(req.params.userName)
+    })
+    res.status(200)
+    res.send({type: "liked", content: likedSpots})
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 module.exports = spotController
