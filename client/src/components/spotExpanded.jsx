@@ -104,12 +104,12 @@ function SpotExpanded() {
         <p className="description expanded-item">{parkourSpot.description}</p>
         <div className="comments">
           <form onSubmit={addComment}>
-            <textarea cols="50" rows="3" value={comment} onChange={updateComment}></textarea>
-            <button type="submit">Add Comment</button>
+            <textarea cols="50" rows="3" value={comment} onChange={updateComment} className="create-comment"></textarea>
+            <button type="submit" className="add-comment">Add Comment</button>
           </form>
           <div className="comment-display">
             {comments.map(comment => {
-              return (<div>
+              return (<div className="comment">
                 <p>{`${comment.madeBy} - ${comment.comment}`}</p>
               </div>)
             })}

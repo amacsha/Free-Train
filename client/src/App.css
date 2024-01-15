@@ -186,8 +186,30 @@
 .comments {
   display: flex;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
   flex-direction: column;
+  gap: 5px;
+}
+
+.comments form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-comment {
+  height: 50px;
+  padding: 5px;
+}
+
+.create-comment {
+  padding: 2px;
+}
+
+.comment {
+  padding: 3px;
+  border-top: 1px solid #0B3954;
+  width: 100%;
 }
 
 #login{
