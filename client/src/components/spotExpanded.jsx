@@ -28,7 +28,6 @@ function SpotExpanded() {
     axios.get(`http://localhost:3000/spot/getSpot/${params.spotName}`, {
       withCredentials: true
     }).then(res => {
-      console.log(res.data)
       setSpot(res.data)
       setImagePaths(res.data.imagePaths)
       setLikes(res.data.likedBy.length)
