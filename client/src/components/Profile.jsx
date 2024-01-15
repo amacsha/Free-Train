@@ -61,6 +61,7 @@ function Profile() {
               <div key={spot.name} className="profile-spot">
                 <div className="profile-spot-info">
                   <h3>{spot.name}</h3>
+                  <h3>Likes: {spot.likedBy.length}</h3>
                   <Link to={`/spotExpanded/${spot.name}`}><button className="visit">more info</button></Link>
                 </div>
                 <div>
