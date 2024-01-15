@@ -30,7 +30,8 @@ spotController.addSpot = async (req, res) => {
         ...req.body,
         imagePaths: imageNames,
         likes: 0,
-        likedBy: []
+        likedBy: [],
+        comments: []
       }
 
       //saves the new spot
@@ -111,6 +112,19 @@ spotController.unLike = async (req, res) => {
     await Spot.updateOne({name: req.params.spotName}, {likedBy: newList })
     res.status(200)
     res.send({working: "this works"})
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+spotController.addComment = async (req, res) => {
+  try {
+    let spot = await Spot.findOne({name: req.params.spotName})
+    let newList = [...spot.comments]
+    console.log(spot)
+    newList.push(req.body)
+    console.log(newList)
+    await Spot.updateOne({name: req.params.spotName}, {comments: newList})
   } catch (error) {
     console.log(error)
   }

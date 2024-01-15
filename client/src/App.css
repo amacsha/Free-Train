@@ -183,6 +183,13 @@
   border-bottom: 2px solid #0B3954;
 }
 
+.comments {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+}
+
 #login{
   height: 100%;
   display: flex;

@@ -7,7 +7,11 @@ const spotSchema = new mongoose.Schema({
   lat: Number,
   lng: Number,
   author: String,
-  likedBy: [String]
+  likedBy: [String],
+  comments: [{
+    madeBy: String,
+    comment: String,
+  }]
 })
 
 module.exports = mongoose.model("Spots", spotSchema)

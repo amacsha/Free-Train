@@ -20,6 +20,8 @@ function SpotExpanded() {
   const [imagePaths, setImagePaths] = useState([])
   const [likes, setLikes] = useState(0)
   const [liked, setLiked] = useState(false)
+  const [comment, setComment] = useState("")
+  const [comments, setComments] = useState([])
 
 
   useEffect(() => {
@@ -34,6 +36,7 @@ function SpotExpanded() {
       if(res.data.likedBy.includes(user.value)) {
         setLiked(true)
       }
+      setComments(res.data.comments)
     }).catch(error => {
       console.log(error)
     }) 
@@ -61,6 +64,24 @@ function SpotExpanded() {
     })
   }
 
+  function addComment (e) {
+    e.preventDefault()
+    let commentObj = new FormData()
+    commentObj.append("madeBy", user.value)
+    commentObj.append("comment", comment)
+    axios.post(`http://localhost:3000/spot/addComment/${parkourSpot.name}`, commentObj, {
+      withCredentials: true
+    }).then(res =>  {
+      console.log(res)
+    }).catch(error => {
+      console.log(error)
+    })
+  }
+
+  function updateComment (e) {
+    setComment(e.target.value)
+  }
+
   return ( 
     <div id="spot-expanded">
       <div id="spot-expanded-body">
@@ -81,6 +102,19 @@ function SpotExpanded() {
           {liked ? <BiSolidLike size="80" onClick={unLike}/> : <BiLike size="80" onClick={like}/>}
         </div>
         <p className="description expanded-item">{parkourSpot.description}</p>
+        <div className="comments">
+          <form onSubmit={addComment}>
+            <textarea cols="50" rows="3" value={comment} onChange={updateComment}></textarea>
+            <button type="submit">Add Comment</button>
+          </form>
+          <div className="comment-display">
+            {comments.map(comment => {
+              return (<div>
+                <p>{`${comment.madeBy} - ${comment.comment}`}</p>
+              </div>)
+            })}
+          </div>
+        </div>
       </div>
     </div>
   );
