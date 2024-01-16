@@ -121,9 +121,7 @@ spotController.addComment = async (req, res) => {
   try {
     let spot = await Spot.findOne({name: req.params.spotName})
     let newList = [...spot.comments]
-    console.log(spot)
     newList.push(req.body)
-    console.log(newList)
     await Spot.updateOne({name: req.params.spotName}, {comments: newList})
     res.status(200)
     res.send({status: true})
@@ -139,7 +137,6 @@ spotController.deleteSpot = async (req, res) => {
       if(err) {
         console.log(err)
       } else {
-        console.log("delete worked")
         res.status(200)
         res.send({status: true})
       }

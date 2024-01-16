@@ -4,7 +4,6 @@ import { IoArrowBackCircleOutline } from "react-icons/io5";
 import { useSelector } from "react-redux";
 import { BiSolidLike } from "react-icons/bi";
 import { BiLike } from "react-icons/bi";
-import { IoIosStarOutline } from "react-icons/io";
 
 import axios from "axios";
 import auth from "../auth/auth";
@@ -73,7 +72,7 @@ function SpotExpanded() {
     axios.post(`http://localhost:3000/spot/addComment/${parkourSpot.name}`, commentObj, {
       withCredentials: true
     }).then(res =>  {
-      console.log(res)
+      setComments([...comments, {madeBy: user.value, comment: comment}])
     }).catch(error => {
       console.log(error)
     })
@@ -87,7 +86,7 @@ function SpotExpanded() {
     <div id="spot-expanded">
       <div id="spot-expanded-body">
         <Link to="/mapScreen">
-          <button className="back-button"><IoArrowBackCircleOutline size="40"/></button>
+          <IoArrowBackCircleOutline size="40" color="black"/>
         </Link>
         <h1 className="expanded-item">{parkourSpot.name}</h1>
         <h2 className="expanded-item">Found by {parkourSpot.author}</h2>
@@ -97,7 +96,7 @@ function SpotExpanded() {
             return <img key={image} src={`http://localhost:3000/spot/getImage/${parkourSpot.name}/${image}`} width="200px"/>
           })}
         </div>
-        <p className="description">{parkourSpot.description}</p>
+        <p className="description"><span>{parkourSpot.author}</span><br />{` ${parkourSpot.description}`}</p>
         <div className="divider expanded-item"></div>
         <div className="likes">
           <h1>{likes}</h1>

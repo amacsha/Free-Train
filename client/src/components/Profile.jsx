@@ -105,7 +105,7 @@ function Profile() {
       </div> : null}
       <div id="profile-body">
         <Link to="/mapScreen">
-          <button className="back-button"><IoArrowBackCircleOutline size="40"/></button>
+          <IoArrowBackCircleOutline size="40" color="black"/>
         </Link>
         <h1 className="profile-item">{user.value}</h1>
         <div className="logout">
@@ -123,7 +123,7 @@ function Profile() {
                   <Link to={`/spotExpanded/${spot.name}`}><button className="visit">more info</button></Link>
                   <button className="delete" onClick={() => deleteSpot(spot.name)}>Delete Spot</button>
                 </div>
-                <div>
+                <div className="image-side">
                   <img src={`http://localhost:3000/spot/getImage/${spot.name}/${spot.imagePaths[0]}`} height="100px"/>
                 </div>
               </div>
@@ -138,11 +138,9 @@ function Profile() {
               <div key={spot.name} className="profile-spot">
                 <div className="profile-spot-info">
                   <h3>{spot.name}</h3>
-                  <h3>likes: {spot.likedBy.length}</h3>
                   <Link to={`/spotExpanded/${spot.name}`}><button className="visit">more info</button></Link>
-                  <button className="delete" onClick={() => deleteSpot(spot.name)}>Delete Spot</button>
                 </div>
-                <div>
+                <div className="image-side">
                   <img src={`http://localhost:3000/spot/getImage/${spot.name}/${spot.imagePaths[0]}`} height="100px"/>
                 </div>
               </div>

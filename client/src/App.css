@@ -12,7 +12,7 @@
 #options {
   height: 10%;
   width: 100%;
-  background-color: #85B79D;
+  background-color: #8AAAE5;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,7 +27,7 @@
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  background-color: #7A6563;
+  background-color: #8AAAE5;
   
 }
 #new-spot-form h1 {
@@ -38,10 +38,11 @@
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  background-color: #85B79D;
+  background-color: #3423A6;
   padding: 20px;
   border-radius: 20px;
-  border: 2px solid #0B3954;
+  color: white;
+  border: 2px solid #FBFBFB;
   gap: 20px;
   max-width: 75%;
   min-width: 400px;
@@ -61,6 +62,7 @@
 
 .formItem textarea {
   padding: 4px;
+  resize: none;
 }
 
 .itemDiv {
@@ -77,7 +79,7 @@
 }
 
 .imageUpload input {
-  border: 2px solid #0B3954;
+  border: 2px solid #FBFBFB;
   padding: 5px;
 }
 
@@ -112,7 +114,7 @@
   font-size: large;
   border-radius: 15px;
   border: none;
-  background-color: #7A6563;
+  background-color: #8AAAE5;
   color:#FBFBFB ;
 } 
 
@@ -134,7 +136,7 @@
 
 #spot-expanded {
   padding: 20px;
-  background-color: #7A6563;
+  background-color: #8AAAE5;
   height: 100%;
 }
 
@@ -149,9 +151,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-right: 5%;
-  padding-left: 5%;
   overflow-x: auto;
+  padding-left: 180px;
+  padding-right: 20px;
   padding-bottom: 5px;
   gap: 10px;
 }
@@ -163,7 +165,7 @@
 }
 
 .image-show::-webkit-scrollbar-thumb{
-  background-color: #D00000;
+  background-color: #3423A6;
   border-radius: 5px;
 }
 
@@ -172,6 +174,12 @@
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
+}
+
+.description span {
+  font-weight: bold;
+  text-decoration: underline;
+  
 }
 
 .expanded-item{
@@ -206,12 +214,33 @@
 
 .create-comment {
   padding: 2px;
+  resize: none;
 }
 
 .comment {
   padding: 3px;
-  border-top: 1px solid #0B3954;
-  width: 100%;
+  width: 90%;
+}
+
+.comment-display {
+  max-height: 200px;
+  overflow-y: scroll;
+  width: 100%
+}
+
+.comment-display::-webkit-scrollbar {
+  width: 10px;
+  border-radius: 5px;
+}
+
+.comment-display::-webkit-scrollbar-track {
+  background-color: #0B3954;
+  border-radius: 5px;
+}
+
+.comment-display::-webkit-scrollbar-thumb {
+  background-color: #3423A6;
+  border-radius: 5px;
 }
 
 #login{
@@ -223,7 +252,7 @@
 
 .formSide{
   width: 50%;
-  background-color: #0B3954;
+  background-color: #8AAAE5;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -231,14 +260,15 @@
 }
 
 .formSide form {
-  background-color: #85B79D;
+  background-color: #3423A6;
   padding: 20px;
   border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 20px
+  gap: 20px;
+  color: white;
 }
 
 .login-form-item {
@@ -297,7 +327,7 @@
 
 #profile{
   height: 100%; 
-  background-color: #7A6563;
+  background-color: #8AAAE5;
   padding: 20px;
 }
 
@@ -317,13 +347,14 @@
 }
 
 .profile-spot {
-  border: 2px solid #0B3954;
+  border: 2px solid #0B0A07;
   display: flex;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: flex-center;
   padding: 10px;
   gap: 10px;
   min-width: 200px;
+  background-color: #3423A6;
 }
 
 .profile-item {
@@ -333,7 +364,7 @@
 
 .field-divider {
   grid-column: span 3;
-  border: 1px solid #85B79D;
+  border: 1px solid #0B0A07;
 }
 
 .logout {
@@ -353,28 +384,44 @@
   justify-content: flex-start;
   align-items: flex-start;
   flex-direction: column;
-  gap: 10px
+  gap: 10px;
+  color: white;
+}
+
+.image-side{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.image-side img {
+  border-radius: 4px;
 }
 
 .visit{
-  padding: 2px;
+  padding: 4px;
   border-radius: 4px;
   border: none;
-  background-color: #85B79D;
+  background-color: #8AAAE5;
+  color: white;
 }
 
 .delete{
-  padding: 2px;
+  padding: 4px;
   border-radius: 4px;
   border: none;
-  background-color: #e02c2c;
+  background-color: #DE1A1A;
+  color: white
 }
 
 .likes {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  gap: 60px;
   align-items: center;
   font-size: 4rem;
+  height: 100px;
 }
 
 .deleteCheck{
@@ -428,7 +475,7 @@
 }
 
 .back-button{
-  background-color: lightgreen;
+  background-color: #3423A6;
   border-radius: 40px;
   padding: 5px;
   border: none;

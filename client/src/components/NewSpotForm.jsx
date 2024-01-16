@@ -84,7 +84,7 @@ function NewSpotForm(props) {
   return ( 
     <div id="new-spot-form">
       <Link to="/mapScreen" className="back-link">
-        <button className="back-button"><IoArrowBackCircleOutline size="40"/></button>
+        <IoArrowBackCircleOutline size="40" color="black"/>
       </Link>
       <h1>Add a spot</h1>
       <form onSubmit={validateAndSend}>
@@ -94,7 +94,7 @@ function NewSpotForm(props) {
         </div>
         <div className="formItem">
           <label htmlFor="description">Describe your spot</label>
-          <textarea id="description" cols="30" rows="5" onChange={updateDescription} value={description}></textarea>
+          <textarea id="description" cols="30" rows="5" onChange={updateDescription} value={description} ></textarea>
         </div>
         <div className="itemDiv"></div>
         <div className="imageUpload">
