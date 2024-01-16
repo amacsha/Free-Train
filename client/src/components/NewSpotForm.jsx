@@ -25,7 +25,7 @@ function NewSpotForm(props) {
   useEffect(() => {
     //authenticates the user
     auth(user.value)
-  })
+  }, [])
 
   //updates all of the inputs
   function updateName(e){

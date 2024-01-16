@@ -129,7 +129,7 @@
 #spot-marker button{
   padding: 5px;
   font-size: small;
-  background-color: #85B79D;
+  background-color: #8AAAE5;
   border: none;
   border-radius: 10px;
 }
@@ -205,11 +205,21 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 4px;
 }
 
 .add-comment {
   height: 50px;
   padding: 5px;
+  color: white;
+  background-color: #3423A6;
+  border: none;
+  border-radius: 5px;
+}
+
+.add-comment:hover{
+  background-color: #FBFBFB;
+  color: black;
 }
 
 .create-comment {
@@ -439,7 +449,8 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: #85B79D;
+  background-color: #3423A6;
+  color: white;
   padding: 10px;
   border: 2px solid #D00000;
   border-radius: 5px;
@@ -471,7 +482,7 @@
   border: none;
   border-radius: 5px;
   padding: 8px;
-  background-color: greenyellow;
+  background-color: #8AAAE5;
 }
 
 .back-button{
