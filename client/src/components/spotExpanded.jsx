@@ -66,6 +66,9 @@ function SpotExpanded() {
 
   function addComment (e) {
     e.preventDefault()
+    if(comment == "") {
+      return
+    }
     let commentObj = new FormData()
     commentObj.append("madeBy", user.value)
     commentObj.append("comment", comment)
@@ -73,6 +76,7 @@ function SpotExpanded() {
       withCredentials: true
     }).then(res =>  {
       setComments([...comments, {madeBy: user.value, comment: comment}])
+      setComment("")
     }).catch(error => {
       console.log(error)
     })
@@ -114,6 +118,9 @@ function SpotExpanded() {
               </div>)
             })}
           </div>
+        </div>
+        <div className="">
+
         </div>
       </div>
     </div>
