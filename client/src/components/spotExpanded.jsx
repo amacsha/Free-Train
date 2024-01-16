@@ -111,6 +111,11 @@ function SpotExpanded() {
     axios.post("http://localhost:3000/challenge/addChallenge", data, {
       withCredentials: true 
     }).then(res => {
+      setChallenges([...challenges, {
+        challenge: challengeText,
+        spotName: parkourSpot.name,
+        completedBy: []
+      }])
       setChallengeText("")
     }).catch(error => {
       console.log(error)
