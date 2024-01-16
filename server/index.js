@@ -8,10 +8,10 @@ require('dotenv').config()
 
 
 //port
-const port = process.env.PORT
+const port = process.env.PORT || 3000
 
 //secret
-const secret = process.env.SECRET
+const secret = process.env.SECRET || secret
 
 //set the cors allowed cors origin
 const corsConfig = {

@@ -12,7 +12,7 @@ async function authenticate(req, res, next) {
     if(checkUser == null) {
       throw new Error()
     } else {
-      next()
+      return next()
     }
   } catch (error) {
     res.status(401)
