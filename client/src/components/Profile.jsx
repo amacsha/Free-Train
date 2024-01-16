@@ -24,6 +24,7 @@ function Profile() {
   let [deleteUser, setDeleteUser] = useState(false)
   let [password, setPassword] = useState("")
   let [likedSpots, setLikedSpots] = useState([])
+  let [challenges, setChallenges] = useState([])
 
   useEffect(() => {
     //authenticates user and then gets a list of spots that they found
@@ -37,10 +38,15 @@ function Profile() {
       withCredentials: true
     })
     requests.push(likesSpots)
+    let challenges = axios.get(`http://localhost:3000/challenge/getCompletedChallenges/${user.value}`, {
+      withCredentials: true
+    })
+    requests.push(challenges)
     Promise.all(requests).then(values => {
       console.log(values)
       setLikedSpots(values[1].data.content)
       setSpots(values[0].data)
+      setChallenges(values[2].data)
     }).catch(error => {
       console.log(error)
     })
@@ -143,6 +149,18 @@ function Profile() {
                 <div className="image-side">
                   <img src={`http://localhost:3000/spot/getImage/${spot.name}/${spot.imagePaths[0]}`} height="100px"/>
                 </div>
+              </div>
+            )
+          })}
+        </div>
+        <div className="field-divider"></div>
+        <h2 className="profile-header">Challenges</h2>
+        <div className="your-spots">
+          {challenges.map(challenge => {
+            return (
+              <div className="profile-challenge">
+                <h3>{challenge.challenge}</h3>
+                <button onClick={() => navigate(`/spotExpanded/${challenge.spotName}`)}>go to spot</button>
               </div>
             )
           })}

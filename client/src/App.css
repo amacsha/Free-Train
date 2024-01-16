@@ -164,6 +164,11 @@
   border-radius: 5px;
 }
 
+.image-show img {
+  border: 2px solid #0B0A07;
+  border-radius: 5px;
+}
+
 .image-show::-webkit-scrollbar-thumb{
   background-color: #3423A6;
   border-radius: 5px;
@@ -503,4 +508,54 @@
 .problem-display {
   color: red;
   font-weight: bolder;
+}
+
+.challenges form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px
+}
+
+.challenges {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.challenge {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  background-color: #3423A6;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.challenges-display{
+  width: 100%
+}
+
+.profile-challenge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #3423A6;
+  border: 2px solid #0B0A07;
+  padding: 20px;
+  color: white;
+  gap: 10px
+}
+
+.profile-challenge button {
+  padding: 4px;
+  background-color: #8AAAE5;
+  color: white;
+  border: none;
+  border-radius: 5px;
 }
