@@ -1,21 +1,20 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 
 export const spotListSlice = createSlice({
   name: "spotList",
   initialState: {
-    value: []
+    value: [],
   },
   reducers: {
-    setSpotListR : (state, action) => {
-      state.value = action.payload
+    setSpotListR: (state, action) => {
+      state.value = action.payload;
     },
-    addToSpotList : (state, action) => {
-      state.value = [...state.value, action.payload]
-    }
-  }
-})
+    addToSpotList: (state, action) => {
+      state.value = [...state.value, action.payload];
+    },
+  },
+});
 
+export const { setSpotListR, addToSpotList } = spotListSlice.actions;
 
-export const {setSpotListR, addToSpotList} = spotListSlice.actions
-
-export default spotListSlice.reducer
+export default spotListSlice.reducer;

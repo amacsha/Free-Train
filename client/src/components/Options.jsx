@@ -7,17 +7,19 @@ import { setSearch } from "../slices/searchSlice";
 
 function Options() {
   //functional hooks
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   //global sates
-  const search = useSelector(state => state.search)
+  const search = useSelector((state) => state.search);
 
-  return ( 
+  return (
     <div id="options">
-      <Link to="/profile"><CgProfile size="60" color="black"/></Link>
-      <GrMapLocation size="60" onClick={() => dispatch(setSearch())}/>
+      <Link to="/profile">
+        <CgProfile size="60" color="black" />
+      </Link>
+      <GrMapLocation size="60" onClick={() => dispatch(setSearch())} />
     </div>
-   );
+  );
 }
 
 export default Options;

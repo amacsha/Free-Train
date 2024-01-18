@@ -1,8 +1,8 @@
-import { configureStore } from '@reduxjs/toolkit'
-import newSpotPositionSliceReducer from './slices/newSpotPositionSlice'
-import spotListReducer from './slices/spotList'
-import searchSlice from './slices/searchSlice'
-import userSlice from './slices/userSlice'
+import { configureStore } from "@reduxjs/toolkit";
+import newSpotPositionSliceReducer from "./slices/newSpotPositionSlice";
+import spotListReducer from "./slices/spotList";
+import searchSlice from "./slices/searchSlice";
+import userSlice from "./slices/userSlice";
 
 export default configureStore({
   reducer: {
@@ -11,4 +11,4 @@ export default configureStore({
     search: searchSlice,
     user: userSlice,
   },
-})
+});

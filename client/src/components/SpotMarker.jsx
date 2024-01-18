@@ -1,8 +1,8 @@
 import { Marker, Popup } from "react-leaflet";
 import { Link } from "react-router-dom";
-import L from 'leaflet'
-import customPin from '../assets/map-pin.svg'
-import customPinTwo from '../assets/not-owned-pin.svg'
+import L from "leaflet";
+import customPin from "../assets/map-pin.svg";
+import customPinTwo from "../assets/not-owned-pin.svg";
 import { useSelector } from "react-redux";
 
 const ownedIcon = new L.Icon({
@@ -20,21 +20,29 @@ const notOwnedIcon = new L.Icon({
 });
 
 function SpotMarker(props) {
-  let user = useSelector(state => state.user)
+  let user = useSelector((state) => state.user);
 
-  return ( 
+  return (
     <div>
-      <Marker position={props.spot} icon={props.spot.author == user.value ? ownedIcon : notOwnedIcon}>
+      <Marker
+        position={props.spot}
+        icon={props.spot.author == user.value ? ownedIcon : notOwnedIcon}
+      >
         <Popup>
           <div id="spot-marker">
             <h5>{props.spot.name}</h5>
-            <img src={`http://localhost:3000/spot/getImage/${props.spot.name}/${props.spot.imagePaths[0]}`} width="50px"/>
-            <Link to={`/spotExpanded/${props.spot.name}`}><button>More</button></Link>
+            <img
+              src={`http://localhost:3000/spot/getImage/${props.spot.name}/${props.spot.imagePaths[0]}`}
+              width="50px"
+            />
+            <Link to={`/spotExpanded/${props.spot.name}`}>
+              <button>More</button>
+            </Link>
           </div>
         </Popup>
       </Marker>
     </div>
-   );
+  );
 }
 
 export default SpotMarker;

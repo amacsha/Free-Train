@@ -1,4 +1,4 @@
-const mongoose = require('./db')
+const mongoose = require("./db");
 
 const spotSchema = new mongoose.Schema({
   name: String,
@@ -8,10 +8,12 @@ const spotSchema = new mongoose.Schema({
   lng: Number,
   author: String,
   likedBy: [String],
-  comments: [{
-    madeBy: String,
-    comment: String,
-  }]
-})
+  comments: [
+    {
+      madeBy: String,
+      comment: String,
+    },
+  ],
+});
 
-module.exports = mongoose.model("Spots", spotSchema)
+module.exports = mongoose.model("Spots", spotSchema);

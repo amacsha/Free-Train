@@ -1,9 +1,9 @@
 //boilerplate code used from the leaflet-geosearch library can be found at https://github.com/smeijer/leaflet-geosearch
 //all code found on leaflet geosearch, not my own
 
-import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch';
-import { useMap } from 'react-leaflet';
-import { useEffect } from 'react';
+import { GeoSearchControl, OpenStreetMapProvider } from "leaflet-geosearch";
+import { useMap } from "react-leaflet";
+import { useEffect } from "react";
 const SearchField = ({ apiKey }) => {
   const provider = new OpenStreetMapProvider({
     params: {
@@ -13,7 +13,7 @@ const SearchField = ({ apiKey }) => {
 
   const searchControl = new GeoSearchControl({
     provider: provider,
-    style: 'bar', 
+    style: "bar",
   });
 
   const map = useMap();
@@ -25,4 +25,4 @@ const SearchField = ({ apiKey }) => {
   return null;
 };
 
-export default SearchField
+export default SearchField;

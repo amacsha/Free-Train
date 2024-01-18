@@ -1,8 +1,7 @@
-#app{
+#app {
   height: 100vh;
   width: 100vw;
 }
-
 
 #map-screen {
   width: 100%;
@@ -12,14 +11,14 @@
 #options {
   height: 10%;
   width: 100%;
-  background-color: #8AAAE5;
+  background-color: #8aaae5;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 40px;
 }
 
-#new-spot-form{
+#new-spot-form {
   height: 100%;
   width: 100%;
   padding: 10px;
@@ -27,22 +26,21 @@
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  background-color: #8AAAE5;
-  
+  background-color: #8aaae5;
 }
 #new-spot-form h1 {
-  color: #FBFBFB;
+  color: #fbfbfb;
 }
-#new-spot-form  form{
+#new-spot-form form {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  background-color: #3423A6;
+  background-color: #3423a6;
   padding: 20px;
   border-radius: 20px;
   color: white;
-  border: 2px solid #FBFBFB;
+  border: 2px solid #fbfbfb;
   gap: 20px;
   max-width: 75%;
   min-width: 400px;
@@ -66,7 +64,7 @@
 }
 
 .itemDiv {
-  border-bottom: 2px solid #D00000; 
+  border-bottom: 2px solid #d00000;
   width: 80%;
 }
 
@@ -79,7 +77,7 @@
 }
 
 .imageUpload input {
-  border: 2px solid #FBFBFB;
+  border: 2px solid #fbfbfb;
   padding: 5px;
 }
 
@@ -94,13 +92,13 @@
 }
 
 .imageDisplay::-webkit-scrollbar {
-  background-color: #0B3954;
+  background-color: #0b3954;
   border-radius: 5px;
   height: 5px;
 }
 
-.imageDisplay::-webkit-scrollbar-thumb{
-  background-color: #D00000;
+.imageDisplay::-webkit-scrollbar-thumb {
+  background-color: #d00000;
   border-radius: 5px;
 }
 
@@ -114,11 +112,11 @@
   font-size: large;
   border-radius: 15px;
   border: none;
-  background-color: #8AAAE5;
-  color:#FBFBFB ;
-} 
+  background-color: #8aaae5;
+  color: #fbfbfb;
+}
 
-#spot-marker{
+#spot-marker {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -126,17 +124,17 @@
   gap: 2px;
 }
 
-#spot-marker button{
+#spot-marker button {
   padding: 5px;
   font-size: small;
-  background-color: #8AAAE5;
+  background-color: #8aaae5;
   border: none;
   border-radius: 10px;
 }
 
 #spot-expanded {
   padding: 20px;
-  background-color: #8AAAE5;
+  background-color: #8aaae5;
   height: 100%;
 }
 
@@ -146,7 +144,7 @@
   grid-gap: 40px;
 }
 
-.image-show{
+.image-show {
   grid-column: span 2;
   display: flex;
   align-items: center;
@@ -158,23 +156,23 @@
   gap: 10px;
 }
 
-.image-show::-webkit-scrollbar{
-  background-color: #0B3954;
+.image-show::-webkit-scrollbar {
+  background-color: #0b3954;
   height: 10px;
   border-radius: 5px;
 }
 
 .image-show img {
-  border: 2px solid #0B0A07;
+  border: 2px solid #0b0a07;
   border-radius: 5px;
 }
 
-.image-show::-webkit-scrollbar-thumb{
-  background-color: #3423A6;
+.image-show::-webkit-scrollbar-thumb {
+  background-color: #3423a6;
   border-radius: 5px;
 }
 
-.description{
+.description {
   max-height: 100px;
   display: flex;
   justify-content: flex-start;
@@ -184,10 +182,9 @@
 .description span {
   font-weight: bold;
   text-decoration: underline;
-  
 }
 
-.expanded-item{
+.expanded-item {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -195,7 +192,7 @@
 
 .divider {
   grid-column: span 3;
-  border-bottom: 2px solid #0B3954;
+  border-bottom: 2px solid #0b3954;
 }
 
 .comments {
@@ -217,13 +214,13 @@
   height: 50px;
   padding: 5px;
   color: white;
-  background-color: #3423A6;
+  background-color: #3423a6;
   border: none;
   border-radius: 5px;
 }
 
-.add-comment:hover{
-  background-color: #FBFBFB;
+.add-comment:hover {
+  background-color: #fbfbfb;
   color: black;
 }
 
@@ -240,7 +237,7 @@
 .comment-display {
   max-height: 200px;
   overflow-y: scroll;
-  width: 100%
+  width: 100%;
 }
 
 .comment-display::-webkit-scrollbar {
@@ -249,25 +246,25 @@
 }
 
 .comment-display::-webkit-scrollbar-track {
-  background-color: #0B3954;
+  background-color: #0b3954;
   border-radius: 5px;
 }
 
 .comment-display::-webkit-scrollbar-thumb {
-  background-color: #3423A6;
+  background-color: #3423a6;
   border-radius: 5px;
 }
 
-#login{
+#login {
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.formSide{
+.formSide {
   width: 50%;
-  background-color: #8AAAE5;
+  background-color: #8aaae5;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -275,7 +272,7 @@
 }
 
 .formSide form {
-  background-color: #3423A6;
+  background-color: #3423a6;
   padding: 20px;
   border-radius: 10px;
   display: flex;
@@ -294,19 +291,18 @@
   gap: 10px;
 }
 
-.login-form-item input{
+.login-form-item input {
   padding: 2px;
 }
 
 .login-button {
   width: 150px;
   padding: 2px;
-  
 }
 
 .logoSide {
   height: 100%;
-  background-image: url('./assets/loginBackground.jpg');
+  background-image: url("./assets/loginBackground.jpg");
   background-size: cover;
   background-position: center;
   width: 50%;
@@ -322,27 +318,27 @@
   align-items: center;
 }
 
-.logoDiv{
+.logoDiv {
   color: white;
 }
 
-.login-form-item{
+.login-form-item {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
 
-#register{
+#register {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
 }
 
-#profile{
-  height: 100%; 
-  background-color: #8AAAE5;
+#profile {
+  height: 100%;
+  background-color: #8aaae5;
   padding: 20px;
 }
 
@@ -362,14 +358,14 @@
 }
 
 .profile-spot {
-  border: 2px solid #0B0A07;
+  border: 2px solid #0b0a07;
   display: flex;
   justify-content: flex-start;
   align-items: flex-center;
   padding: 10px;
   gap: 10px;
   min-width: 200px;
-  background-color: #3423A6;
+  background-color: #3423a6;
 }
 
 .profile-item {
@@ -379,7 +375,7 @@
 
 .field-divider {
   grid-column: span 3;
-  border: 1px solid #0B0A07;
+  border: 1px solid #0b0a07;
 }
 
 .logout {
@@ -394,7 +390,7 @@
   align-items: center;
 }
 
-.profile-spot-info{
+.profile-spot-info {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
@@ -403,7 +399,7 @@
   color: white;
 }
 
-.image-side{
+.image-side {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -414,20 +410,20 @@
   border-radius: 4px;
 }
 
-.visit{
+.visit {
   padding: 4px;
   border-radius: 4px;
   border: none;
-  background-color: #8AAAE5;
+  background-color: #8aaae5;
   color: white;
 }
 
-.delete{
+.delete {
   padding: 4px;
   border-radius: 4px;
   border: none;
-  background-color: #DE1A1A;
-  color: white
+  background-color: #de1a1a;
+  color: white;
 }
 
 .likes {
@@ -439,30 +435,30 @@
   height: 100px;
 }
 
-.deleteCheck{
+.deleteCheck {
   position: absolute;
   height: 100%;
-  width: 100%; 
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: -20px;
 }
 
-.delete-box{
+.delete-box {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: #3423A6;
+  background-color: #3423a6;
   color: white;
   padding: 10px;
-  border: 2px solid #D00000;
+  border: 2px solid #d00000;
   border-radius: 5px;
   gap: 10px;
 }
 
-.close-icon{
+.close-icon {
   align-self: flex-end;
 }
 
@@ -470,9 +466,9 @@
   padding: 5px;
 }
 
-#not-found{
+#not-found {
   height: 100%;
-  background-image: url('./assets/eror404page.jpg');
+  background-image: url("./assets/eror404page.jpg");
   background-position: center;
   background-size: cover;
   color: white;
@@ -487,21 +483,21 @@
   border: none;
   border-radius: 5px;
   padding: 8px;
-  background-color: #8AAAE5;
+  background-color: #8aaae5;
 }
 
-.back-button{
-  background-color: #3423A6;
+.back-button {
+  background-color: #3423a6;
   border-radius: 40px;
   padding: 5px;
   border: none;
 }
 
-.back-link{
+.back-link {
   align-self: flex-start;
 }
 
-.dashboard{
+.dashboard {
   height: 100%;
 }
 
@@ -514,7 +510,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 4px
+  gap: 4px;
 }
 
 .challenges {
@@ -530,19 +526,19 @@
   justify-content: space-between;
   align-items: center;
   width: 90%;
-  background-color: #3423A6;
+  background-color: #3423a6;
   color: white;
   padding: 10px;
   border-radius: 10px;
 }
 
-.challenges-display{
+.challenges-display {
   width: 100%;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
   flex-direction: column;
-  gap: 10px
+  gap: 10px;
 }
 
 .profile-challenge {
@@ -550,16 +546,16 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: #3423A6;
-  border: 2px solid #0B0A07;
+  background-color: #3423a6;
+  border: 2px solid #0b0a07;
   padding: 20px;
   color: white;
-  gap: 10px
+  gap: 10px;
 }
 
 .profile-challenge button {
   padding: 4px;
-  background-color: #8AAAE5;
+  background-color: #8aaae5;
   color: white;
   border: none;
   border-radius: 5px;
