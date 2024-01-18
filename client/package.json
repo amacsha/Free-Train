@@ -23,6 +23,8 @@
     "redux": "^5.0.1"
   },
   "devDependencies": {
+    "@react-types/searchfield": "^3.5.2",
+    "@types/leaflet": "^1.9.8",
     "@types/react": "^18.2.48",
     "@types/react-dom": "^18.2.18",
     "@vitejs/plugin-react": "^4.2.0",

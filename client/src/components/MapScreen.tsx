@@ -4,21 +4,22 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 
 import NewSpotPopup from "./NewSpotPopup";
-import SpotMarker from "./spotMarker";
+import SpotMarker from "./SpotMarker";
 import SearchField from "./SearchField";
 import auth from "../auth/auth";
 import axios from "axios";
 import { setSpotListR } from "../slices/spotList";
-import { setUser } from "../slices/userSlice";
+import { RootState } from "../store";
+import { Spot } from "../spot";
 
 function MapScreen() {
   //functional hooks
   const dispatch = useDispatch();
 
   //global states
-  let spotList = useSelector((state) => state.spotListR);
-  let search = useSelector((state) => state.search);
-  let user = useSelector((state) => state.user);
+  let spotList = useSelector((state: RootState) => state.spotListR);
+  let search = useSelector((state: RootState) => state.search);
+  let user = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
     //authenticates user and then gets all spots from the database to display on the map
@@ -44,10 +45,10 @@ function MapScreen() {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <NewSpotPopup />
-        {spotList.value.map((spot) => {
+        {spotList.value.map((spot: Spot) => {
           return <SpotMarker spot={spot} key={spot.name} />;
         })}
-        {search.value == false ? null : <SearchField />}
+        { search.value == false ? null : <SearchField apiKey={undefined} />}
       </MapContainer>
     </div>
   );

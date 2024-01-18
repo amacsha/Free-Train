@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import logo from "../assets/FreeTrainLogo.png";
 import { setUser } from "../slices/userSlice";
+// import { User } from "../user";
+// import { RootState } from "../store";
 
 
 
@@ -18,19 +20,19 @@ function Login() {
   const [problem, setProblem] = useState("");
 
   //global states
-  const user = useSelector((state) => state.user);
+  // const user: User = useSelector((state: RootState) => state.user);
 
   //functions to update input boxes
-  function updateEmail(e) {
+  function updateEmail(e: React.ChangeEvent<HTMLInputElement>) {
     setEmail(e.target.value);
   }
 
-  function updatePassword(e) {
+  function updatePassword(e: React.ChangeEvent<HTMLInputElement>) {
     setPassword(e.target.value);
   }
 
   //authentication and validation from the server
-  function checkEmailAndPassword(e) {
+  function checkEmailAndPassword(e: React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
 
     //ensures all boxes are filled
@@ -72,7 +74,7 @@ function Login() {
         </div>
       </div>
       <div className="formSide">
-        <form onSubmit={checkEmailAndPassword}>
+        <form onSubmit={() => checkEmailAndPassword}>
           <div className="login-form-item">
             <label htmlFor="email">Enter you email</label>
             <input
