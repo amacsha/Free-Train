@@ -150,7 +150,7 @@ spotController.getLikedSpots = (req, res) => __awaiter(this, void 0, void 0, fun
             return spot.likedBy.includes(req.params.userName);
         });
         res.status(200);
-        res.send({ type: "liked", content: likedSpots });
+        res.send(likedSpots);
     }
     catch (error) {
         console.log(error);
