@@ -53,7 +53,7 @@ function Profile() {
     Promise.all(requests)
       .then((values) => {
         console.log(values);
-        setLikedSpots(values[1].data.content);
+        setLikedSpots(values[1].data);
         setSpots(values[0].data);
         setChallenges(values[2].data);
       })
