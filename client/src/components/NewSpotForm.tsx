@@ -69,6 +69,7 @@ function NewSpotForm(props) {
       fileCount++;
     }
 
+
     //sends the data to the server
     axios
       .post("http://localhost:3000/spot/addSpot", data, {

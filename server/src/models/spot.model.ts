@@ -1,6 +1,6 @@
-const mongoose = require("./db");
+const mongooseSpot = require("./db");
 
-const spotSchema = new mongoose.Schema({
+const spotSchema = new mongooseSpot.Schema({
   name: String,
   description: String,
   imagePaths: [String],
@@ -16,4 +16,4 @@ const spotSchema = new mongoose.Schema({
   ],
 });
 
-module.exports = mongoose.model("Spots", spotSchema);
+module.exports = mongooseSpot.model("Spots", spotSchema);

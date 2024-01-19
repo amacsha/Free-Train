@@ -1,9 +1,17 @@
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
 
-const userController = {};
+import { Request, Response } from "express";
 
-userController.checkUser = async (req, res) => {
+interface UserController {
+  checkUser(req: Request, res: Response): Promise<void>;
+  createUser(req: Request, res: Response): Promise<void>;
+  logout(req: Request, res: Response): Promise<void>;
+  deleteUser(req: Request, res: Response): Promise<void>;
+}
+
+
+const checkUser = async (req: Request, res: Response): Promise<void> => {
   try {
     //checks that the required user does exist
     let user = await User.findOne({ email: req.body.email });
@@ -20,8 +28,7 @@ userController.checkUser = async (req, res) => {
         //sets the session id to the username
         req.session.userId = user.username;
 
-        res.status(200);
-        res.send({ username: user.username });
+        res.status(200).send({ username: user.username });
       } else {
         res.status(418);
         res.send({ status: "incorrect details" });
@@ -32,7 +39,7 @@ userController.checkUser = async (req, res) => {
   }
 };
 
-userController.createUser = async (req, res) => {
+const createUser = async (req: Request, res: Response): Promise<void> => {
   try {
     //checks that another user with the same info does not already exist
     let userEmail = await User.findOne({ email: req.body.email });
@@ -66,11 +73,10 @@ userController.createUser = async (req, res) => {
   }
 };
 
-userController.logout = async (req, res) => {
+const logout = async (req: Request, res: Response): Promise<void> => {
   req.session.destroy((error) => {
     if (error) {
-      res.status(400);
-      res.send({ status: "could not log out" });
+      res.status(400).send({ status: "could not log out" });
     } else {
       res.clearCookie("sid");
       res.status(200).send({ status: "logged out" });
@@ -78,14 +84,12 @@ userController.logout = async (req, res) => {
   });
 };
 
-userController.deleteUser = async (req, res) => {
+const deleteUser = async (req: Request, res: Response): Promise<void> => {
   try {
     console.log(req.body);
     const user = await User.findOne({ username: req.body.user });
     if (user == null) {
-      console.log(user);
-      res.status(418);
-      res.send({ status: "could not delete account" });
+      res.status(418).send({ status: "could not delete account" });
     } else {
       let passwordCheck = await bcrypt.compare(
         req.body.password,
@@ -104,5 +108,12 @@ userController.deleteUser = async (req, res) => {
     console.log(error);
   }
 };
+
+const userController: UserController = {
+  checkUser,
+  createUser,
+  logout,
+  deleteUser,
+}
 
 module.exports = userController;
