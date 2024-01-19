@@ -46,6 +46,7 @@ userController.createUser = async (req, res) => {
         password: passwordHash,
       });
 
+
       //sets the session id and saves to the database
       req.session.userId = newUser.username;
       await newUser.save();

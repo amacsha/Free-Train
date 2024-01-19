@@ -43,5 +43,5 @@ app.use(fileUpload());
 app.use(router);
 
 app.listen(port, function () {
-  console.log("http://localhost:3000");
+  console.log(`http://localhost:${port}`);
 });

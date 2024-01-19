@@ -1,12 +1,16 @@
 const User = require("../models/user.model");
 
-async function authenticate(req, res, next) {
-  try {
-    //gets the session id
-    const { userId } = req.session;
+import { Request, Response, NextFunction } from 'express';
+import { Session } from 'express-session';
 
-    //the session id is the username so checks if a user exists
-    const checkUser = await User.findOne({ username: req.session.userId });
+
+async function authenticate(req: Request, res: Response, next: NextFunction) {
+  try {
+    //gets the session id\
+      const userId  = req.session.userId;
+
+      //the session id is the username so checks if a user exists
+      const checkUser = await User.findOne({username: userId });
 
     //if one does, the next midddleware is initiated, if not an error is thrown
     if (checkUser == null) {

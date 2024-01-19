@@ -64,6 +64,7 @@ function Profile() {
 
   function logout() {
     //sets the users name to empty string, tells the server to log out and then sends the user back to the login page
+    console.log('test')
     dispatch(setUser(""));
     axios
       .get("http://localhost:3000/user/logout", {
