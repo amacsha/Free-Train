@@ -20,19 +20,19 @@ function Login() {
   const [problem, setProblem] = useState("");
 
   //global states
-  const user: User = useSelector((state: RootState) => state.user);
+  // const user: User = useSelector((state: RootState) => state.user);
 
   //functions to update input boxes
-  function updateEmail(e: React.ChangeEvent<HTMLInputElement>) {
+  function updateEmail(e: React.ChangeEvent<HTMLInputElement>): void {
     setEmail(e.target.value);
   }
 
-  function updatePassword(e: React.ChangeEvent<HTMLInputElement>) {
+  function updatePassword(e: React.ChangeEvent<HTMLInputElement>): void {
     setPassword(e.target.value);
   }
 
   //authentication and validation from the server
-  function checkEmailAndPassword(e: React.ChangeEvent<HTMLInputElement>) {
+  function checkEmailAndPassword(e: React.ChangeEvent<HTMLInputElement>): void {
     e.preventDefault();
 
     //ensures all boxes are filled
@@ -51,7 +51,7 @@ function Login() {
 
     //sends the axios request to the server, sets the user state to the username or the local problem state to the problem
     axios
-      .post("http://localhost:3000/user/checkUser", data, {
+      .post<User>("http://localhost:3000/user/checkUser", data, {
         withCredentials: true,
       })
       .then((res) => {
