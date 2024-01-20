@@ -16,8 +16,7 @@ const checkUser = async (req: Request, res: Response): Promise<void> => {
     //checks that the required user does exist
     let user = await User.findOne({ email: req.body.email });
     if (user == null) {
-      res.status(418);
-      res.send({ status: "incorrect details" });
+      res.status(418).send({ status: "incorrect details" });
     } else {
       let passwordCheck = await bcrypt.compare(
         req.body.password,

@@ -32,7 +32,7 @@ function Login() {
   }
 
   //authentication and validation from the server
-  function checkEmailAndPassword(e: React.ChangeEvent<HTMLInputElement>): void {
+  function checkEmailAndPassword(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
     e.preventDefault();
 
     //ensures all boxes are filled
@@ -96,7 +96,7 @@ function Login() {
           {problem == "" ? null : (
             <h2 className="problem-display">{problem}</h2>
           )}
-          <button type="submit" className="login-button">
+          <button type="submit" className="login-button" onClick={checkEmailAndPassword}>
             Log in
           </button>
           <Link to="/register">
