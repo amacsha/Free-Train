@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import logo from "../assets/FreeTrainLogo.png";
 import { setUser } from "../slices/userSlice";
-// import { User } from "../user";
-// import { RootState } from "../store";
+import { User } from "../user";
+import { RootState } from "../store";
 
 
 
@@ -20,7 +20,7 @@ function Login() {
   const [problem, setProblem] = useState("");
 
   //global states
-  // const user: User = useSelector((state: RootState) => state.user);
+  const user: User = useSelector((state: RootState) => state.user);
 
   //functions to update input boxes
   function updateEmail(e: React.ChangeEvent<HTMLInputElement>) {
@@ -55,7 +55,6 @@ function Login() {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res);
         dispatch(setUser(res.data.username));
         navigate("/mapScreen");
       })
