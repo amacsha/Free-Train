@@ -8,7 +8,8 @@ require("dotenv").config();
 //port
 const port = process.env.PORT || 3000;
 //secret
-const secret = process.env.SECRET || secret;
+const secret = process.env.SECRET
+
 //set the cors allowed cors origin
 const corsConfig = {
     origin: "http://localhost:5173",

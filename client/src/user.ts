@@ -1,7 +1,7 @@
 interface User {
-    email: String,
-    username: String,
-    password: String,
+    email: string,
+    username: string,
+    password: string,
 }
 
 export type {User}

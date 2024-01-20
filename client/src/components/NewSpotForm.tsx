@@ -3,23 +3,28 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { RootState } from "../store";
+import { Spot } from "../spot"
+import { User } from "../user"
+
 
 import axios from "axios";
 import auth from "../auth/auth";
 
-function NewSpotForm(props) {
+function NewSpotForm(props: any) {
   //functional hooks
   let navigate = useNavigate();
 
   //local states
   let [name, setName] = useState("");
   let [description, setDescription] = useState("");
-  let [files, setFiles] = useState([]);
+  let [files, setFiles] = useState<File[]>([]);
   const [problem, setProblem] = useState("");
 
   //global states
-  const newSpotPosition = useSelector((state) => state.newSpotPosition);
-  const user = useSelector((state) => state.user);
+  const newSpotPosition = useSelector((state: RootState) => state.newSpotPosition);
+  const user: User = useSelector((state: RootState) => state.user);
+
 
   useEffect(() => {
     //authenticates the user
@@ -27,20 +32,23 @@ function NewSpotForm(props) {
   }, []);
 
   //updates all of the inputs
-  function updateName(e) {
-    setName(e.target.value);
+  function updateName(e: React.FormEvent<HTMLInputElement>): void {
+    setName(e.currentTarget.value);
   }
 
-  function updateDescription(e) {
-    setDescription(e.target.value);
+  function updateDescription(e: React.FormEvent<HTMLTextAreaElement>): void {
+    setDescription(e.currentTarget.value);
   }
 
-  function updateFiles(file) {
-    setFiles([...files, file[0]]);
+  function updateFiles(file: FileList | null) {
+    if (file) {
+      setFiles([...files, file[0]])
+      } else {
+        throw new Error('must include file')
+      }
   }
-
   //sends the new spot to the server
-  function validateAndSend(event) {
+  function validateAndSend(event: React.FormEvent) {
     event.preventDefault();
 
     //checks the all input is given
@@ -55,11 +63,23 @@ function NewSpotForm(props) {
       return;
     }
 
+    // may want to move elsewhere
+    interface PositionValue {
+      value : {
+        lat: number;
+        lng: number;
+      }
+    } 
+    
+    let newSpotPosition: PositionValue;
+
     //creates the body to send to the server
     const data = new FormData();
     data.append("name", name);
     data.append("description", description);
+    if (newSpotPosition.value) {
     data.append("lat", newSpotPosition.value.lat);
+    }
     data.append("lng", newSpotPosition.value.lng);
     data.append("author", user.value);
     let fileCount = 0;
@@ -99,8 +119,9 @@ function NewSpotForm(props) {
           <label htmlFor="description">Describe your spot</label>
           <textarea
             id="description"
-            cols="30"
+            cols="30" 
             rows="5"
+            // typescript was complaining about this, we can adjust with styling
             onChange={updateDescription}
             value={description}
           ></textarea>

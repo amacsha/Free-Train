@@ -1,15 +1,15 @@
 interface Spot {
-    name: String,
-    description: String,
-    imagePaths: String[],
-    lat: Number,
-    lng: Number,
-    author: String,
-    likedBy: String[],
+    name: string,
+    description: string,
+    imagePaths: string[],
+    lat: number,
+    lng: number,
+    author: string,
+    likedBy: string[],
     comments: 
       {
-        madeBy: String,
-        comment: String,
+        madeBy: string,
+        comment: string,
       }[],
   }
 
