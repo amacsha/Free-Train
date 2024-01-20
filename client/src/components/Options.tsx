@@ -4,13 +4,14 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { setSearch } from "../slices/searchSlice";
+import { RootState } from "../store";
 
 function Options() {
   //functional hooks
   const dispatch = useDispatch();
 
   //global sates
-  const search = useSelector((state) => state.search);
+  const search = useSelector((state: RootState) => state.search);
 
   return (
     <div id="options">

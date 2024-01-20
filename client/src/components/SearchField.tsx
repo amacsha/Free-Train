@@ -4,10 +4,10 @@
 import { GeoSearchControl, OpenStreetMapProvider } from "leaflet-geosearch";
 import { useMap } from "react-leaflet";
 import { useEffect } from "react";
-const SearchField = ({ apiKey }) => {
+const SearchField = () => {
   const provider = new OpenStreetMapProvider({
     params: {
-      access_token: apiKey,
+      access_token: "",
     },
   });
 

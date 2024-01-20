@@ -1,18 +1,19 @@
-import { Popup, useMapEvent } from "react-leaflet";
+import { Popup, useMapEvents } from "react-leaflet";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import { setNewSpotPosition } from "../slices/newSpotPositionSlice";
+import { RootState } from "../store";
 
-function NewSpotPopup(props) {
+function NewSpotPopup() {
   //functional hooks
   const dispatch = useDispatch();
 
   //global states
-  const newPosition = useSelector((state) => state.newSpotPosition);
+  const newPosition = useSelector((state: RootState) => state.newSpotPosition);
 
   //when the map is clicked the global new position state is set
-  const map = useMapEvent({
+  const map = useMapEvents({
     click(e) {
       let newLatLng = {
         ...e.latlng,

@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import logo from "../assets/FreeTrainLogo.png";
 import { setUser } from "../slices/userSlice";
+import { RootState } from "../store";
 
 function Register() {
   //functional components
@@ -13,33 +14,33 @@ function Register() {
   const dispatch = useDispatch();
 
   //global states
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state: RootState) => state.user);
 
   //local states
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [problem, setProblem] = useState("");
+  const [username, setUsername] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [problem, setProblem] = useState<string>("");
 
   //updates all of the inputs
-  function updateUsername(e) {
+  function updateUsername(e: React.ChangeEvent<HTMLInputElement>) {
     setUsername(e.target.value);
   }
 
-  function updatePassword(e) {
+  function updatePassword(e: React.ChangeEvent<HTMLInputElement>) {
     setPassword(e.target.value);
   }
 
-  function updateEmail(e) {
+  function updateEmail(e: React.ChangeEvent<HTMLInputElement>) {
     setEmail(e.target.value);
   }
 
-  function updateConfirmPassword(e) {
+  function updateConfirmPassword(e: React.ChangeEvent<HTMLInputElement>) {
     setConfirmPassword(e.target.value);
   }
 
-  function sendUser(e) {
+  function sendUser(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     //ensures all inputs have something in them

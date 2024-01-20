@@ -15,9 +15,9 @@ function Login() {
   const dispatch = useDispatch();
 
   //local states
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [problem, setProblem] = useState("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [problem, setProblem] = useState<string>("");
 
   //global states
   // const user: User = useSelector((state: RootState) => state.user);

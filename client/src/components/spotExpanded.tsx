@@ -9,31 +9,35 @@ import { FaStar } from "react-icons/fa";
 
 import axios from "axios";
 import auth from "../auth/auth";
+import { RootState } from "../store";
+import { Spot } from "../spot";
+import { Challenge } from "../challenge";
+import { Comment } from "../comment";
 
 function SpotExpanded() {
   //functional hooks
   let params = useParams();
 
   //global states
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state: RootState) => state.user);
 
   //local states
-  const [parkourSpot, setSpot] = useState({});
-  const [imagePaths, setImagePaths] = useState([]);
-  const [likes, setLikes] = useState(0);
-  const [liked, setLiked] = useState(false);
-  const [comment, setComment] = useState("");
-  const [comments, setComments] = useState([]);
-  const [challengeText, setChallengeText] = useState("");
-  const [challenges, setChallenges] = useState([]);
-  const [stateChange, setStateChange] = useState(false);
+  const [parkourSpot, setSpot] = useState<Spot | null>(null);
+  const [imagePaths, setImagePaths] = useState<string[]>([]);
+  const [likes, setLikes] = useState<number>(0);
+  const [liked, setLiked] = useState<boolean>(false);
+  const [comment, setComment] = useState<string>("");
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [challengeText, setChallengeText] = useState<string>("");
+  const [challenges, setChallenges] = useState<Challenge[]>([]);
+  const [stateChange, setStateChange] = useState<boolean>(false);
 
   useEffect(() => {
     //authenticates a the user then gets the specific spot from the database
     auth(user.value);
     const requests = [];
     axios
-      .get(`http://localhost:3000/spot/getSpot/${params.spotName}`, {
+      .get<Spot>(`http://localhost:3000/spot/getSpot/${params.spotName}`, {
         withCredentials: true,
       })
       .then((res) => {
@@ -41,7 +45,7 @@ function SpotExpanded() {
         setImagePaths(res.data.imagePaths);
         setLikes(res.data.likedBy.length);
         axios
-          .get(
+          .get<Challenge[]>(
             `http://localhost:3000/challenge/getChallengeBySpot/${res.data.name}`,
             {
               withCredentials: true,
@@ -53,7 +57,7 @@ function SpotExpanded() {
           .catch((error) => {
             console.log(error);
           });
-        if (res.data.likedBy.includes(user.value)) {
+        if (user.value && res.data.likedBy.includes(user.value)) {
           setLiked(true);
         }
         setComments(res.data.comments);
@@ -64,6 +68,7 @@ function SpotExpanded() {
   }, []);
 
   function like() {
+    if (parkourSpot == null) return;
     axios
       .post(
         `http://localhost:3000/spot/like/${parkourSpot.name}`,
@@ -82,6 +87,7 @@ function SpotExpanded() {
   }
 
   function unLike() {
+    if (parkourSpot == null) return;
     axios
       .post(
         `http://localhost:3000/spot/unLike/${parkourSpot.name}`,
@@ -99,9 +105,9 @@ function SpotExpanded() {
       });
   }
 
-  function addComment(e) {
+  function addComment(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (comment == "") {
+    if (comment == "" || !user.value || !parkourSpot) {
       return;
     }
     let commentObj = new FormData();
@@ -116,7 +122,7 @@ function SpotExpanded() {
         },
       )
       .then((res) => {
-        setComments([...comments, { madeBy: user.value, comment: comment }]);
+        setComments([...comments, { madeBy: user.value ? user.value : "", comment: comment }]);
         setComment("");
       })
       .catch((error) => {
@@ -124,16 +130,17 @@ function SpotExpanded() {
       });
   }
 
-  function updateComment(e) {
+  function updateComment(e: React.ChangeEvent<HTMLTextAreaElement>) {
     setComment(e.target.value);
   }
 
-  function updateChallengeText(e) {
+  function updateChallengeText(e: React.ChangeEvent<HTMLTextAreaElement>) {
     setChallengeText(e.target.value);
   }
 
-  function createChallenge(e) {
+  function createChallenge(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (!parkourSpot) return 
     const data = new FormData();
     data.append("challenge", challengeText);
     data.append("spotName", parkourSpot.name);
@@ -157,7 +164,7 @@ function SpotExpanded() {
       });
   }
 
-  function toggleCompleted(challenge) {
+  function toggleCompleted(challenge: Challenge) {
     axios
       .post(
         `http://localhost:3000/challenge/toggleCompleted/${challenge.challenge}`,
@@ -169,10 +176,11 @@ function SpotExpanded() {
         },
       )
       .then((res) => {
-        if (challenge.completedBy.includes(user.value) == false) {
+        if (user.value != null && challenge.completedBy.includes(user.value) == false) {
           challenge.completedBy.push(user.value);
           setStateChange(true);
         } else {
+          if (!user.value) return
           challenge.completedBy.splice(
             challenge.completedBy.indexOf(user.value),
             1,
@@ -191,24 +199,24 @@ function SpotExpanded() {
         <Link to="/mapScreen">
           <IoArrowBackCircleOutline size="40" color="black" />
         </Link>
-        <h1 className="expanded-item">{parkourSpot.name}</h1>
-        <h2 className="expanded-item">Found by {parkourSpot.author}</h2>
+        <h1 className="expanded-item">{parkourSpot?.name}</h1>
+        <h2 className="expanded-item">Found by {parkourSpot?.author}</h2>
         <div className="divider"></div>
         <div className="image-show">
           {imagePaths.map((image) => {
             return (
               <img
                 key={image}
-                src={`http://localhost:3000/spot/getImage/${parkourSpot.name}/${image}`}
+                src={`http://localhost:3000/spot/getImage/${parkourSpot?.name}/${image}`}
                 width="200px"
               />
             );
           })}
         </div>
         <p className="description">
-          <span>{parkourSpot.author}</span>
+          <span>{parkourSpot?.author}</span>
           <br />
-          {` ${parkourSpot.description}`}
+          {` ${parkourSpot?.description}`}
         </p>
         <div className="divider expanded-item"></div>
         <div className="likes">
@@ -222,8 +230,8 @@ function SpotExpanded() {
         <div className="comments">
           <form onSubmit={addComment}>
             <textarea
-              cols="50"
-              rows="3"
+              cols={50}
+              rows={3}
               value={comment}
               onChange={updateComment}
               className="create-comment"
@@ -245,8 +253,8 @@ function SpotExpanded() {
         <div className="challenges">
           <form onSubmit={createChallenge}>
             <textarea
-              cols="50"
-              rows="3"
+              cols={50}
+              rows={3}
               value={challengeText}
               onChange={updateChallengeText}
               className="create-comment"
@@ -260,7 +268,7 @@ function SpotExpanded() {
               return (
                 <div className="challenge">
                   <h4>{challenge.challenge}</h4>
-                  {challenge.completedBy.includes(user.value) ? (
+                  {user.value && challenge.completedBy.includes(user.value) ? (
                     <FaStar
                       size="20"
                       onClick={() => toggleCompleted(challenge)}

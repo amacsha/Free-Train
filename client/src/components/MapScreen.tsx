@@ -25,7 +25,7 @@ function MapScreen() {
     //authenticates user and then gets all spots from the database to display on the map
     auth(user.value);
     axios
-      .get("http://localhost:3000/spot/getAll", {
+      .get<Spot[]>("http://localhost:3000/spot/getAll", {
         withCredentials: true,
       })
       .then((res) => {
@@ -48,7 +48,7 @@ function MapScreen() {
         {spotList.value.map((spot: Spot) => {
           return <SpotMarker spot={spot} key={spot.name} />;
         })}
-        { search.value == false ? null : <SearchField apiKey={undefined} />}
+        { search.value == false ? null : <SearchField/>}
       </MapContainer>
     </div>
   );

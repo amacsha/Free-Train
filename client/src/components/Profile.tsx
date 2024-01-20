@@ -9,6 +9,9 @@ import { MdClose } from "react-icons/md";
 import axios from "axios";
 import { setUser } from "../slices/userSlice";
 import auth from "../auth/auth";
+import { RootState } from "../store";
+import { Spot } from "../spot";
+import { Challenge } from "../challenge";
 
 function Profile() {
   //functional hooks
@@ -16,45 +19,44 @@ function Profile() {
   const navigate = useNavigate();
 
   //global states
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state: RootState) => state.user);
 
   //local states
-  let [spots, setSpots] = useState([]);
-  let [deleteUser, setDeleteUser] = useState(false);
-  let [password, setPassword] = useState("");
-  let [likedSpots, setLikedSpots] = useState([]);
-  let [challenges, setChallenges] = useState([]);
+  let [spots, setSpots] = useState<Spot[]>([]);
+  let [deleteUser, setDeleteUser] = useState<boolean>(false);
+  let [password, setPassword] = useState<string>("");
+  let [likedSpots, setLikedSpots] = useState<Spot[]>([]);
+  let [challenges, setChallenges] = useState<Challenge[]>([]);
 
   useEffect(() => {
     //authenticates user and then gets a list of spots that they found
     auth(user.value);
-    let requests = [];
-    let foundSpots = axios.get(
+    let foundSpots = axios.get<Spot[]>(
       `http://localhost:3000/spot/getAuthorSpots/${user.value}`,
       {
         withCredentials: true,
       },
     );
-    requests.push(foundSpots);
-    let likesSpots = axios.get(
+
+    let likesSpots = axios.get<Spot[]>(
       `http://localhost:3000/spot/getLikedSpots/${user.value}`,
       {
         withCredentials: true,
       },
     );
-    requests.push(likesSpots);
-    let challenges = axios.get(
+    
+    let challenges = axios.get<Challenge[]>(
       `http://localhost:3000/challenge/getCompletedChallenges/${user.value}`,
       {
         withCredentials: true,
       },
     );
-    requests.push(challenges);
-    Promise.all(requests)
-      .then((values) => {
-        setLikedSpots(values[1].data);
-        setSpots(values[0].data);
-        setChallenges(values[2].data);
+    
+    Promise.all([foundSpots, likesSpots, challenges])
+      .then(([foundSpots, likesSpots, challenges]) => {
+        setLikedSpots(likesSpots.data);
+        setSpots(foundSpots.data);
+        setChallenges(challenges.data);
       })
       .catch((error) => {
         console.log(error);
@@ -78,7 +80,7 @@ function Profile() {
       });
   }
 
-  function deleteSpot(spotName) {
+  function deleteSpot(spotName: string) {
     axios
       .delete(`http://localhost:3000/spot/deleteSpot/${spotName}`, {
         withCredentials: true,
@@ -115,7 +117,7 @@ function Profile() {
       });
   }
 
-  function updatePassword(e) {
+  function updatePassword(e: React.ChangeEvent<HTMLInputElement>) {
     setPassword(e.target.value);
   }
 
@@ -164,7 +166,7 @@ function Profile() {
           {spots.length == 0 ? (
             <h2>You have discovered no spots</h2>
           ) : (
-            spots.map((spot) => {
+            spots.map((spot: Spot) => {
               return (
                 <div key={spot.name} className="profile-spot">
                   <div className="profile-spot-info">
@@ -197,7 +199,7 @@ function Profile() {
           {likedSpots.length == 0 ? (
             <h2>You haven't liked any spots</h2>
           ) : (
-            likedSpots.map((spot) => {
+            likedSpots.map((spot: Spot) => {
               return (
                 <div key={spot.name} className="profile-spot">
                   <div className="profile-spot-info">
@@ -220,7 +222,7 @@ function Profile() {
         <div className="field-divider"></div>
         <h2 className="profile-header">Challenges</h2>
         <div className="your-spots">
-          {challenges.map((challenge) => {
+          {challenges.map((challenge: Challenge) => {
             return (
               <div className="profile-challenge">
                 <h3>{challenge.challenge}</h3>
