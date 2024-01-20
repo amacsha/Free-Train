@@ -1,29 +1,17 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-interface NewSpotPositionState {
-  lat: number | null;
-  lng: number | null;
-}
-
-const initialState: NewSpotPositionState = {
-  lat: null,
-  lng: null,
-};
+import { createSlice } from '@reduxjs/toolkit'
 
 export const newSpotPositionSlice = createSlice({
   name: "newSpotPosition",
-  initialState,
-  reducers: {
-    setNewSpotPosition: (
-      state,
-      action: PayloadAction<{ lat: number; lng: number }>,
-    ) => {
-      state.lat = action.payload.lat;
-      state.lng = action.payload.lng;
-    },
+  initialState: {
+    value: null
   },
-});
+  reducers: {
+    setNewSpotPosition: (state, action) => {
+      state.value = action.payload
+    }
+  }
+})
 
-export const { setNewSpotPosition } = newSpotPositionSlice.actions;
+export const {setNewSpotPosition} = newSpotPositionSlice.actions
 
-export default newSpotPositionSlice.reducer;
+export default newSpotPositionSlice.reducer
