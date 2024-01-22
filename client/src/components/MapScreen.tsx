@@ -10,7 +10,7 @@ import auth from "../auth/auth";
 import axios from "axios";
 import { setSpotListR } from "../slices/spotList";
 import { RootState } from "../store";
-import { Spot } from "../spot";
+import { Spot } from "../types/spot";
 
 function MapScreen() {
   //functional hooks

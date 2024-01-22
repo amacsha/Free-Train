@@ -10,8 +10,8 @@ import axios from "axios";
 import { setUser } from "../slices/userSlice";
 import auth from "../auth/auth";
 import { RootState } from "../store";
-import { Spot } from "../spot";
-import { Challenge } from "../challenge";
+import { Spot } from "../types/spot";
+import { Challenge } from "../types/challenge";
 
 function Profile() {
   //functional hooks

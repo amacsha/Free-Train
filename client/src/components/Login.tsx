@@ -4,13 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import logo from "../assets/FreeTrainLogo.png";
 import { setUser } from "../slices/userSlice";
-import { User } from "../user";
+import { User } from "../types/user";
 import { RootState } from "../store";
 
 function Login() {
   //functional hooks
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   //local states
   const [email, setEmail] = useState<string>("");

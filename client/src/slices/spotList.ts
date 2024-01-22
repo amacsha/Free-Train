@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { Spot } from "../spot";
+import { Spot } from "../types/spot";
 
 export const spotListSlice = createSlice({
   name: "spotList",

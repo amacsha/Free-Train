@@ -5,7 +5,7 @@ import customPin from "../assets/map-pin.svg";
 import customPinTwo from "../assets/not-owned-pin.svg";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
-import { Spot } from "../spot";
+import { Spot } from "../types/spot";
 const ownedIcon = new L.Icon({
   iconUrl: customPin, // Replace with the path to your custom icon image
   iconSize: [25, 41], // Adjust the icon size as needed
