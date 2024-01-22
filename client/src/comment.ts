@@ -1,6 +1,6 @@
 interface Comment {
-  madeBy: string,
-  comment: string
+  madeBy: string;
+  comment: string;
 }
 
-export type {Comment}
+export type { Comment };

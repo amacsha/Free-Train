@@ -1,5 +1,3 @@
-
-
 export interface ChallengeType {
   challenge: String;
   spotName: String;
@@ -7,12 +5,10 @@ export interface ChallengeType {
   _id?: String;
 }
 
-
 interface Comment {
   madeBy: String;
   comment: String;
 }
-
 
 export interface Spot {
   name: String;
@@ -24,12 +20,3 @@ export interface Spot {
   likedBy: String[];
   comments: Comment[];
 }
-
-
-
-
-
-
-
-
-

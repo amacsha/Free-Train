@@ -10,7 +10,6 @@ interface UserController {
   deleteUser(req: Request, res: Response): Promise<void>;
 }
 
-
 const checkUser = async (req: Request, res: Response): Promise<void> => {
   try {
     //checks that the required user does exist
@@ -51,7 +50,6 @@ const createUser = async (req: Request, res: Response): Promise<void> => {
         ...req.body,
         password: passwordHash,
       });
-
 
       //sets the session id and saves to the database
       req.session.userId = newUser.username;
@@ -113,6 +111,6 @@ const userController: UserController = {
   createUser,
   logout,
   deleteUser,
-}
+};
 
 module.exports = userController;

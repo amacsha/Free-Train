@@ -20,7 +20,7 @@ const notOwnedIcon = new L.Icon({
   popupAnchor: [1, -34],
 });
 
-function SpotMarker({spot}: {spot: Spot}) {
+function SpotMarker({ spot }: { spot: Spot }) {
   let user = useSelector((state: RootState) => state.user);
 
   return (

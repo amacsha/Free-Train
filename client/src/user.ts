@@ -1,9 +1,7 @@
-
-
 interface User {
-    email: string,
-    username: string,
-    password: string,
+  email: string;
+  username: string;
+  password: string;
 }
 
-export type { User }
+export type { User };

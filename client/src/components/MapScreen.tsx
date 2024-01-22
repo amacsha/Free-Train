@@ -48,7 +48,7 @@ function MapScreen() {
         {spotList.value.map((spot: Spot) => {
           return <SpotMarker spot={spot} key={spot.name} />;
         })}
-        { search.value == false ? null : <SearchField/>}
+        {search.value == false ? null : <SearchField />}
       </MapContainer>
     </div>
   );

@@ -7,8 +7,6 @@ import { setUser } from "../slices/userSlice";
 import { User } from "../user";
 import { RootState } from "../store";
 
-
-
 function Login() {
   //functional hooks
   const navigate = useNavigate();

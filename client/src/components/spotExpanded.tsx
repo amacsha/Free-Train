@@ -122,7 +122,10 @@ function SpotExpanded() {
         },
       )
       .then((res) => {
-        setComments([...comments, { madeBy: user.value ? user.value : "", comment: comment }]);
+        setComments([
+          ...comments,
+          { madeBy: user.value ? user.value : "", comment: comment },
+        ]);
         setComment("");
       })
       .catch((error) => {
@@ -140,7 +143,7 @@ function SpotExpanded() {
 
   function createChallenge(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (!parkourSpot) return 
+    if (!parkourSpot) return;
     const data = new FormData();
     data.append("challenge", challengeText);
     data.append("spotName", parkourSpot.name);
@@ -176,11 +179,14 @@ function SpotExpanded() {
         },
       )
       .then((res) => {
-        if (user.value != null && challenge.completedBy.includes(user.value) == false) {
+        if (
+          user.value != null &&
+          challenge.completedBy.includes(user.value) == false
+        ) {
           challenge.completedBy.push(user.value);
           setStateChange(true);
         } else {
-          if (!user.value) return
+          if (!user.value) return;
           challenge.completedBy.splice(
             challenge.completedBy.indexOf(user.value),
             1,

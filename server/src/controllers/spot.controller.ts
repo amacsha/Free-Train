@@ -2,12 +2,12 @@ const Spot = require("../models/spot.model");
 const path = require("path");
 const fs = require("fs");
 
-import { Request, Response, } from "express";
+import { Request, Response } from "express";
 import { HydratedDocument } from "mongoose";
 import { Spot } from "../types/type";
 
 interface RequestFiles extends Request {
-  files: any
+  files: any;
 }
 
 type SpotController = {
@@ -29,7 +29,9 @@ const uploadsFolder = `${__dirname}/../uploads`;
 const addSpot = async (req: RequestFiles, res: Response): Promise<void> => {
   try {
     //checks if a spot with the same name already exists
-    const spot: HydratedDocument<Spot> = await Spot.findOne({ name: req.body.name });
+    const spot: HydratedDocument<Spot> = await Spot.findOne({
+      name: req.body.name,
+    });
 
     if (!spot) {
       //makes the directory for the images to be put in
@@ -42,7 +44,7 @@ const addSpot = async (req: RequestFiles, res: Response): Promise<void> => {
       const files = req.files;
       //adds the images to the uploads the folder and to the image path list
       for (let image in files) {
-        console.log(files[image].mv)
+        console.log(files[image].mv);
         files[image].mv(
           path.join(uploadsFolder, req.body.name, files[image].name),
         );
@@ -83,12 +85,14 @@ const getAll = async (req: Request, res: Response): Promise<void> => {
 const getImage = async (req: Request, res: Response): Promise<void> => {
   try {
     //gets a specific image based on the parameters passed
-    res.status(200).sendFile(
-      path.join(
-        uploadsFolder,
-        `${req.params.spotName}/${req.params.imageName}`,
-      ),
-    );
+    res
+      .status(200)
+      .sendFile(
+        path.join(
+          uploadsFolder,
+          `${req.params.spotName}/${req.params.imageName}`,
+        ),
+      );
   } catch (error) {
     console.log(error);
   }
@@ -97,7 +101,9 @@ const getImage = async (req: Request, res: Response): Promise<void> => {
 const getSpot = async (req: Request, res: Response): Promise<void> => {
   try {
     //gets a specific spot based on the url params
-    const spot: HydratedDocument<Spot> = await Spot.findOne({ name: req.params.spotName });
+    const spot: HydratedDocument<Spot> = await Spot.findOne({
+      name: req.params.spotName,
+    });
     res.status(200).send(spot);
   } catch (error) {
     console.log(error);
@@ -107,7 +113,9 @@ const getSpot = async (req: Request, res: Response): Promise<void> => {
 const getAuthorSpot = async (req: Request, res: Response): Promise<void> => {
   try {
     //gets all the spots authored by a specific person
-    const spots: HydratedDocument<Spot> = await Spot.find({ author: req.params.author });
+    const spots: HydratedDocument<Spot> = await Spot.find({
+      author: req.params.author,
+    });
     res.status(200).send(spots);
   } catch (error) {
     console.log(error);
@@ -116,7 +124,9 @@ const getAuthorSpot = async (req: Request, res: Response): Promise<void> => {
 
 const like = async (req: Request, res: Response): Promise<void> => {
   try {
-    let spot: HydratedDocument<Spot> = await Spot.findOne({ name: req.params.spotName });
+    let spot: HydratedDocument<Spot> = await Spot.findOne({
+      name: req.params.spotName,
+    });
     let newList = [...spot.likedBy];
     newList.push(req.body.user);
     await Spot.updateOne({ name: req.params.spotName }, { likedBy: newList });
@@ -128,7 +138,9 @@ const like = async (req: Request, res: Response): Promise<void> => {
 
 const unLike = async (req: Request, res: Response): Promise<void> => {
   try {
-    let spot: HydratedDocument<Spot> = await Spot.findOne({ name: req.params.spotName });
+    let spot: HydratedDocument<Spot> = await Spot.findOne({
+      name: req.params.spotName,
+    });
     let newList = [...spot.likedBy];
     newList.splice(newList.indexOf(req.body.user), 1);
     await Spot.updateOne({ name: req.params.spotName }, { likedBy: newList });
@@ -140,7 +152,9 @@ const unLike = async (req: Request, res: Response): Promise<void> => {
 
 const addComment = async (req: Request, res: Response): Promise<void> => {
   try {
-    let spot: HydratedDocument<Spot> = await Spot.findOne({ name: req.params.spotName });
+    let spot: HydratedDocument<Spot> = await Spot.findOne({
+      name: req.params.spotName,
+    });
     let newList = [...spot.comments];
     newList.push(req.body);
     await Spot.updateOne({ name: req.params.spotName }, { comments: newList });

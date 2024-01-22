@@ -1,19 +1,17 @@
 const Challenge = require("../models/challenge.model");
 
-import { Request, Response } from 'express';
+import { Request, Response } from "express";
 
 import { ChallengeType } from "../types/type";
 
-import { HydratedDocument } from 'mongoose';
-
+import { HydratedDocument } from "mongoose";
 
 type ChallengeController = {
   addChallenge(req: Request, res: Response): Promise<void>;
   getChallengeBySpot(req: Request, res: Response): Promise<void>;
   toggleCompleted(req: Request, res: Response): Promise<void>;
   getSpotByCompleted(req: Request, res: Response): Promise<void>;
-}
-
+};
 
 const addChallenge = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -21,7 +19,9 @@ const addChallenge = async (req: Request, res: Response): Promise<void> => {
       ...req.body,
       completedBy: [],
     };
-    const newChallenge: HydratedDocument<ChallengeType> = new Challenge(newChallengeObj);
+    const newChallenge: HydratedDocument<ChallengeType> = new Challenge(
+      newChallengeObj,
+    );
     await newChallenge.save();
     res.status(200);
     res.send({ status: "this works" });
@@ -30,10 +30,14 @@ const addChallenge = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const getChallengeBySpot = async (req: Request, res: Response): Promise<void> => {
+const getChallengeBySpot = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
   try {
-
-    const challenges: HydratedDocument<ChallengeType[]> = await Challenge.find({ spotName: req.params.spotName });
+    const challenges: HydratedDocument<ChallengeType[]> = await Challenge.find({
+      spotName: req.params.spotName,
+    });
     res.status(200).send(challenges);
   } catch (error) {
     console.log(error);
@@ -67,9 +71,13 @@ const toggleCompleted = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const getSpotByCompleted = async (req: Request, res: Response): Promise<void> => {
+const getSpotByCompleted = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
   try {
-    const challenges: HydratedDocument <ChallengeType[]> = await Challenge.find();
+    const challenges: HydratedDocument<ChallengeType[]> =
+      await Challenge.find();
     const sendChallenges = challenges.filter((challenge) => {
       return challenge.completedBy.includes(req.params.username);
     });
@@ -84,6 +92,6 @@ const challengeController: ChallengeController = {
   getChallengeBySpot,
   toggleCompleted,
   getSpotByCompleted,
-}
+};
 
 module.exports = challengeController;

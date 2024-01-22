@@ -44,14 +44,14 @@ function Profile() {
         withCredentials: true,
       },
     );
-    
+
     let challenges = axios.get<Challenge[]>(
       `http://localhost:3000/challenge/getCompletedChallenges/${user.value}`,
       {
         withCredentials: true,
       },
     );
-    
+
     Promise.all([foundSpots, likesSpots, challenges])
       .then(([foundSpots, likesSpots, challenges]) => {
         setLikedSpots(likesSpots.data);
@@ -65,7 +65,7 @@ function Profile() {
 
   function logout() {
     //sets the users name to empty string, tells the server to log out and then sends the user back to the login page
-    console.log('test')
+    console.log("test");
     dispatch(setUser(""));
     axios
       .get("http://localhost:3000/user/logout", {
