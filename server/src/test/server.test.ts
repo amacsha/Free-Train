@@ -1,3 +1,5 @@
+import { should } from "chai";
+
 const supertest = require('supertest');
 const assert = require('assert');
 const express = require('express');
@@ -124,12 +126,34 @@ describe('Backend Tests', function () {
       await Challenge.deleteMany()
     })
   
-    it('should create a user', async () => {
-      const res = await request.post("/challenge/").send({})
-      assert.equal(res.body.status, "complete");
-      const foundUser = await User.findOne({username: "test"})
-      assert.equal(foundUser.email, "test@test");
+    it('should create a challenge', async () => {
+      const res = await request.post("/challenge/addChallenge").send({challenge: "test", spotName: "mySpot"})
+      assert.equal(res.body.status, "this works");
+      const foundChallenge = await Challenge.findOne({challenge: "test"})
+      assert.equal(foundChallenge.spotName, "mySpot");
+      await request.post("/challenge/addChallenge").send({challenge: "test 2", spotName: "mySpot 2"})
     });
+
+    it('should toggle completion status for user', async () => {
+      const challengeBefore = await Challenge.findOne({challenge: "test"})
+      assert.equal(challengeBefore.completedBy.length, 0);
+      const res = await request.post("/challenge/toggleCompleted/test").send({username: "testUser"})
+      assert.equal(res.body.status, "working");
+      const foundChallenge = await Challenge.findOne({challenge: "test"})
+      assert.equal(foundChallenge.completedBy[0], "testUser");
+    });
+
+    it('should get challenges by users completion status', async () => {
+      const res = await request.get("/challenge/getCompletedChallenges/testUser")
+      assert.equal(res.body.length, 1);
+      assert.equal(res.body[0].completedBy[0], "testUser")
+    })
+
+    it('should get challenges by spot', async () => {
+      const res = await request.get("/challenge/getChallengeBySpot/mySpot 2")
+      assert.equal(res.body.length, 1);
+      assert.equal(res.body[0].spotName, "mySpot 2")
+    })
 
     
     this.afterAll(async () => {

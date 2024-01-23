@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -7,6 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 const supertest = require('supertest');
 const assert = require('assert');
 const express = require('express');
@@ -109,11 +111,30 @@ describe('Backend Tests', function () {
         this.beforeAll(() => __awaiter(this, void 0, void 0, function* () {
             yield Challenge.deleteMany();
         }));
-        it('should create a user', () => __awaiter(this, void 0, void 0, function* () {
-            const res = yield request.post("/challenge/").send({});
-            assert.equal(res.body.status, "complete");
-            const foundUser = yield User.findOne({ username: "test" });
-            assert.equal(foundUser.email, "test@test");
+        it('should create a challenge', () => __awaiter(this, void 0, void 0, function* () {
+            const res = yield request.post("/challenge/addChallenge").send({ challenge: "test", spotName: "mySpot" });
+            assert.equal(res.body.status, "this works");
+            const foundChallenge = yield Challenge.findOne({ challenge: "test" });
+            assert.equal(foundChallenge.spotName, "mySpot");
+            yield request.post("/challenge/addChallenge").send({ challenge: "test 2", spotName: "mySpot 2" });
+        }));
+        it('should toggle completion status for user', () => __awaiter(this, void 0, void 0, function* () {
+            const challengeBefore = yield Challenge.findOne({ challenge: "test" });
+            assert.equal(challengeBefore.completedBy.length, 0);
+            const res = yield request.post("/challenge/toggleCompleted/test").send({ username: "testUser" });
+            assert.equal(res.body.status, "working");
+            const foundChallenge = yield Challenge.findOne({ challenge: "test" });
+            assert.equal(foundChallenge.completedBy[0], "testUser");
+        }));
+        it('should get challenges by users completion status', () => __awaiter(this, void 0, void 0, function* () {
+            const res = yield request.get("/challenge/getCompletedChallenges/testUser");
+            assert.equal(res.body.length, 1);
+            assert.equal(res.body[0].completedBy[0], "testUser");
+        }));
+        it('should get challenges by spot', () => __awaiter(this, void 0, void 0, function* () {
+            const res = yield request.get("/challenge/getChallengeBySpot/mySpot 2");
+            assert.equal(res.body.length, 1);
+            assert.equal(res.body[0].spotName, "mySpot 2");
         }));
         this.afterAll(() => __awaiter(this, void 0, void 0, function* () {
             yield Challenge.deleteMany();
