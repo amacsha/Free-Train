@@ -58,7 +58,9 @@ function renderWithProviders(
         ],
       },
       search: { value: false },
-      user: { value: {} },
+      user: {
+        value: "wally",
+      },
       newSpotPosition: {
         value: { lat: 51.521040713609445, lng: -0.092010498046875 },
       },
