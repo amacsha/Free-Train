@@ -160,3 +160,15 @@ describe("New Spot Form", () => {
     expect(inputElement.value).toBe("Once Saw Brent Do A FLIP! YOOO!");
   });
 });
+
+// REGISTER
+describe("Register", () => {
+  beforeAll(async () => {
+    await renderWithProviders(<Register />);
+  });
+
+  it("Should have register button", async () => {
+    const registerButton = screen.getByTitle("Register");
+    expect(registerButton).toBeDefined();
+  });
+});
