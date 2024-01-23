@@ -27,6 +27,8 @@ import { BrowserRouter } from "react-router-dom";
 import MapScreen from "../components/MapScreen";
 import Login from "../components/Login";
 import NewSpotForm from "../components/NewSpotForm";
+import Register from "../components/Register";
+
 const renderOptions = {
   wrapper: BrowserRouter,
 };
@@ -89,10 +91,9 @@ function renderWithProviders(
 }
 
 describe("login page", () => {
-  renderWithProviders(<Login />);
-
-  const emailInput = screen.getByTitle("emailMain");
-
+  beforeAll(async () => {
+    await renderWithProviders(<Login />);
+  });
   it("should render email and input test email", () => {
     const emailInput = screen.getByTitle("emailMain");
     fireEvent.change(emailInput, { target: { value: "wally@hotmail.co.uk" } });
@@ -115,7 +116,9 @@ describe("login page", () => {
 });
 
 describe("mapScreen", () => {
-  renderWithProviders(<MapScreen />);
+  beforeAll(async () => {
+    await renderWithProviders(<MapScreen />);
+  });
   it("Should Render The Map", async () => {
     const mapScreenElement = await screen.getByTestId("map-screen");
     expect(mapScreenElement).toBeDefined();
@@ -137,5 +140,16 @@ describe("New Spot Form", () => {
   it("Should Render The Map", async () => {
     const mapScreenElement = await screen.getByTestId("map-screen");
     expect(mapScreenElement).toBeDefined();
+  });
+});
+
+describe("Register", () => {
+  beforeAll(async () => {
+    await renderWithProviders(<Register />);
+  });
+
+  it("Should have register button", async () => {
+    const registerButton = screen.getByTitle("Register");
+    expect(registerButton).toBeDefined();
   });
 });

@@ -127,7 +127,7 @@ function Register() {
           {problem == "" ? null : (
             <h2 className="problem-display">{problem}</h2>
           )}
-          <button type="submit" className="login-button">
+          <button type="submit" title="Register" className="login-button">
             Register
           </button>
           <Link to="/">
