@@ -29,16 +29,16 @@ import { http, HttpResponse } from "msw";
 import { setupServer } from "msw/node";
 import { BrowserRouter } from "react-router-dom";
 
-import MapScreen from "../components/MapScreen.js";
-import App from "../App.js";
-import Login from "../components/Login.js";
+import MapScreen from "../components/MapScreen.tsx";
+import Login from "../components/Login.tsx";
+import NewSpotForm from "../components/NewSpotForm";
 
 const renderOptions = {
   wrapper: BrowserRouter,
 };
 
 function renderWithProviders(
-  ui: any,
+  ui,
   {
     // Automatically create a store instance if no store was passed in
     store = configureStore({
@@ -89,3 +89,29 @@ describe("login page", () => {
     expect(registerButton).toBeTruthy();
   });
 });
+
+// describe("mapScreen", () => {
+//   renderWithProviders(<MapScreen />);
+//   it("Should Render The Map", async () => {
+//     const mapScreenElement = await screen.getByTestId("map-screen");
+//     expect(mapScreenElement).toBeDefined();
+//   });
+//   it("Should Render Spot Markers", async () => {
+//     const spotMarkerElement = await screen.getAllByAltText("Marker");
+//     expect(spotMarkerElement).toBeDefined();
+//   });
+//   it("Should Render Add Spot Button After Clicks", async () => {
+//     const addButton = await screen.getByText("Add Spot");
+//     fireEvent.click(addButton);
+//     const closeButton = screen.getByRole("button", { name: "Close popup" });
+//     expect(closeButton).toBeDefined();
+//   });
+// });
+
+// describe("New Spot Form", () => {
+//   renderWithProviders(<NewSpotForm />);
+//   it("Should Render The Map", async () => {
+//     const mapScreenElement = await screen.getByTestId("map-screen");
+//     expect(mapScreenElement).toBeDefined();
+//   });
+// });

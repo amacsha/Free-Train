@@ -34,7 +34,7 @@ function MapScreen() {
   }, []);
 
   return (
-    <div id="map-screen">
+    <div id="map-screen" data-testid="map-screen">
       <MapContainer
         center={[51.505, -0.09]}
         zoom={12.6}
