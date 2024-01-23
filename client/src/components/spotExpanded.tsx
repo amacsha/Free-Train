@@ -10,9 +10,9 @@ import { FaStar } from "react-icons/fa";
 import axios from "axios";
 import auth from "../auth/auth";
 import { RootState } from "../store";
-import { Spot } from "../spot";
-import { Challenge } from "../challenge";
-import { Comment } from "../comment";
+import { Spot } from "../types/spot";
+import { Challenge } from "../types/challenge";
+import { Comment } from "../types/comment";
 
 function SpotExpanded() {
   //functional hooks

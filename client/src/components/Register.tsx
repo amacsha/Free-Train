@@ -24,21 +24,12 @@ function Register() {
   const [problem, setProblem] = useState<string>("");
 
   //updates all of the inputs
-  function updateUsername(e: React.ChangeEvent<HTMLInputElement>) {
-    setUsername(e.target.value);
-  }
-
-  function updatePassword(e: React.ChangeEvent<HTMLInputElement>) {
-    setPassword(e.target.value);
-  }
-
-  function updateEmail(e: React.ChangeEvent<HTMLInputElement>) {
-    setEmail(e.target.value);
-  }
-
-  function updateConfirmPassword(e: React.ChangeEvent<HTMLInputElement>) {
-    setConfirmPassword(e.target.value);
-  }
+  const updateState = (
+    setter: Function,
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    setter(e.target.value);
+  };
 
   function sendUser(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -97,7 +88,7 @@ function Register() {
             <label htmlFor="email">Enter your email</label>
             <input
               type="email"
-              onChange={updateEmail}
+              onChange={(e) => updateState(setEmail, e)}
               value={email}
               id="email"
               placeholder="example@domain.com"
@@ -107,7 +98,7 @@ function Register() {
             <label htmlFor="username">Choose a username</label>
             <input
               type="text"
-              onChange={updateUsername}
+              onChange={(e) => updateState(setUsername, e)}
               value={username}
               id="username"
               placeholder="user123"
@@ -117,7 +108,7 @@ function Register() {
             <label htmlFor="password">Create a secure password</label>
             <input
               type="password"
-              onChange={updatePassword}
+              onChange={(e) => updateState(setPassword, e)}
               value={password}
               id="password"
             />
@@ -128,7 +119,7 @@ function Register() {
             </label>
             <input
               type="password"
-              onChange={updateConfirmPassword}
+              onChange={(e) => updateState(setConfirmPassword, e)}
               value={confirmPassword}
               id="confimPassword"
             />
@@ -136,7 +127,7 @@ function Register() {
           {problem == "" ? null : (
             <h2 className="problem-display">{problem}</h2>
           )}
-          <button type="submit" className="login-button">
+          <button type="submit" title="Register" className="login-button">
             Register
           </button>
           <Link to="/">
