@@ -32,10 +32,7 @@ function SpotMarker({ spot }: { spot: Spot }) {
         <Popup>
           <div id="spot-marker">
             <h5>{spot.name}</h5>
-            <img
-              src={`http://localhost:3000/spot/getImage/${spot.name}/${spot.imagePaths[0]}`}
-              width="50px"
-            />
+            <img src={spot.imagePaths[0]} width="50px" />
             <Link to={`/spotExpanded/${spot.name}`}>
               <button>More</button>
             </Link>

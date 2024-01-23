@@ -183,10 +183,7 @@ function Profile() {
                     </button>
                   </div>
                   <div className="image-side">
-                    <img
-                      src={`http://localhost:3000/spot/getImage/${spot.name}/${spot.imagePaths[0]}`}
-                      height="100px"
-                    />
+                    <img src={spot.imagePaths[0]} height="100px" />
                   </div>
                 </div>
               );

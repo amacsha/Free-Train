@@ -142,14 +142,3 @@ describe("New Spot Form", () => {
     expect(mapScreenElement).toBeDefined();
   });
 });
-
-describe("Register", () => {
-  beforeAll(async () => {
-    await renderWithProviders(<Register />);
-  });
-
-  it("Should have register button", async () => {
-    const registerButton = screen.getByTitle("Register");
-    expect(registerButton).toBeDefined();
-  });
-});

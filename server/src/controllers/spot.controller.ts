@@ -34,27 +34,8 @@ const addSpot = async (req: RequestFiles, res: Response): Promise<void> => {
     });
 
     if (!spot) {
-      //makes the directory for the images to be put in
-      fs.mkdirSync(path.join(uploadsFolder, req.body.name));
-
-      //sets up a list used to store the image paths
-      const imageNames = [];
-
-      // console.log(req.files)
-      const files = req.files;
-      //adds the images to the uploads the folder and to the image path list
-      for (let image in files) {
-        console.log(files[image].mv);
-        files[image].mv(
-          path.join(uploadsFolder, req.body.name, files[image].name),
-        );
-        imageNames.push(files[image].name);
-      }
-
-      //creates the image to store the spot in the database
-      let dbObject = {
+      const dbObject = {
         ...req.body,
-        imagePaths: imageNames,
         likes: 0,
         likedBy: [],
         comments: [],

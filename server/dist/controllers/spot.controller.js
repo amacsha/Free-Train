@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter =
   (this && this.__awaiter) ||
   function (thisArg, _arguments, P, generator) {
@@ -31,32 +32,21 @@ var __awaiter =
       step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
   };
+Object.defineProperty(exports, "__esModule", { value: true });
 const Spot = require("../models/spot.model");
 const path = require("path");
 const fs = require("fs");
-const spotController = {};
 //sets the uploads folder as a local variable
 const uploadsFolder = `${__dirname}/../uploads`;
-spotController.addSpot = (req, res) =>
-  __awaiter(this, void 0, void 0, function* () {
+const addSpot = (req, res) =>
+  __awaiter(void 0, void 0, void 0, function* () {
     try {
       //checks if a spot with the same name already exists
-      const spot = yield Spot.findOne({ name: req.body.name });
-      if (spot == null) {
-        //makes the directory for the images to be put in
-        fs.mkdirSync(path.join(uploadsFolder, req.body.name));
-        //sets up a list used to store the image paths
-        const imageNames = [];
-        //adds the images to the uploads the folder and to the image path list
-        for (let image in req.files) {
-          req.files[image].mv(
-            path.join(uploadsFolder, req.body.name, req.files[image].name),
-          );
-          imageNames.push(req.files[image].name);
-        }
-        //creates the image to store the spot in the database
-        let dbObject = Object.assign(Object.assign({}, req.body), {
-          imagePaths: imageNames,
+      const spot = yield Spot.findOne({
+        name: req.body.name,
+      });
+      if (!spot) {
+        const dbObject = Object.assign(Object.assign({}, req.body), {
           likes: 0,
           likedBy: [],
           comments: [],
@@ -64,108 +54,111 @@ spotController.addSpot = (req, res) =>
         //saves the new spot
         const newDocument = new Spot(dbObject);
         yield newDocument.save();
-        res.status(200);
-        res.send({ status: "working" });
+        res.status(200).send({ status: "working" });
       } else {
-        res.status(400);
-        res.send({ status: "spot already exists" });
+        res.status(400).send({ status: "spot already exists" });
       }
     } catch (error) {
       console.log(error);
     }
   });
-spotController.getAll = (req, res) =>
-  __awaiter(this, void 0, void 0, function* () {
+const getAll = (req, res) =>
+  __awaiter(void 0, void 0, void 0, function* () {
     try {
       //gets all spots
       const allSpots = yield Spot.find();
-      res.status(200);
-      res.send(allSpots);
+      res.status(200).send(allSpots);
     } catch (error) {
       console.log(error);
     }
   });
-spotController.getImage = (req, res) =>
-  __awaiter(this, void 0, void 0, function* () {
+const getImage = (req, res) =>
+  __awaiter(void 0, void 0, void 0, function* () {
     try {
       //gets a specific image based on the parameters passed
-      res.status(200);
-      res.sendFile(
-        path.join(
-          uploadsFolder,
-          `${req.params.spotName}/${req.params.imageName}`,
-        ),
-      );
+      res
+        .status(200)
+        .sendFile(
+          path.join(
+            uploadsFolder,
+            `${req.params.spotName}/${req.params.imageName}`,
+          ),
+        );
     } catch (error) {
       console.log(error);
     }
   });
-spotController.getSpot = (req, res) =>
-  __awaiter(this, void 0, void 0, function* () {
+const getSpot = (req, res) =>
+  __awaiter(void 0, void 0, void 0, function* () {
     try {
       //gets a specific spot based on the url params
-      let spot = yield Spot.findOne({ name: req.params.spotName });
-      res.status(200);
-      res.send(spot);
+      const spot = yield Spot.findOne({
+        name: req.params.spotName,
+      });
+      res.status(200).send(spot);
     } catch (error) {
       console.log(error);
     }
   });
-spotController.getAuthorSpot = (req, res) =>
-  __awaiter(this, void 0, void 0, function* () {
+const getAuthorSpot = (req, res) =>
+  __awaiter(void 0, void 0, void 0, function* () {
     try {
       //gets all the spots authored by a specific person
-      let spots = yield Spot.find({ author: req.params.author });
-      res.status(200);
-      res.send(spots);
+      const spots = yield Spot.find({
+        author: req.params.author,
+      });
+      res.status(200).send(spots);
     } catch (error) {
       console.log(error);
     }
   });
-spotController.like = (req, res) =>
-  __awaiter(this, void 0, void 0, function* () {
+const like = (req, res) =>
+  __awaiter(void 0, void 0, void 0, function* () {
     try {
-      let spot = yield Spot.findOne({ name: req.params.spotName });
+      let spot = yield Spot.findOne({
+        name: req.params.spotName,
+      });
       let newList = [...spot.likedBy];
       newList.push(req.body.user);
       yield Spot.updateOne({ name: req.params.spotName }, { likedBy: newList });
-      res.status(200);
-      res.send({ working: "this works" });
+      res.status(200).send({ working: "this works" });
     } catch (error) {
       console.log(error);
     }
   });
-spotController.unLike = (req, res) =>
-  __awaiter(this, void 0, void 0, function* () {
+const unLike = (req, res) =>
+  __awaiter(void 0, void 0, void 0, function* () {
     try {
-      let spot = yield Spot.findOne({ name: req.params.spotName });
+      let spot = yield Spot.findOne({
+        name: req.params.spotName,
+      });
       let newList = [...spot.likedBy];
       newList.splice(newList.indexOf(req.body.user), 1);
       yield Spot.updateOne({ name: req.params.spotName }, { likedBy: newList });
-      res.status(200);
-      res.send({ working: "this works" });
+      res.status(200).send({ working: "this works" });
     } catch (error) {
       console.log(error);
     }
   });
-spotController.addComment = (req, res) =>
-  __awaiter(this, void 0, void 0, function* () {
+const addComment = (req, res) =>
+  __awaiter(void 0, void 0, void 0, function* () {
     try {
-      let spot = yield Spot.findOne({ name: req.params.spotName });
+      let spot = yield Spot.findOne({
+        name: req.params.spotName,
+      });
       let newList = [...spot.comments];
       newList.push(req.body);
       yield Spot.updateOne(
         { name: req.params.spotName },
         { comments: newList },
       );
-      res.status(200);
-      res.send({ status: true });
+      res.status(200).send({ status: true });
     } catch (error) {
       console.log(error);
     }
   });
-spotController.deleteSpot = (req, res) =>
-  __awaiter(this, void 0, void 0, function* () {
+const deleteSpot = (req, res) =>
+  __awaiter(void 0, void 0, void 0, function* () {
     try {
       yield Spot.deleteOne({ name: req.params.spotName });
       fs.rm(
@@ -184,8 +177,8 @@ spotController.deleteSpot = (req, res) =>
       console.log(error);
     }
   });
-spotController.getLikedSpots = (req, res) =>
-  __awaiter(this, void 0, void 0, function* () {
+const getLikedSpots = (req, res) =>
+  __awaiter(void 0, void 0, void 0, function* () {
     try {
       let allSpots = yield Spot.find();
       let likedSpots = allSpots.filter((spot) => {
@@ -197,4 +190,16 @@ spotController.getLikedSpots = (req, res) =>
       console.log(error);
     }
   });
+const spotController = {
+  addSpot,
+  getAll,
+  getImage,
+  getSpot,
+  getAuthorSpot,
+  like,
+  unLike,
+  addComment,
+  deleteSpot,
+  getLikedSpots,
+};
 module.exports = spotController;
