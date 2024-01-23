@@ -43,7 +43,8 @@ function NewSpotForm() {
   }
 
   function createCloudinaryURL(): string {
-    const cloudinaryName: string | undefined = process.env.CLOUDINARYNAME;
+    const cloudinaryName: any = process.env.CLOUDINARYNAME;
+    console.log(cloudinaryName)
     if (cloudinaryName) {
       return `https://api.cloudinary.com/v1_1/${cloudinaryName}/image/upload`;
     } else {
