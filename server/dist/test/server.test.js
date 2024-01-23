@@ -13,16 +13,16 @@ const express = require('express');
 const router = require("../router");
 const User = require('../models/user.model');
 const Spot = require('../models/spot.model');
+const Challenge = require('../models/challenge.model');
 const mongoose = require("mongoose");
+const fs = require("fs");
 require("dotenv").config();
 describe('Backend Tests', function () {
     const app = express();
     app.use(express.json());
     app.use('/', router);
     const request = supertest(app);
-    this.beforeAll(() => __awaiter(this, void 0, void 0, function* () {
-        yield mongoose.connect(`${process.env.TEST_DATABASE}/${process.env.TEST_COLLECTION}`);
-    }));
+    mongoose.connect(`${process.env.TEST_DATABASE}/${process.env.TEST_COLLECTION}`);
     describe('Users', function () {
         this.beforeAll(() => __awaiter(this, void 0, void 0, function* () {
             yield User.deleteMany();
@@ -53,22 +53,71 @@ describe('Backend Tests', function () {
         }));
         this.afterAll(() => __awaiter(this, void 0, void 0, function* () {
             yield User.deleteMany();
-            console.log('all ran');
+            console.log('User tests done');
         }));
     });
     describe('Spots', function () {
         this.beforeAll(() => __awaiter(this, void 0, void 0, function* () {
             yield Spot.deleteMany();
         }));
-        // it('should create a spot', async () => {
-        //   const res = await request.post("/spot/createUser").send({email: "test@test", username: "test", password: "test"})
-        //   assert.equal(res.body.status, "complete");
-        //   const foundUser = await User.findOne({username: "test"})
-        //   assert.equal(foundUser.email, "test@test");
-        // });
+        it('should create a spot', () => __awaiter(this, void 0, void 0, function* () {
+            const newSpot = { name: "test 1", description: "test 1", lat: '0', lng: '0', author: "test" };
+            const res = yield request.post("/spot/addSpot").send(newSpot);
+            assert.equal(res.body.status, "working");
+            const foundSpot = yield Spot.findOne({ name: "test 1" });
+            assert.equal(foundSpot.description, "test 1");
+            yield request.post("/spot/addSpot").send(Object.assign(Object.assign({}, newSpot), { name: "test 2", description: "test 2" }));
+            yield request.post("/spot/addSpot").send(Object.assign(Object.assign({}, newSpot), { name: "test 3", description: "test 3", author: "test 3" }));
+        }));
+        it('should get all spots', () => __awaiter(this, void 0, void 0, function* () {
+            const res = yield request.get("/spot/getAll");
+            assert.equal(res.body.length, 3);
+        }));
+        it('should get one spot by name', () => __awaiter(this, void 0, void 0, function* () {
+            const res = yield request.get("/spot/getSpot/test 1");
+            assert.equal(res.body.description, "test 1");
+        }));
+        it('should get spots by author', () => __awaiter(this, void 0, void 0, function* () {
+            const res = yield request.get("/spot/getAuthorSpots/test");
+            assert.equal(res.body.length, 2);
+        }));
+        it('should like spot', () => __awaiter(this, void 0, void 0, function* () {
+            const res = yield request.post("/spot/like/test 1").send({ user: "test" });
+            assert.equal(res.body.working, "this works");
+        }));
+        it('should get spots by likes', () => __awaiter(this, void 0, void 0, function* () {
+            const res = yield request.get("/spot/getLikedSpots/test");
+            assert.equal(res.body.length, 1);
+            assert.equal(res.body[0].likedBy[0], "test");
+        }));
+        it('should delete spots', () => __awaiter(this, void 0, void 0, function* () {
+            const res = yield request.delete("/spot/deleteSpot/test 1");
+            assert.equal(res.body.status, true);
+            const foundSpot = yield Spot.findOne({ name: "test 1" });
+            assert.equal(foundSpot, null);
+        }));
         this.afterAll(() => __awaiter(this, void 0, void 0, function* () {
             yield Spot.deleteMany();
-            console.log('all ran');
+            fs.rmdir(`${__dirname}/../uploads/test 1`, () => { });
+            fs.rmdir(`${__dirname}/../uploads/test 2`, () => { });
+            fs.rmdir(`${__dirname}/../uploads/test 3`, () => {
+                console.log('Spot tests done');
+            });
+        }));
+    });
+    describe('Challenges', function () {
+        this.beforeAll(() => __awaiter(this, void 0, void 0, function* () {
+            yield Challenge.deleteMany();
+        }));
+        it('should create a user', () => __awaiter(this, void 0, void 0, function* () {
+            const res = yield request.post("/challenge/").send({});
+            assert.equal(res.body.status, "complete");
+            const foundUser = yield User.findOne({ username: "test" });
+            assert.equal(foundUser.email, "test@test");
+        }));
+        this.afterAll(() => __awaiter(this, void 0, void 0, function* () {
+            yield Challenge.deleteMany();
+            console.log('Challenge tests done');
         }));
     });
 });
