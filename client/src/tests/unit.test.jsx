@@ -28,6 +28,8 @@ import { BrowserRouter } from "react-router-dom";
 import MapScreen from "../components/MapScreen";
 import Login from "../components/Login";
 import NewSpotForm from "../components/NewSpotForm";
+import Register from "../components/Register";
+
 const renderOptions = {
   wrapper: BrowserRouter,
 };
@@ -59,7 +61,9 @@ function renderWithProviders(
         ],
       },
       search: { value: false },
-      user: { value: {} },
+      user: {
+        value: "wally",
+      },
       newSpotPosition: {
         value: { lat: 51.521040713609445, lng: -0.092010498046875 },
       },
@@ -88,10 +92,9 @@ function renderWithProviders(
 }
 
 describe("login page", () => {
-  renderWithProviders(<Login />);
-
-  const emailInput = screen.getByTitle("emailMain");
-
+  beforeAll(async () => {
+    await renderWithProviders(<Login />);
+  });
   it("should render email and input test email", () => {
     const emailInput = screen.getByTitle("emailMain");
     fireEvent.change(emailInput, { target: { value: "wally@hotmail.co.uk" } });
@@ -114,10 +117,7 @@ describe("login page", () => {
 });
 
 describe("mapScreen", () => {
-  beforeEach(() => {
-    renderWithProviders(<MapScreen />);
-  });
-
+  renderWithProviders(<MapScreen />);
   it("Should Render The Map", async () => {
     const mapScreenElement = await screen.getByTestId("map-screen");
     expect(mapScreenElement).toBeDefined();
@@ -154,5 +154,16 @@ describe("New Spot Form", () => {
       target: { value: "Once Saw Brent Do A FLIP! YOOO!" },
     });
     expect(inputElement.value).toBe("Once Saw Brent Do A FLIP! YOOO!");
+  });
+});
+
+describe("Register", () => {
+  beforeAll(async () => {
+    await renderWithProviders(<Register />);
+  });
+
+  it("Should have register button", async () => {
+    const registerButton = screen.getByTitle("Register");
+    expect(registerButton).toBeDefined();
   });
 });
