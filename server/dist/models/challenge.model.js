@@ -1,7 +1,7 @@
-const mongoose = require("./db");
-const challengeSchema = new mongoose.Schema({
-  challenge: String,
-  spotName: String,
-  completedBy: [String],
+const mongooseChallenge = require("./db");
+const challengeSchema = new mongooseChallenge.Schema({
+    challenge: String,
+    spotName: String,
+    completedBy: [String],
 });
-module.exports = mongoose.model("Challenges", challengeSchema);
+module.exports = mongooseChallenge.model("Challenges", challengeSchema);

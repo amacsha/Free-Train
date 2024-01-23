@@ -1,17 +1,8 @@
-const express = require("express");
+const expressRouter = require("express");
 const challengeController = require("../controllers/challenge.controller");
-const challengeRouter = express.Router();
-challengeRouter.post("/addChallenge", challengeController.addChallenge);
-challengeRouter.post(
-  "/toggleCompleted/:challengeName",
-  challengeController.toggleCompleted,
-);
-challengeRouter.get(
-  "/getCompletedChallenges/:username",
-  challengeController.getSpotByCompleted,
-);
-challengeRouter.get(
-  "/getChallengeBySpot/:spotName",
-  challengeController.getChallengeBySpot,
-);
-module.exports = challengeRouter;
+const challengeRouterMain = expressRouter.Router();
+challengeRouterMain.post("/addChallenge", challengeController.addChallenge);
+challengeRouterMain.post("/toggleCompleted/:challengeName", challengeController.toggleCompleted);
+challengeRouterMain.get("/getCompletedChallenges/:username", challengeController.getSpotByCompleted);
+challengeRouterMain.get("/getChallengeBySpot/:spotName", challengeController.getChallengeBySpot);
+module.exports = challengeRouterMain;

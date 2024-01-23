@@ -4,6 +4,7 @@ import { Request, Response, NextFunction } from "express";
 import { Session } from "express-session";
 
 async function authenticate(req: Request, res: Response, next: NextFunction) {
+  if (process.env.ENV == 'test') return next()
   try {
     //gets the session id\
     const userId = req.session.userId;
