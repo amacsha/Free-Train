@@ -89,14 +89,14 @@ function NewSpotForm() {
   }
 
   return (
-    <div id="new-spot-form">
+    <div id="new-spot-form" data-testid="new-spot-form">
       <Link to="/mapScreen" className="back-link">
         <IoArrowBackCircleOutline size="40" color="black" />
       </Link>
       <h1>Add a spot</h1>
       <form onSubmit={validateAndSend}>
         <div className="formItem">
-          <label htmlFor="name"> Give your spot a name</label>
+          <label  htmlFor="name"> Give your spot a name</label>
           <input type="text" id="name" onChange={updateName} value={name} />
         </div>
         <div className="formItem">

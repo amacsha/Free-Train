@@ -1,5 +1,6 @@
 import {
   MockInstance,
+  beforeEach,
   expect,
   it,
   beforeEach,
@@ -113,7 +114,10 @@ describe("login page", () => {
 });
 
 describe("mapScreen", () => {
-  renderWithProviders(<MapScreen />);
+  beforeEach(() => {
+    renderWithProviders(<MapScreen />);
+  });
+
   it("Should Render The Map", async () => {
     const mapScreenElement = await screen.getByTestId("map-screen");
     expect(mapScreenElement).toBeDefined();
@@ -131,9 +135,24 @@ describe("mapScreen", () => {
 });
 // NEW SPOT FORM
 describe("New Spot Form", () => {
-  renderWithProviders(<NewSpotForm />);
-  it("Should Render The Map", async () => {
-    const mapScreenElement = await screen.getByTestId("map-screen");
-    expect(mapScreenElement).toBeDefined();
+  beforeEach(() => {
+    renderWithProviders(<NewSpotForm />);
+  });
+
+  it("Should Render The Form", async () => {
+    const formElement = await screen.getByTestId("new-spot-form");
+    expect(formElement).toBeDefined();
+  });
+  it("Should Let Users Input Spot Name", async () => {
+    const inputElement = await screen.getByLabelText("Give your spot a name");
+    fireEvent.change(inputElement, { target: { value: "CodeWorks" } });
+    expect(inputElement.value).toBe("CodeWorks");
+  });
+  it("Should Let Users Input Spot Description", async () => {
+    const inputElement = await screen.getByLabelText("Describe your spot");
+    fireEvent.change(inputElement, {
+      target: { value: "Once Saw Brent Do A FLIP! YOOO!" },
+    });
+    expect(inputElement.value).toBe("Once Saw Brent Do A FLIP! YOOO!");
   });
 });
