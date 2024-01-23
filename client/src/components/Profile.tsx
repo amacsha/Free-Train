@@ -149,95 +149,102 @@ function Profile() {
         </div>
       ) : null}
       <div id="profile-body">
-        <Link to="/mapScreen">
-          <IoArrowBackCircleOutline size="40" color="black" />
-        </Link>
-        <h1 className="profile-item">{user.value}</h1>
-        <div className="logout">
-          <MdDelete
-            size="40"
-            color="black"
-            onClick={() => setDeleteUser(true)}
-          />
-          <IoMdLogOut size="40" color="black" onClick={logout} />
+        <div className="profile-top-bar">
+          <Link to="/mapScreen">
+            <IoArrowBackCircleOutline size="40" color="black" />
+          </Link>
+          <h1 className="profile-item">{user.value}</h1>
+          <div className="logout">
+            <MdDelete
+              size="40"
+              color="black"
+              onClick={() => setDeleteUser(true)}
+            />
+            <IoMdLogOut size="40" color="black" onClick={logout} />
+          </div>
         </div>
-        <h2 className="profile-header">Your Spots</h2>
-        <div className="your-spots">
-          {spots.length == 0 ? (
-            <h2>You have discovered no spots</h2>
-          ) : (
-            spots.map((spot: Spot) => {
-              return (
-                <div key={spot.name} className="profile-spot">
-                  <div className="profile-spot-info">
-                    <h3>{spot.name}</h3>
-                    <h3>likes: {spot.likedBy.length}</h3>
-                    <Link to={`/spotExpanded/${spot.name}`}>
-                      <button className="visit">more info</button>
-                    </Link>
+
+        <div className="profile-field">
+          <h2 className="profile-header">My Spots:</h2>
+          <div className="your-spots">
+            {spots.length == 0 ? (
+              <h2>You have discovered no spots yet. Go explore!</h2>
+            ) : (
+              spots.map((spot: Spot) => {
+                return (
+                  <Link to={`/spotExpanded/${spot.name}`}>
+                  <div key={spot.name} className="profile-spot">
+                    <div className="profile-spot-info">
+                      <h3>{spot.name}</h3>
+                      <h3>likes: {spot.likedBy.length}</h3>
+                    </div>
+                    <div className="image-side">
+                      <img
+                        src={`http://localhost:3000/spot/getImage/${spot.name}/${spot.imagePaths[0]}`}
+                        height="100px"
+                      />
+                    </div>
                     <button
-                      className="delete"
-                      onClick={() => deleteSpot(spot.name)}
-                    >
-                      Delete Spot
-                    </button>
+                        className="delete"
+                        onClick={() => deleteSpot(spot.name)}
+                      >
+                        x
+                      </button>
                   </div>
-                  <div className="image-side">
-                    <img
-                      src={`http://localhost:3000/spot/getImage/${spot.name}/${spot.imagePaths[0]}`}
-                      height="100px"
-                    />
+                  </Link>
+                );
+              })
+            )}
+          </div>
+        </div>
+
+        <div className="field-divider"></div>
+        <div className="profile-field">
+          <h2 className="profile-header">Liked spots:</h2>
+          <div className="your-spots">
+            {likedSpots.length == 0 ? (
+              <h2>You haven't liked any spots</h2>
+            ) : (
+              likedSpots.map((spot: Spot) => {
+                return (
+                  <Link to={`/spotExpanded/${spot.name}`}>
+                  <div key={spot.name} className="profile-spot">
+                    <div className="profile-spot-info">
+                      <h3>{spot.name}</h3>    
+                    </div>
+                    <div className="image-side">
+                      <img
+                        src={`http://localhost:3000/spot/getImage/${spot.name}/${spot.imagePaths[0]}`}
+                        height="100px"
+                      />
+                    </div>
                   </div>
-                </div>
-              );
-            })
-          )}
+                  </Link>
+                );
+              })
+            )}
+          </div>
         </div>
         <div className="field-divider"></div>
-        <h2 className="profile-header">Liked spots</h2>
-        <div className="your-spots">
-          {likedSpots.length == 0 ? (
-            <h2>You haven't liked any spots</h2>
-          ) : (
-            likedSpots.map((spot: Spot) => {
+        <div className="profile-field">
+        <h2 className="profile-header">Challenges:</h2>
+          <div className="your-spots">
+            {challenges.map((challenge: Challenge) => {
               return (
-                <div key={spot.name} className="profile-spot">
-                  <div className="profile-spot-info">
-                    <h3>{spot.name}</h3>
-                    <Link to={`/spotExpanded/${spot.name}`}>
-                      <button className="visit">more info</button>
-                    </Link>
-                  </div>
-                  <div className="image-side">
-                    <img
-                      src={`http://localhost:3000/spot/getImage/${spot.name}/${spot.imagePaths[0]}`}
-                      height="100px"
-                    />
-                  </div>
+                <div className="profile-challenge">
+                  <h3>{challenge.challenge}</h3>
+                  <button
+                    onClick={() =>
+                      navigate(`/spotExpanded/${challenge.spotName}`)
+                    }
+                  >
+                    go to spot
+                  </button>
                 </div>
               );
-            })
-          )}
+            })}
+          </div>
         </div>
-        <div className="field-divider"></div>
-        <h2 className="profile-header">Challenges</h2>
-        <div className="your-spots">
-          {challenges.map((challenge: Challenge) => {
-            return (
-              <div className="profile-challenge">
-                <h3>{challenge.challenge}</h3>
-                <button
-                  onClick={() =>
-                    navigate(`/spotExpanded/${challenge.spotName}`)
-                  }
-                >
-                  go to spot
-                </button>
-              </div>
-            );
-          })}
-        </div>
-        <div className="field-divider"></div>
       </div>
     </div>
   );

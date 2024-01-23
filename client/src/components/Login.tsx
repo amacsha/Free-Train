@@ -71,7 +71,7 @@ function Login() {
         </div>
       </div>
       <div className="formSide">
-        <form onSubmit={checkEmailAndPassword}>
+        <form onSubmit={checkEmailAndPassword} className="loginForm">
           <div className="login-form-item">
             <label htmlFor="email">Enter you email</label>
             <input
@@ -96,12 +96,14 @@ function Login() {
           {problem == "" ? null : (
             <h2 className="problem-display">{problem}</h2>
           )}
-          <button type="submit" className="login-button">
-            Log in
-          </button>
-          <Link to="/register">
-            <button className="login-button">Register</button>
-          </Link>
+          <div className='btnDiv'>
+            <button type="submit" className="login-button">
+              Log in
+            </button>
+            <Link to="/register">
+              <button className="login-button">Register</button>
+            </Link>
+          </div>
         </form>
       </div>
     </div>

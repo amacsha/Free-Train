@@ -13,9 +13,9 @@
   width: 100%;
   background-color: #8aaae5;
   display: flex;
-  justify-content: center;
+  justify-content:center;
   align-items: center;
-  gap: 40px;
+  gap: 100px;
 }
 
 #new-spot-form {
@@ -116,12 +116,29 @@
   color: #fbfbfb;
 }
 
+.Popup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  height: 40px;
+}
+
 #spot-marker {
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.marker-more-div {
+  display: flex;
   flex-direction: column;
-  gap: 2px;
+  height: 100%;
+  gap: 10px;
 }
 
 #spot-marker button {
@@ -272,18 +289,21 @@
 }
 
 .formSide form {
-  background-color: #3423a6;
-  padding: 20px;
+  background-color: #ffffff;
+  color: black;
+  padding: 40px;
   border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 20px;
-  color: white;
+  gap: 40px;
+  min-width: 50%;
+  font-size: 18px;
 }
 
 .login-form-item {
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -292,12 +312,28 @@
 }
 
 .login-form-item input {
-  padding: 2px;
+  padding: 5px;
+  border-radius: 7px;
+  font-size: 18px;
+  width: 300px;
+}
+
+.btnDiv{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
 }
 
 .login-button {
-  width: 150px;
-  padding: 2px;
+  width: 130px;
+  padding: 5px;
+  background-color: #3423a6;
+  font-size: 15px;
+  border: 0px;
+  border-radius: 10px;
+  color: white;
 }
 
 .logoSide {
@@ -338,34 +374,57 @@
 
 #profile {
   height: 100%;
+  background-color: rgb(255, 255, 250);
+}
+
+.profile-top-bar {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   background-color: #8aaae5;
-  padding: 20px;
+  padding: 10px;
+  z-index: 2;
 }
 
 #profile-body {
-  display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
-  grid-row-gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.profile-field {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding-left: 20px;
+  gap: 20px;
 }
 
 .your-spots {
   display: flex;
+  flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  overflow-x: auto;
+  /* overflow-x: auto; */
   gap: 10px;
-  grid-column: span 2;
 }
 
 .profile-spot {
-  border: 2px solid #0b0a07;
+  border: 3px black solid;
+  border-radius: 8px;
   display: flex;
-  justify-content: flex-start;
-  align-items: flex-center;
-  padding: 10px;
-  gap: 10px;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 0px;
   min-width: 200px;
-  background-color: #3423a6;
+  /* background-color: #3423a6; */
+  background-color: #172446;
+  height: 150px;
+  box-sizing: content-box;
 }
 
 .profile-item {
@@ -392,11 +451,12 @@
 
 .profile-spot-info {
   display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
+  height: 100%;
+  align-items: center;
+  justify-content: space-between;
   flex-direction: column;
-  gap: 10px;
   color: white;
+  padding: 10px;
 }
 
 .image-side {
@@ -404,26 +464,31 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  height: 100%;
 }
 
 .image-side img {
-  border-radius: 4px;
+  width: 100%;
+  height: 150px;
+  border-radius: 0px 6px 6px 0px;
 }
 
-.visit {
+/* .visit {
   padding: 4px;
   border-radius: 4px;
   border: none;
   background-color: #8aaae5;
   color: white;
-}
+} */
 
 .delete {
   padding: 4px;
-  border-radius: 4px;
   border: none;
   background-color: #de1a1a;
   color: white;
+  height: fit-content;
+  position: absolute;
+  border-radius: 0px 6px 0px 0px;
 }
 
 .likes {

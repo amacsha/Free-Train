@@ -127,14 +127,16 @@ function Register() {
           {problem == "" ? null : (
             <h2 className="problem-display">{problem}</h2>
           )}
-          <button type="submit" title="Register" className="login-button">
-            Register
-          </button>
-          <Link to="/">
-            <button type="button" className="login-button">
-              Log in
+          <div className="btnDiv">
+            <button type="submit" title="Register" className="login-button">
+              Register
             </button>
-          </Link>
+            <Link to="/">
+              <button type="button" className="login-button">
+                Log in
+              </button>
+            </Link>
+          </div>
         </form>
       </div>
     </div>

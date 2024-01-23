@@ -29,16 +29,19 @@ function SpotMarker({ spot }: { spot: Spot }) {
         position={spot}
         icon={spot.author == user.value ? ownedIcon : notOwnedIcon}
       >
-        <Popup>
+        <Popup className="Popup">
           <div id="spot-marker">
-            <h5>{spot.name}</h5>
             <img
               src={`http://localhost:3000/spot/getImage/${spot.name}/${spot.imagePaths[0]}`}
               width="50px"
             />
-            <Link to={`/spotExpanded/${spot.name}`}>
-              <button>More</button>
-            </Link>
+            <div className="marker-more-div">
+              <h5>{spot.name}</h5>
+
+              <Link to={`/spotExpanded/${spot.name}`}>
+                <button>Show More</button>
+              </Link>
+            </div>
           </div>
         </Popup>
       </Marker>
