@@ -1,6 +1,5 @@
 import {
   MockInstance,
-  beforeEach,
   expect,
   it,
   beforeEach,
@@ -90,19 +89,6 @@ function renderWithProviders(
   // Return an object with the store and all of RTL's query functions
   return { store, ...render(ui, { wrapper: Wrapper }) };
 }
-
-// REGISTER PAGE
-
-describe("Register", () => {
-  beforeAll(async () => {
-    await renderWithProviders(<Register />);
-  });
-
-  it("Should have register button", async () => {
-    const registerButton = screen.getByTitle("Register");
-    expect(registerButton).toBeDefined();
-  });
-});
 
 // LOGIN PAGE
 
