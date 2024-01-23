@@ -16,8 +16,7 @@ import {
   screen,
   MatcherOptions,
 } from "@testing-library/react";
-import userEvent from '@testing-library/user-event'
-
+import userEvent from "@testing-library/user-event";
 
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
@@ -71,14 +70,14 @@ describe("login page", () => {
 
   it("should render email and input test email", () => {
     const emailInput = screen.getByTitle("emailMain");
-    fireEvent.change(emailInput, { target: { value: 'wally@hotmail.co.uk' } })
-    console.log(emailInput)
-    expect(emailInput.value).toBe('wally@hotmail.co.uk');
+    fireEvent.change(emailInput, { target: { value: "wally@hotmail.co.uk" } });
+    console.log(emailInput);
+    expect(emailInput.value).toBe("wally@hotmail.co.uk");
   });
   it("should render password and input test password", () => {
     const passwordInput = screen.getByTitle("password");
-    fireEvent.change(passwordInput, { target: { value: 'wally' } })
-    expect(passwordInput.value).toBe('wally');
+    fireEvent.change(passwordInput, { target: { value: "wally" } });
+    expect(passwordInput.value).toBe("wally");
   });
 
   it("should render login button", () => {
