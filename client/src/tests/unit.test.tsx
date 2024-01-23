@@ -16,6 +16,8 @@ import {
   screen,
   MatcherOptions,
 } from "@testing-library/react";
+import userEvent from '@testing-library/user-event'
+
 
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
@@ -65,8 +67,26 @@ function renderWithProviders(
 describe("login page", () => {
   renderWithProviders(<Login />);
 
-  it("should render login form", () => {
-    const form = screen.getByText("Log in");
-    expect(form).toBeTruthy();
+  const emailInput = screen.getByTitle("emailMain");
+
+  it("should render email and input test email", () => {
+    const emailInput = screen.getByTitle("emailMain");
+    fireEvent.change(emailInput, { target: { value: 'wally@hotmail.co.uk' } })
+    console.log(emailInput)
+    expect(emailInput.value).toBe('wally@hotmail.co.uk');
+  });
+  it("should render password and input test password", () => {
+    const passwordInput = screen.getByTitle("password");
+    fireEvent.change(passwordInput, { target: { value: 'wally' } })
+    expect(passwordInput.value).toBe('wally');
+  });
+
+  it("should render login button", () => {
+    const logInButton = screen.getByText("Log in");
+    expect(logInButton).toBeTruthy();
+  });
+  it("should render register button ", () => {
+    const registerButton = screen.getByText("Register");
+    expect(registerButton).toBeTruthy();
   });
 });

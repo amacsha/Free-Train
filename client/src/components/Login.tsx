@@ -76,6 +76,7 @@ function Login() {
             <label htmlFor="email">Enter you email</label>
             <input
               type="email"
+              title="emailMain"
               id="email"
               placeholder="example@domain.com"
               onChange={updateEmail}
@@ -86,6 +87,7 @@ function Login() {
             <label htmlFor="password">Enter you password</label>
             <input
               type="password"
+              title="password"
               id="password"
               onChange={updatePassword}
               value={password}
