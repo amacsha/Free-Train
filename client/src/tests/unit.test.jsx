@@ -8,7 +8,6 @@ import {
   afterAll,
   afterEach,
 } from "vitest";
-
 import {
   act,
   render,
@@ -16,38 +15,62 @@ import {
   screen,
   MatcherOptions,
 } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import userSlice from "../slices/userSlice";
 import spotListSlice from "../slices/spotList";
 import search from "../slices/searchSlice";
 import newSpotPositionSlice from "../slices/newSpotPositionSlice";
-
 import { http, HttpResponse } from "msw";
 import { setupServer } from "msw/node";
 import { BrowserRouter } from "react-router-dom";
-
-import MapScreen from "../components/MapScreen.tsx";
-import Login from "../components/Login.tsx";
+import MapScreen from "../components/MapScreen";
+import Login from "../components/Login";
 import NewSpotForm from "../components/NewSpotForm";
-
 const renderOptions = {
   wrapper: BrowserRouter,
 };
-
 function renderWithProviders(
   ui,
   {
-    // Automatically create a store instance if no store was passed in
+    preloadedState = {
+      spotListR: {
+        value: [
+          {
+            name: "Beunoville",
+            description: "Crazy hazlenut flips",
+            imagePaths: ["path/to/image1.jpg", "path/to/image2.jpg"],
+            lat: 51.505,
+            lng: -0.09,
+            author: "1994",
+            likedBy: ["Brent", "user2"],
+            comments: [
+              {
+                madeBy: "Brent C",
+                comment: "Can't get enough of this! Did a mad flip here.",
+              },
+              {
+                madeBy: "user2",
+                comment: "I love this place.",
+              },
+            ],
+          },
+        ],
+      },
+      search: { value: false },
+      user: { value: {} },
+      newSpotPosition: {
+        value: { lat: 51.521040713609445, lng: -0.092010498046875 },
+      },
+    },
     store = configureStore({
       reducer: {
         user: userSlice,
-        spot: spotListSlice,
+        spotListR: spotListSlice,
         search: search,
-        newSpotPoisition: newSpotPositionSlice,
+        newSpotPosition: newSpotPositionSlice,
       },
+      preloadedState,
     }),
     ...renderOptions
   } = {},
@@ -71,7 +94,6 @@ describe("login page", () => {
   it("should render email and input test email", () => {
     const emailInput = screen.getByTitle("emailMain");
     fireEvent.change(emailInput, { target: { value: "wally@hotmail.co.uk" } });
-    console.log(emailInput);
     expect(emailInput.value).toBe("wally@hotmail.co.uk");
   });
   it("should render password and input test password", () => {
@@ -90,28 +112,28 @@ describe("login page", () => {
   });
 });
 
-// describe("mapScreen", () => {
-//   renderWithProviders(<MapScreen />);
-//   it("Should Render The Map", async () => {
-//     const mapScreenElement = await screen.getByTestId("map-screen");
-//     expect(mapScreenElement).toBeDefined();
-//   });
-//   it("Should Render Spot Markers", async () => {
-//     const spotMarkerElement = await screen.getAllByAltText("Marker");
-//     expect(spotMarkerElement).toBeDefined();
-//   });
-//   it("Should Render Add Spot Button After Clicks", async () => {
-//     const addButton = await screen.getByText("Add Spot");
-//     fireEvent.click(addButton);
-//     const closeButton = screen.getByRole("button", { name: "Close popup" });
-//     expect(closeButton).toBeDefined();
-//   });
-// });
-
-// describe("New Spot Form", () => {
-//   renderWithProviders(<NewSpotForm />);
-//   it("Should Render The Map", async () => {
-//     const mapScreenElement = await screen.getByTestId("map-screen");
-//     expect(mapScreenElement).toBeDefined();
-//   });
-// });
+describe("mapScreen", () => {
+  renderWithProviders(<MapScreen />);
+  it("Should Render The Map", async () => {
+    const mapScreenElement = await screen.getByTestId("map-screen");
+    expect(mapScreenElement).toBeDefined();
+  });
+  it("Should Render Spot Markers", async () => {
+    const spotMarkerElement = await screen.getAllByAltText("Marker");
+    expect(spotMarkerElement).toBeDefined();
+  });
+  it("Should Render Add Spot Button After Clicks", async () => {
+    const addButton = await screen.getByText("Add Spot");
+    fireEvent.click(addButton);
+    const closeButton = screen.getByRole("button", { name: "Close popup" });
+    expect(closeButton).toBeDefined();
+  });
+});
+// NEW SPOT FORM
+describe("New Spot Form", () => {
+  renderWithProviders(<NewSpotForm />);
+  it("Should Render The Map", async () => {
+    const mapScreenElement = await screen.getByTestId("map-screen");
+    expect(mapScreenElement).toBeDefined();
+  });
+});

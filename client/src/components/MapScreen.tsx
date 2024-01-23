@@ -23,6 +23,7 @@ function MapScreen() {
 
   useEffect(() => {
     //authenticates user and then gets all spots from the database to display on the map
+    console.log(user,'test')
     auth(user.value);
     axios
       .get<Spot[]>("http://localhost:3000/spot/getAll", {
