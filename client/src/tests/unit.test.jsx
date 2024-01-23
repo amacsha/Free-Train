@@ -91,6 +91,21 @@ function renderWithProviders(
   return { store, ...render(ui, { wrapper: Wrapper }) };
 }
 
+// REGISTER PAGE
+
+describe("Register", () => {
+  beforeAll(async () => {
+    await renderWithProviders(<Register />);
+  });
+
+  it("Should have register button", async () => {
+    const registerButton = screen.getByTitle("Register");
+    expect(registerButton).toBeDefined();
+  });
+});
+
+// LOGIN PAGE
+
 describe("login page", () => {
   beforeAll(async () => {
     await renderWithProviders(<Login />);
@@ -116,8 +131,12 @@ describe("login page", () => {
   });
 });
 
+// MAP SCREEN
+
 describe("mapScreen", () => {
-  renderWithProviders(<MapScreen />);
+  beforeAll(() => {
+    renderWithProviders(<MapScreen />);
+  });
   it("Should Render The Map", async () => {
     const mapScreenElement = await screen.getByTestId("map-screen");
     expect(mapScreenElement).toBeDefined();
@@ -133,9 +152,10 @@ describe("mapScreen", () => {
     expect(closeButton).toBeDefined();
   });
 });
+
 // NEW SPOT FORM
 describe("New Spot Form", () => {
-  beforeEach(() => {
+  beforeAll(() => {
     renderWithProviders(<NewSpotForm />);
   });
 
@@ -154,16 +174,5 @@ describe("New Spot Form", () => {
       target: { value: "Once Saw Brent Do A FLIP! YOOO!" },
     });
     expect(inputElement.value).toBe("Once Saw Brent Do A FLIP! YOOO!");
-  });
-});
-
-describe("Register", () => {
-  beforeAll(async () => {
-    await renderWithProviders(<Register />);
-  });
-
-  it("Should have register button", async () => {
-    const registerButton = screen.getByTitle("Register");
-    expect(registerButton).toBeDefined();
   });
 });
