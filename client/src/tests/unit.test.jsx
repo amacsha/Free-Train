@@ -91,7 +91,6 @@ function renderWithProviders(
 }
 
 // LOGIN PAGE
-
 describe("login page", () => {
   beforeAll(async () => {
     await renderWithProviders(<Login />);
@@ -118,7 +117,6 @@ describe("login page", () => {
 });
 
 // MAP SCREEN
-
 describe("mapScreen", () => {
   beforeAll(() => {
     renderWithProviders(<MapScreen />);
