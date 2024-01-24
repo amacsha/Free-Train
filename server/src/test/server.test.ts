@@ -93,14 +93,12 @@ describe("Backend Tests", function () {
       await request
         .post("/spot/addSpot")
         .send({ ...newSpot, name: "test 2", description: "test 2" });
-      await request
-        .post("/spot/addSpot")
-        .send({
-          ...newSpot,
-          name: "test 3",
-          description: "test 3",
-          author: "test 3",
-        });
+      await request.post("/spot/addSpot").send({
+        ...newSpot,
+        name: "test 3",
+        description: "test 3",
+        author: "test 3",
+      });
     });
 
     it("should get all spots", async () => {

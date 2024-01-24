@@ -122,23 +122,19 @@ describe("Backend Tests", function () {
         assert.equal(res.body.status, "working");
         const foundSpot = yield Spot.findOne({ name: "test 1" });
         assert.equal(foundSpot.description, "test 1");
-        yield request
-          .post("/spot/addSpot")
-          .send(
-            Object.assign(Object.assign({}, newSpot), {
-              name: "test 2",
-              description: "test 2",
-            }),
-          );
-        yield request
-          .post("/spot/addSpot")
-          .send(
-            Object.assign(Object.assign({}, newSpot), {
-              name: "test 3",
-              description: "test 3",
-              author: "test 3",
-            }),
-          );
+        yield request.post("/spot/addSpot").send(
+          Object.assign(Object.assign({}, newSpot), {
+            name: "test 2",
+            description: "test 2",
+          }),
+        );
+        yield request.post("/spot/addSpot").send(
+          Object.assign(Object.assign({}, newSpot), {
+            name: "test 3",
+            description: "test 3",
+            author: "test 3",
+          }),
+        );
       }));
     it("should get all spots", () =>
       __awaiter(this, void 0, void 0, function* () {
