@@ -14,6 +14,8 @@ import { Spot } from "../types/spot";
 import { Challenge } from "../types/challenge";
 import { Comment } from "../types/comment";
 
+import './SpotExpanded.css'
+
 function SpotExpanded() {
   //functional hooks
   let params = useParams();
@@ -31,6 +33,7 @@ function SpotExpanded() {
   const [challengeText, setChallengeText] = useState<string>("");
   const [challenges, setChallenges] = useState<Challenge[]>([]);
   const [stateChange, setStateChange] = useState<boolean>(false);
+  const [activePicIndex, setActivePicIndex] = useState<number>(0)
 
   useEffect(() => {
     //authenticates a the user then gets the specific spot from the database
@@ -210,19 +213,20 @@ function SpotExpanded() {
           <h2 className="expanded-item">Found by {parkourSpot?.author}</h2>
         </div>
         <div className="spot-info-div">
-          <div className="image-show">
-          {imagePaths.map((image, index) => {
-            return <img key={index} src={image} width="200px" />;
-          })}
+          <div className="spot-expanded-image">
+            {imagePaths.length == 1 ? 
+            <img className="img-single" src={imagePaths[0]}/> : 
+            <div className="multiImg">
+              <button className="left">{"<"}</button>
+              <img className="img-single" src={imagePaths[activePicIndex]}/> 
+              <button className="right">{">"}</button>
+            </div>}
           </div>
-          <p className="description">
-            <span>{parkourSpot?.author}</span>
-            <br />
-            {` ${parkourSpot?.description}`}
-          </p>
+          <div className="DescDiv">
+            <h3>{parkourSpot?.author}:</h3>
+            <p className="description">{parkourSpot?.description}</p>
+          </div>
         </div>
-        
-        <div className="divider expanded-item"></div>
           
         <div className="spot-expanded-bottom">
 
@@ -251,7 +255,17 @@ function SpotExpanded() {
             {comments.map((comment) => {
               return (
                 <div className="comment">
-                  <p>{`${comment.madeBy} - ${comment.comment}`}</p>
+                  <div className={`comment-author ${comment.madeBy == user.value ? "user-comment" : null}`}>
+                    {comment.madeBy}
+                  </div>
+                  <p>
+                  {comment.comment.split('\n').map((line) => {
+                    return <>
+                    {line}
+                    <br />
+                    </>
+                  })}
+                  </p>
                 </div>
               );
             })}

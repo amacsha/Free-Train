@@ -2,7 +2,7 @@
   height: 100vh;
   width: 100vw;
 }
-
+/*
 #map-screen {
   width: 100%;
   height: 90%;
@@ -166,12 +166,28 @@
   justify-content: space-between;
   padding: 5px;
   background-color: #8aaae5;
+  width: 100%;
 }
 
 .spot-info-div {
-
+  display: flex;
+  flex-direction: row;
+  padding-top: 10px;
+  width: 100%;
 }
 
+.spot-expanded-image {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  width: 65%;
+  object-fit: contain;
+}
+
+.img-single {
+  max-height: 200px;
+}
 .image-show {
   display: flex;
   align-items: center;
@@ -195,7 +211,7 @@
 }
 
 .image-show::-webkit-scrollbar-thumb {
-  background-color: #3423a6;
+  background-color: #8aaae5;
   border-radius: 5px;
 }
 
@@ -222,25 +238,32 @@
 }
 
 .spot-expanded-bottom {
+  max-height: 40%;
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   gap: 20px;
+  position:static;
 }
 
 .spotForm {
   display: flex;
   flex-direction: row;
+  width: 100%;
   gap: 0px;
 }
 
 .comments {
   display: flex;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: stretch;
   flex-direction: column;
   gap: 5px;
+  padding-top: 10px;
+  flex: 2;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 
 
@@ -262,17 +285,46 @@
   resize: none;
   border: #0b0a07 solid 1px;
   border-radius: 8px 0px 0px 8px;
+  flex: 2;
 }
 
 .comment {
-  padding: 3px;
-  width: 90%;
+  display: flex;
+  width: fit-content;
+  background-color: #fbfbfb;
+  border: #172446 3px solid;
+  border-radius: 23px;
+  align-items: stretch;
+  margin: 5px;
+  min-height: 40px;
+}
+
+.comment-author {
+  background-color: #8aaae5;
+  color: white;
+  font-size: 18px;
+  padding: 5px;
+  min-height: 40px;
+  min-width: 40px;
+  border-radius: 20px 0px 0px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-comment {
+  background-color: #3423a6;
+}
+
+.comment p {
+  padding: 10px;
 }
 
 .comment-display {
   max-height: 200px;
   overflow-y: scroll;
   width: 100%;
+  padding: 5px;
 }
 
 .comment-display::-webkit-scrollbar {
@@ -281,21 +333,16 @@
 }
 
 .comment-display::-webkit-scrollbar-track {
-  background-color: #0b3954;
+  background-color: #0b0a07;
   border-radius: 5px;
 }
 
 .comment-display::-webkit-scrollbar-thumb {
-  background-color: #3423a6;
+  background-color: #8aaae5;
   border-radius: 5px;
 }
 
-#login {
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+
 
 .formSide {
   width: 50%;
@@ -443,7 +490,6 @@
   align-items: flex-start;
   padding: 0px;
   min-width: 200px;
-  /* background-color: #3423a6; */
   background-color: #172446;
   height: 150px;
   box-sizing: content-box;
@@ -510,7 +556,6 @@
   gap: 20px;
   align-items: center;
   font-size: 4rem;
-  /* height: 100px; */
 }
 
 .deleteCheck {
@@ -584,26 +629,22 @@
   font-weight: bolder;
 }
 
-.challenges form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 4px;
-}
-
 .challenges {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
   flex-direction: column;
   gap: 5px;
+  flex: 2;
+  padding-top: 10px;
+  padding-right: 5%;
 }
 
 .challenge {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 90%;
+  width: 100%;
   background-color: #3423a6;
   color: white;
   padding: 10px;
@@ -617,6 +658,7 @@
   align-items: flex-start;
   flex-direction: column;
   gap: 10px;
+  overflow-y: auto;
 }
 
 .profile-challenge {
@@ -630,4 +672,4 @@
   padding: 20px;
   color: white;
   gap: 10px;
-}
+} */

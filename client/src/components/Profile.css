@@ -1,0 +1,149 @@
+#profile {
+    height: 100%;
+    background-color: rgb(255, 255, 250);
+}
+
+.deleteCheck {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: -20px;
+}
+
+.delete-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #3423a6;
+    color: white;
+    padding: 10px;
+    border: 2px solid #d00000;
+    border-radius: 5px;
+    gap: 10px;
+}  
+
+#profile-body {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    height: 100%;
+}
+
+.profile-top-bar {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #8aaae5;
+  padding: 10px;
+  z-index: 2;
+}
+
+.profile-item {
+  display: flex;
+  justify-content: center;
+}
+
+.logout {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.profile-field {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    align-items: center;
+    flex: 2;
+}
+
+.profile-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.your-spots {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 10px;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: fit-content;
+}
+
+.profile-spot {
+    border: 3px black solid;
+    border-radius: 8px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding: 0px;
+    min-width: 200px;
+    background-color: #172446;
+    height: 150px;
+    box-sizing: content-box;
+    position: relative;
+}
+
+.profile-spot-info {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    color: white;
+    padding: 10px;
+}
+
+
+.image-side {
+    height: 150px;
+}
+  
+.image-side img {
+    width: auto;
+    height: 100%;
+    border-radius: 0px 6px 6px 0px;
+}
+
+.delete {
+    border: none;
+    background-color: #de1a1a;
+    color: white;
+    height: fit-content;
+    font-size: 20px;
+    border-radius: 0px 6px 0px 0px;
+    z-index: 2;
+    position: absolute;
+}
+
+.field-divider {
+    width: 100%;
+    border: 1px solid #0b0a07;
+}
+
+.profile-challenge {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #8aaae5;
+    border: 3px solid #0b0a07;
+    border-radius: 5px;
+    padding: 20px;
+    color: white;
+    gap: 10px;
+} 

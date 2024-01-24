@@ -1,0 +1,122 @@
+#new-spot-form {
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    /* background-color: #8aaae5; */
+    background-color: rgb(255, 255, 250);
+}
+
+#new-spot-form h1 {
+    color: #3423a6;
+}
+
+#new-spot-form form {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    background-color: #8aaae5;
+    padding: 20px;
+    border-radius: 20px;
+    color: black;
+    gap: 20px;
+    max-width: 75%;
+    min-width: 400px;
+}
+
+#new-spot-form form button {
+    width: auto;
+    padding: 10px;
+    font-size: large;
+    border-radius: 15px;
+    border: none;
+    background-color: #0b3954;
+    color: #fbfbfb;
+}
+
+.back-link {
+    align-self: flex-start;
+}
+
+.formItem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    width: 80%;
+}
+  
+.formItem input {
+    padding: 4px;
+    font-size: 17px;
+    width: 100%;
+}
+  
+.formItem textarea {
+    padding: 4px;
+    font-size: 17px;
+    width: 100%;
+    resize: none;
+}
+
+.itemDiv {
+    border-bottom: 2px solid #0b3954;
+    width: 100%;
+}
+
+.imageUpload {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+  
+.imageUpload input {
+    border: 2px solid #0b3954;
+    border-radius: 10px;
+}
+
+.imageUpload  input::file-selector-button {
+    background-color: #3423a6;
+    color: #fbfbfb;
+    border-radius: 10px 0px 0px 10px;
+    border: 0px;
+    padding: 5px;
+}
+
+.imageDisplay {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    max-width: 90%;
+    gap: 10px;
+    padding-bottom: 5px;
+    overflow-x: auto;
+  }
+  
+  .imageDisplay::-webkit-scrollbar {
+    background-color: #0b3954;
+    border-radius: 5px;
+    height: 5px;
+  }
+  
+.imageDisplay::-webkit-scrollbar-thumb {
+    background-color: #d00000;
+    border-radius: 5px;
+}
+  
+.imageDisplay img {
+    max-height: 200px;
+}
+
+.problem-display {
+    color: red;
+    font-weight: bolder;
+  }

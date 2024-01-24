@@ -7,6 +7,8 @@ import { setUser } from "../slices/userSlice";
 import { User } from "../types/user";
 import { RootState } from "../store";
 
+import './Login.css'
+
 function Login() {
   //functional hooks
   const dispatch = useDispatch();

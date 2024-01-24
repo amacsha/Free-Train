@@ -8,6 +8,8 @@ import logo from "../assets/FreeTrainLogo.png";
 import { setUser } from "../slices/userSlice";
 import { RootState } from "../store";
 
+import './Register.css'
+
 function Register() {
   //functional components
   const navigate = useNavigate();

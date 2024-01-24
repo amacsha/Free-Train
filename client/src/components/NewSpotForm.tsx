@@ -9,6 +9,8 @@ import { AxiosResponse } from "axios";
 import auth from "../auth/auth";
 import { RootState } from "../store";
 
+import './NewSpotForm.css'
+
 function NewSpotForm() {
   //functional hooks
   const navigate = useNavigate();

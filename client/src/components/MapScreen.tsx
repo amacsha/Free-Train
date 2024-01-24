@@ -12,6 +12,8 @@ import { setSpotListR } from "../slices/spotList";
 import { RootState } from "../store";
 import { Spot } from "../types/spot";
 
+import './MapScreen.css'
+
 function MapScreen() {
   //functional hooks
   const dispatch = useDispatch();

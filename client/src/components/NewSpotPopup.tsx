@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { setNewSpotPosition } from "../slices/newSpotPositionSlice";
 import { RootState } from "../store";
 
+import './Popup.css'
+
 function NewSpotPopup() {
   //functional hooks
   const dispatch = useDispatch();

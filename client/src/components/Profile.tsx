@@ -13,6 +13,8 @@ import { RootState } from "../store";
 import { Spot } from "../types/spot";
 import { Challenge } from "../types/challenge";
 
+import './Profile.css'
+
 function Profile() {
   //functional hooks
   const dispatch = useDispatch();
