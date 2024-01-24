@@ -202,31 +202,38 @@ function SpotExpanded() {
   return (
     <div id="spot-expanded">
       <div id="spot-expanded-body">
-        <Link to="/mapScreen">
-          <IoArrowBackCircleOutline size="40" color="black" />
-        </Link>
-        <h1 className="expanded-item">{parkourSpot?.name}</h1>
-        <h2 className="expanded-item">Found by {parkourSpot?.author}</h2>
-        <div className="divider"></div>
-        <div className="image-show">
-          {imagePaths.map((image) => {
-            return (
-              <img
-                key={image}
-                src={`http://localhost:3000/spot/getImage/${parkourSpot?.name}/${image}`}
-                width="200px"
-              />
-            );
-          })}
+        <div className="spot-expanded-top">
+          <Link to="/mapScreen">
+            <IoArrowBackCircleOutline size="40" color="black" />
+          </Link>
+          <h1 className="expanded-item">{parkourSpot?.name}</h1>
+          <h2 className="expanded-item">Found by {parkourSpot?.author}</h2>
         </div>
-        <p className="description">
-          <span>{parkourSpot?.author}</span>
-          <br />
-          {` ${parkourSpot?.description}`}
-        </p>
+        <div className="spot-info-div">
+          <div className="image-show">
+            {imagePaths.map((image) => {
+              return (
+                <img
+                  key={image}
+                  src={`http://localhost:3000/spot/getImage/${parkourSpot?.name}/${image}`}
+                  width="200px"
+                />
+              );
+            })}
+          </div>
+          <p className="description">
+            <span>{parkourSpot?.author}</span>
+            <br />
+            {` ${parkourSpot?.description}`}
+          </p>
+        </div>
+        
         <div className="divider expanded-item"></div>
+          
+        <div className="spot-expanded-bottom">
+
         <div className="likes">
-          <h1>{likes}</h1>
+          <h3>{likes}</h3>
           {liked ? (
             <BiSolidLike size="80" onClick={unLike} />
           ) : (
@@ -234,7 +241,7 @@ function SpotExpanded() {
           )}
         </div>
         <div className="comments">
-          <form onSubmit={addComment}>
+          <form className="spotForm" onSubmit={addComment}>
             <textarea
               cols={50}
               rows={3}
@@ -257,7 +264,7 @@ function SpotExpanded() {
           </div>
         </div>
         <div className="challenges">
-          <form onSubmit={createChallenge}>
+          <form onSubmit={createChallenge} className="spotForm">
             <textarea
               cols={50}
               rows={3}
@@ -289,6 +296,7 @@ function SpotExpanded() {
               );
             })}
           </div>
+        </div>
         </div>
       </div>
     </div>

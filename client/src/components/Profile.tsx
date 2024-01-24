@@ -86,10 +86,8 @@ function Profile() {
         withCredentials: true,
       })
       .then((res) => {
-        let newSpots = spots.filter((spot) => {
-          return spot.name != spotName;
-        });
-        setSpots(newSpots);
+        setSpots(spots.filter((spot) => spot.name != spotName));
+        setLikedSpots(likedSpots.filter((spot) => spot.name != spotName))
       })
       .catch((error) => {
         console.log(error);
@@ -179,6 +177,7 @@ function Profile() {
                       <h3>likes: {spot.likedBy.length}</h3>
                     </div>
                     <div className="image-side">
+                      
                       <img
                         src={`http://localhost:3000/spot/getImage/${spot.name}/${spot.imagePaths[0]}`}
                         height="100px"
@@ -186,10 +185,11 @@ function Profile() {
                     </div>
                     <button
                         className="delete"
-                        onClick={() => deleteSpot(spot.name)}
+                        onClick={(e) => {e.preventDefault(); deleteSpot(spot.name)}}
                       >
-                        x
+                        <MdDelete></MdDelete>
                       </button>
+                    
                   </div>
                   </Link>
                 );
@@ -231,16 +231,11 @@ function Profile() {
           <div className="your-spots">
             {challenges.map((challenge: Challenge) => {
               return (
-                <div className="profile-challenge">
+                <button className="profile-challenge" onClick={() =>
+                  navigate(`/spotExpanded/${challenge.spotName}`)
+                }>
                   <h3>{challenge.challenge}</h3>
-                  <button
-                    onClick={() =>
-                      navigate(`/spotExpanded/${challenge.spotName}`)
-                    }
-                  >
-                    go to spot
-                  </button>
-                </div>
+                </button>
               );
             })}
           </div>
