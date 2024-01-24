@@ -12,6 +12,7 @@ import auth from "../auth/auth";
 import { RootState } from "../store";
 import { Spot } from "../types/spot";
 import { Challenge } from "../types/challenge";
+import { setAuth } from "../slices/authenticateSlice";
 
 function Profile() {
   //functional hooks
@@ -20,6 +21,7 @@ function Profile() {
 
   //global states
   const user = useSelector((state: RootState) => state.user);
+  const authFlag = useSelector((state: RootState) => state.auth);
 
   //local states
   let [spots, setSpots] = useState<Spot[]>([]);
@@ -30,7 +32,6 @@ function Profile() {
 
   useEffect(() => {
     //authenticates user and then gets a list of spots that they found
-    auth(user.value);
     let foundSpots = axios.get<Spot[]>(
       `http://localhost:3000/spot/getAuthorSpots/${user.value}`,
       {
@@ -58,10 +59,17 @@ function Profile() {
         setSpots(foundSpots.data);
         setChallenges(challenges.data);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        if (err.response.status === 401) {
+          dispatch(setAuth(false));
+          console.log("user not authenticaed please log in");
+        } else {
+          console.log(err, "test");
+        }
       });
   }, []);
+
+  auth(authFlag.value);
 
   function logout() {
     //sets the users name to empty string, tells the server to log out and then sends the user back to the login page

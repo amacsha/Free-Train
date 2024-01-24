@@ -6,6 +6,9 @@ import { BiSolidLike } from "react-icons/bi";
 import { BiLike } from "react-icons/bi";
 import { FaRegStar } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
+import { setAuth } from "../slices/authenticateSlice";
+
+import { useDispatch } from "react-redux";
 
 import axios from "axios";
 import auth from "../auth/auth";
@@ -17,9 +20,11 @@ import { Comment } from "../types/comment";
 function SpotExpanded() {
   //functional hooks
   let params = useParams();
+  const dispatch = useDispatch();
 
   //global states
   const user = useSelector((state: RootState) => state.user);
+  const authFlag = useSelector((state: RootState) => state.auth);
 
   //local states
   const [parkourSpot, setSpot] = useState<Spot | null>(null);
@@ -34,7 +39,6 @@ function SpotExpanded() {
 
   useEffect(() => {
     //authenticates a the user then gets the specific spot from the database
-    auth(user.value);
     const requests = [];
     axios
       .get<Spot>(`http://localhost:3000/spot/getSpot/${params.spotName}`, {
@@ -54,18 +58,29 @@ function SpotExpanded() {
           .then((res) => {
             setChallenges(res.data);
           })
-          .catch((error) => {
-            console.log(error);
+          .catch((err) => {
+            if (err.response.status === 401) {
+              dispatch(setAuth(false));
+              console.log("user not authenticaed please log in");
+            } else {
+              console.log(err, "test");
+            }
           });
         if (user.value && res.data.likedBy.includes(user.value)) {
           setLiked(true);
         }
         setComments(res.data.comments);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        if (err.response.status === 401) {
+          dispatch(setAuth(false));
+          console.log("user not authenticaed please log in");
+        } else {
+          console.log(err, "test");
+        }
       });
   }, []);
+  auth(authFlag.value);
 
   function like() {
     if (parkourSpot == null) return;

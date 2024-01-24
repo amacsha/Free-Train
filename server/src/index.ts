@@ -32,12 +32,12 @@ app.use(
     secret: secret,
     name: "sid",
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
     cookie: {
       secure: false,
-      httpOnly: false,
+      httpOnly: true,
       sameSite: true,
-      maxAge: 3600000,
+      maxAge: 1000 * 60 * 60,
     },
   }),
 );

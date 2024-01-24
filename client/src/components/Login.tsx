@@ -6,6 +6,7 @@ import logo from "../assets/FreeTrainLogo.png";
 import { setUser } from "../slices/userSlice";
 import { User } from "../types/user";
 import { RootState } from "../store";
+import { setAuth } from "../slices/authenticateSlice";
 
 function Login() {
   //functional hooks
@@ -53,8 +54,11 @@ function Login() {
         withCredentials: true,
       })
       .then((res) => {
-        dispatch(setUser(res.data.username));
-        navigate("/mapScreen");
+        if (res) {
+          dispatch(setUser(res.data.username));
+          dispatch(setAuth(true));
+          navigate("/mapScreen");
+        }
       })
       .catch((error) => {
         console.log(error);

@@ -26,6 +26,7 @@ const checkUser = async (req: Request, res: Response): Promise<void> => {
       if (passwordCheck == true) {
         //sets the session id to the username
         if (process.env.ENV != "test") req.session.userId = user.username;
+        req.session.uid = user._id;
         res.status(200).send({ username: user.username });
       } else {
         res.status(418);
@@ -51,11 +52,11 @@ const createUser = async (req: Request, res: Response): Promise<void> => {
       });
 
       //sets the session id and saves to the database
+      req.session.uid = newUser._id;
       if (process.env.ENV != "test") req.session.userId = newUser.username;
       await newUser.save();
 
-      res.status(200);
-      res.send({ status: "complete" });
+      res.status(200).send({ status: "complete" });
 
       //next two if else statements tell the user what needs changing
     } else if (userEmail != null) {
@@ -93,11 +94,9 @@ const deleteUser = async (req: Request, res: Response): Promise<void> => {
       );
       if (passwordCheck == true) {
         await User.deleteOne({ username: req.body.user });
-        res.status(200);
-        res.send({ status: "account deleted" });
+        res.status(200).send({ status: "account deleted" });
       } else {
-        res.status(418);
-        res.send({ status: "could not delete account" });
+        res.status(418).send({ status: "could not delete account" });
       }
     }
   } catch (error) {

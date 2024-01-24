@@ -7,6 +7,7 @@ import axios from "axios";
 import logo from "../assets/FreeTrainLogo.png";
 import { setUser } from "../slices/userSlice";
 import { RootState } from "../store";
+import { setAuth } from "../slices/authenticateSlice";
 
 function Register() {
   //functional components
@@ -66,6 +67,7 @@ function Register() {
       .then((res) => {
         dispatch(setUser(username));
         localStorage.setItem("username", username);
+        dispatch(setAuth(true));
         navigate("/mapScreen");
       })
       .catch((error) => {

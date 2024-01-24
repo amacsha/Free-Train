@@ -8,10 +8,14 @@ import axios from "axios";
 import { AxiosResponse } from "axios";
 import auth from "../auth/auth";
 import { RootState } from "../store";
+import { setAuth } from "../slices/authenticateSlice";
+
+import { useDispatch } from "react-redux";
 
 function NewSpotForm() {
   //functional hooks
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   //local states
   const [name, setName] = useState<string>("");
@@ -24,10 +28,11 @@ function NewSpotForm() {
     (state: RootState) => state.newSpotPosition,
   );
   const user = useSelector((state: RootState) => state.user);
+  const authFlag = useSelector((state: RootState) => state.auth);
 
   useEffect(() => {
     //authenticates the user
-    auth(user.value);
+    auth(authFlag.value);
   }, []);
 
   function validateUserInput(name: string, description: string, files: File[]) {
@@ -103,8 +108,13 @@ function NewSpotForm() {
             .post("http://localhost:3000/spot/addSpot", data, {
               withCredentials: true,
             })
-            .catch((error) => {
-              console.error("Error:", error);
+            .catch((err) => {
+              if (err.response.status === 401) {
+                dispatch(setAuth(false));
+                console.log("user not authenticaed please log in");
+              } else {
+                console.log(err, "test");
+              }
             });
         })
         .then((response) => {
