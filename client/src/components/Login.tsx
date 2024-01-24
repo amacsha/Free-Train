@@ -100,7 +100,9 @@ function Login() {
             Log in
           </button>
           <Link to="/register">
-            <button className="login-button">Register</button>
+            <button title="register" className="login-button">
+              Register
+            </button>
           </Link>
         </form>
       </div>

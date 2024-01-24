@@ -121,7 +121,7 @@ function Register() {
               type="password"
               onChange={(e) => updateState(setConfirmPassword, e)}
               value={confirmPassword}
-              id="confimPassword"
+              id="confirmPassword"
             />
           </div>
           {problem == "" ? null : (

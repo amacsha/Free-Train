@@ -157,6 +157,7 @@ function Profile() {
           <MdDelete
             size="40"
             color="black"
+            id="deleteIcon"
             onClick={() => setDeleteUser(true)}
           />
           <IoMdLogOut size="40" color="black" onClick={logout} />
@@ -168,7 +169,7 @@ function Profile() {
           ) : (
             spots.map((spot: Spot) => {
               return (
-                <div key={spot.name} className="profile-spot">
+                <div title={spot.name} key={spot.name} className="profile-spot">
                   <div className="profile-spot-info">
                     <h3>{spot.name}</h3>
                     <h3>likes: {spot.likedBy.length}</h3>
@@ -206,10 +207,7 @@ function Profile() {
                     </Link>
                   </div>
                   <div className="image-side">
-                    <img
-                      src={`http://localhost:3000/spot/getImage/${spot.name}/${spot.imagePaths[0]}`}
-                      height="100px"
-                    />
+                    <img src={spot.imagePaths[0]} height="100px" />
                   </div>
                 </div>
               );
