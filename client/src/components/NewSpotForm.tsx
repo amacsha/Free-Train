@@ -5,17 +5,18 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import axios from "axios";
+import { AxiosResponse } from "axios";
 import auth from "../auth/auth";
 import { RootState } from "../store";
 
 function NewSpotForm() {
   //functional hooks
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   //local states
-  let [name, setName] = useState<string>("");
-  let [description, setDescription] = useState<string>("");
-  let [files, setFiles] = useState<File[]>([]);
+  const [name, setName] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [files, setFiles] = useState<File[]>([]);
   const [problem, setProblem] = useState<string>("");
 
   //global states
@@ -29,24 +30,7 @@ function NewSpotForm() {
     auth(user.value);
   }, []);
 
-  //updates all of the inputs
-  function updateName(e: React.ChangeEvent<HTMLInputElement>) {
-    setName(e.target.value);
-  }
-
-  function updateDescription(e: React.ChangeEvent<HTMLTextAreaElement>) {
-    setDescription(e.target.value);
-  }
-
-  function updateFiles(file: FileList | null) {
-    file && setFiles([...files, file[0]]);
-  }
-
-  //sends the new spot to the server
-  function validateAndSend(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
-    //checks the all input is given
+  function validateUserInput(name: string, description: string, files: File[]) {
     if (name == "") {
       setProblem("give your spot a name");
       return;
@@ -57,6 +41,36 @@ function NewSpotForm() {
       setProblem("Show everyone a picture");
       return;
     }
+  }
+
+  function createCloudinaryURL(): string {
+    const cloudinaryName: string = import.meta.env.VITE_CLOUDINARYNAME;
+    if (cloudinaryName) {
+      return `https://api.cloudinary.com/v1_1/${cloudinaryName}/image/upload`;
+    } else {
+      console.error("cloudinary database name undefined");
+      return "";
+    }
+  }
+
+  const updateState = (
+    setter: Function,
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>,
+  ) => {
+    setter(e.target.value);
+  };
+
+  function updateFiles(file: FileList | null) {
+    file && setFiles([...files, file[0]]);
+  }
+
+  //sends the new spot to the server
+  function validateAndSend(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    //checks the all input is given
+    validateUserInput(name, description, files);
 
     //creates the body to send to the server
     const data = new FormData();
@@ -67,25 +81,39 @@ function NewSpotForm() {
     newSpotPosition.value &&
       data.append("lng", newSpotPosition.value.lng.toString());
     user.value && data.append("author", user.value);
-    let fileCount = 0;
-    //loops through all files and adds them to the data object
+
+    const CLOUDINARYURL: string = createCloudinaryURL();
+
+    const imagePromises: Promise<AxiosResponse<any, any>>[] = [];
     for (let image of files) {
-      data.append(`file${fileCount}`, image);
-      fileCount++;
+      const imageData = new FormData();
+      imageData.append("file", image);
+      imageData.append("upload_preset", "default");
+      const imagePromise = axios.post(CLOUDINARYURL, imageData);
+      imagePromises.push(imagePromise);
     }
 
-    //sends the data to the server
-    axios
-      .post("http://localhost:3000/spot/addSpot", data, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        navigate("/mapScreen");
-      })
-      .catch((error) => {
-        console.log(error);
-        setProblem(error.response.data.status);
-      });
+    if (imagePromises.length > 0) {
+      Promise.all(imagePromises)
+        .then((responses) => {
+          responses.forEach((response) => {
+            data.append("imagePaths", response.data.secure_url);
+          });
+          return axios
+            .post("http://localhost:3000/spot/addSpot", data, {
+              withCredentials: true,
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+            });
+        })
+        .then((response) => {
+          navigate("/mapScreen");
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
   }
 
   return (
@@ -97,7 +125,12 @@ function NewSpotForm() {
       <form onSubmit={validateAndSend}>
         <div className="formItem">
           <label htmlFor="name"> Give your spot a name</label>
-          <input type="text" id="name" onChange={updateName} value={name} />
+          <input
+            type="text"
+            id="name"
+            onChange={(e) => updateState(setName, e)}
+            value={name}
+          />
         </div>
         <div className="formItem">
           <label htmlFor="description">Describe your spot</label>
@@ -105,7 +138,7 @@ function NewSpotForm() {
             id="description"
             cols={30}
             rows={5}
-            onChange={updateDescription}
+            onChange={(e) => updateState(setDescription, e)}
             value={description}
           ></textarea>
         </div>

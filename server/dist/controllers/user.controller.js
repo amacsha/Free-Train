@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter =
   (this && this.__awaiter) ||
   function (thisArg, _arguments, P, generator) {
@@ -31,17 +32,17 @@ var __awaiter =
       step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
   };
+Object.defineProperty(exports, "__esModule", { value: true });
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
-const userController = {};
-userController.checkUser = (req, res) =>
-  __awaiter(this, void 0, void 0, function* () {
+require("dotenv").config();
+const checkUser = (req, res) =>
+  __awaiter(void 0, void 0, void 0, function* () {
     try {
       //checks that the required user does exist
       let user = yield User.findOne({ email: req.body.email });
       if (user == null) {
-        res.status(418);
-        res.send({ status: "incorrect details" });
+        res.status(418).send({ status: "user does not exist" });
       } else {
         let passwordCheck = yield bcrypt.compare(
           req.body.password,
@@ -49,9 +50,8 @@ userController.checkUser = (req, res) =>
         );
         if (passwordCheck == true) {
           //sets the session id to the username
-          req.session.userId = user.username;
-          res.status(200);
-          res.send({ username: user.username });
+          if (process.env.ENV != "test") req.session.userId = user.username;
+          res.status(200).send({ username: user.username });
         } else {
           res.status(418);
           res.send({ status: "incorrect details" });
@@ -61,8 +61,8 @@ userController.checkUser = (req, res) =>
       console.log(error);
     }
   });
-userController.createUser = (req, res) =>
-  __awaiter(this, void 0, void 0, function* () {
+const createUser = (req, res) =>
+  __awaiter(void 0, void 0, void 0, function* () {
     try {
       //checks that another user with the same info does not already exist
       let userEmail = yield User.findOne({ email: req.body.email });
@@ -76,7 +76,7 @@ userController.createUser = (req, res) =>
           }),
         );
         //sets the session id and saves to the database
-        req.session.userId = newUser.username;
+        if (process.env.ENV != "test") req.session.userId = newUser.username;
         yield newUser.save();
         res.status(200);
         res.send({ status: "complete" });
@@ -92,27 +92,23 @@ userController.createUser = (req, res) =>
       console.log(error);
     }
   });
-userController.logout = (req, res) =>
-  __awaiter(this, void 0, void 0, function* () {
+const logout = (req, res) =>
+  __awaiter(void 0, void 0, void 0, function* () {
     req.session.destroy((error) => {
       if (error) {
-        res.status(400);
-        res.send({ status: "could not log out" });
+        res.status(400).send({ status: "could not log out" });
       } else {
         res.clearCookie("sid");
         res.status(200).send({ status: "logged out" });
       }
     });
   });
-userController.deleteUser = (req, res) =>
-  __awaiter(this, void 0, void 0, function* () {
+const deleteUser = (req, res) =>
+  __awaiter(void 0, void 0, void 0, function* () {
     try {
-      console.log(req.body);
       const user = yield User.findOne({ username: req.body.user });
       if (user == null) {
-        console.log(user);
-        res.status(418);
-        res.send({ status: "could not delete account" });
+        res.status(418).send({ status: "could not delete account" });
       } else {
         let passwordCheck = yield bcrypt.compare(
           req.body.password,
@@ -131,4 +127,10 @@ userController.deleteUser = (req, res) =>
       console.log(error);
     }
   });
+const userController = {
+  checkUser,
+  createUser,
+  logout,
+  deleteUser,
+};
 module.exports = userController;

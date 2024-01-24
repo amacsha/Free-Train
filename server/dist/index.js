@@ -2,14 +2,15 @@
 const express = require("express");
 const cors = require("cors");
 const fileUpload = require("express-fileupload");
-const router = require("./router");
+const routerMain = require("./router");
 const session = require("express-session");
-require("dotenv").config();
+require("dotenv").config({
+  path: `.env${process.env.ENV == "test" ? ".test" : ""}`,
+});
 //port
 const port = process.env.PORT || 3000;
 //secret
 const secret = process.env.SECRET;
-
 //set the cors allowed cors origin
 const corsConfig = {
   origin: "http://localhost:5173",
@@ -36,7 +37,7 @@ app.use(
   }),
 );
 app.use(fileUpload());
-app.use(router);
+app.use(routerMain);
 app.listen(port, function () {
   console.log(`http://localhost:${port}`);
 });

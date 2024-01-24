@@ -1,5 +1,6 @@
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
+require("dotenv").config();
 
 import { Request, Response } from "express";
 
@@ -15,7 +16,7 @@ const checkUser = async (req: Request, res: Response): Promise<void> => {
     //checks that the required user does exist
     let user = await User.findOne({ email: req.body.email });
     if (user == null) {
-      res.status(418).send({ status: "incorrect details" });
+      res.status(418).send({ status: "user does not exist" });
     } else {
       let passwordCheck = await bcrypt.compare(
         req.body.password,
@@ -24,8 +25,7 @@ const checkUser = async (req: Request, res: Response): Promise<void> => {
 
       if (passwordCheck == true) {
         //sets the session id to the username
-        req.session.userId = user.username;
-
+        if (process.env.ENV != "test") req.session.userId = user.username;
         res.status(200).send({ username: user.username });
       } else {
         res.status(418);
@@ -42,7 +42,6 @@ const createUser = async (req: Request, res: Response): Promise<void> => {
     //checks that another user with the same info does not already exist
     let userEmail = await User.findOne({ email: req.body.email });
     let userName = await User.findOne({ username: req.body.username });
-
     if (userEmail == null && userName == null) {
       //if all good hashes the password and sends it ot the database
       const passwordHash = await bcrypt.hash(req.body.password, 10);
@@ -52,8 +51,9 @@ const createUser = async (req: Request, res: Response): Promise<void> => {
       });
 
       //sets the session id and saves to the database
-      req.session.userId = newUser.username;
+      if (process.env.ENV != "test") req.session.userId = newUser.username;
       await newUser.save();
+
       res.status(200);
       res.send({ status: "complete" });
 
@@ -83,7 +83,6 @@ const logout = async (req: Request, res: Response): Promise<void> => {
 
 const deleteUser = async (req: Request, res: Response): Promise<void> => {
   try {
-    console.log(req.body);
     const user = await User.findOne({ username: req.body.user });
     if (user == null) {
       res.status(418).send({ status: "could not delete account" });

@@ -6,7 +6,9 @@ const routerMain = require("./router");
 const session = require("express-session");
 const http = require("http");
 const { Server } = require("socket.io");
-require("dotenv").config();
+require("dotenv").config({
+  path: `.env${process.env.ENV == "test" ? ".test" : ""}`,
+});
 
 //port
 const port = process.env.PORT || 3000;

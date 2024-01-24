@@ -23,6 +23,9 @@
 - Redux (state management)
 - Leaflet and react Leaflet (maps)
 - axios (server requests)
+- setup .env with VITE_CLOUDINARYNAME variable in the client folder. This variable should be your Cloud name from cloudinary. Either signup or go to your dashboard to find the name. You will also need to ensure it is set to an unsigned url. Go to settings and the Upload area. Enable unsigned uploading. Click upload preset and add a new upload preset called 'default' ensuring that the signing mode has been turned to unsigned.
+- To test with cypress run 'npm run cypress:open and follow the instructions.
+- To test with vitest run 'npm run test'
 
 ### back end
 
@@ -31,3 +34,4 @@
 - Express session (authentication)
 - mongoose and mongoDB (database and access)
 - Bcrypt (password hashing)
+- Set the test script if on mac to: "ENV=test mocha './dist/test/server.test.js'" and on Windows: "ENV=test && mocha './dist/test/server.test.js'". Also ensure you have uploads folders on both
