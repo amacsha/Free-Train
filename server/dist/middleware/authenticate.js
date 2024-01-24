@@ -40,7 +40,6 @@ function authenticate(req, res, next) {
     if (process.env.ENV == "test") return next();
     try {
       //gets the session id\
-      console.log("ENV test not working");
       const userId = req.session.userId;
       //the session id is the username so checks if a user exists
       const checkUser = yield User.findOne({ username: userId });

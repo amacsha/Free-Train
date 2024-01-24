@@ -13,7 +13,6 @@ interface RequestFiles extends Request {
 type SpotController = {
   addSpot(req: Request, res: Response): Promise<void>;
   getAll(req: Request, res: Response): Promise<void>;
-  getImage(req: Request, res: Response): Promise<void>;
   getSpot(req: Request, res: Response): Promise<void>;
   getAuthorSpot(req: Request, res: Response): Promise<void>;
   like(req: Request, res: Response): Promise<void>;
@@ -58,22 +57,6 @@ const getAll = async (req: Request, res: Response): Promise<void> => {
     //gets all spots
     const allSpots: HydratedDocument<Spot[]> = await Spot.find();
     res.status(200).send(allSpots);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-const getImage = async (req: Request, res: Response): Promise<void> => {
-  try {
-    //gets a specific image based on the parameters passed
-    res
-      .status(200)
-      .sendFile(
-        path.join(
-          uploadsFolder,
-          `${req.params.spotName}/${req.params.imageName}`,
-        ),
-      );
   } catch (error) {
     console.log(error);
   }
@@ -182,7 +165,6 @@ const getLikedSpots = async (req: Request, res: Response): Promise<void> => {
 const spotController: SpotController = {
   addSpot,
   getAll,
-  getImage,
   getSpot,
   getAuthorSpot,
   like,

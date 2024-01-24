@@ -9,7 +9,6 @@ spotRouterMain.post("/unLike/:spotName", spotController.unLike);
 spotRouterMain.post("/addComment/:spotName", spotController.addComment);
 
 spotRouterMain.get("/getAll", spotController.getAll);
-spotRouterMain.get("/getImage/:spotName/:imageName", spotController.getImage);
 spotRouterMain.get("/getSpot/:spotName", spotController.getSpot);
 spotRouterMain.get("/getAuthorSpots/:author", spotController.getAuthorSpot);
 spotRouterMain.get("/getLikedSpots/:userName", spotController.getLikedSpots);

@@ -83,12 +83,14 @@ describe("Backend Tests", function () {
         lat: "0",
         lng: "0",
         author: "test",
+        imagePaths: ["http://exampleurl.com", "http://exampleurl.com"],
       };
 
       const res = await request.post("/spot/addSpot").send(newSpot);
       assert.equal(res.body.status, "working");
       const foundSpot = await Spot.findOne({ name: "test 1" });
       assert.equal(foundSpot.description, "test 1");
+      assert.equal(foundSpot.imagePaths[0], "http://exampleurl.com");
 
       await request
         .post("/spot/addSpot")

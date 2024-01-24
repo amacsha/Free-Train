@@ -117,6 +117,7 @@ describe("Backend Tests", function () {
           lat: "0",
           lng: "0",
           author: "test",
+          imagePaths: ["http://exampleurl.com", "http://exampleurl.com"],
         };
         const res = yield request.post("/spot/addSpot").send(newSpot);
         assert.equal(res.body.status, "working");
