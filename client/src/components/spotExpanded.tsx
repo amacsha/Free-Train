@@ -211,15 +211,9 @@ function SpotExpanded() {
         </div>
         <div className="spot-info-div">
           <div className="image-show">
-            {imagePaths.map((image) => {
-              return (
-                <img
-                  key={image}
-                  src={`http://localhost:3000/spot/getImage/${parkourSpot?.name}/${image}`}
-                  width="200px"
-                />
-              );
-            })}
+          {imagePaths.map((image, index) => {
+            return <img key={index} src={image} width="200px" />;
+          })}
           </div>
           <p className="description">
             <span>{parkourSpot?.author}</span>

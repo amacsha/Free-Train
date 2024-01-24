@@ -3,3 +3,4 @@ uploads
 build
 colorScheme.txt
 .env
+.env.test

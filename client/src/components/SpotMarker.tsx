@@ -32,7 +32,7 @@ function SpotMarker({ spot }: { spot: Spot }) {
         <Popup className="Popup">
           <div id="spot-marker">
             <img
-              src={`http://localhost:3000/spot/getImage/${spot.name}/${spot.imagePaths[0]}`}
+              src={spot.imagePaths[0]}
               width="50px"
             />
             <div className="marker-more-div">

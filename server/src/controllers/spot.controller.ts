@@ -13,7 +13,6 @@ interface RequestFiles extends Request {
 type SpotController = {
   addSpot(req: Request, res: Response): Promise<void>;
   getAll(req: Request, res: Response): Promise<void>;
-  getImage(req: Request, res: Response): Promise<void>;
   getSpot(req: Request, res: Response): Promise<void>;
   getAuthorSpot(req: Request, res: Response): Promise<void>;
   like(req: Request, res: Response): Promise<void>;
@@ -34,32 +33,13 @@ const addSpot = async (req: RequestFiles, res: Response): Promise<void> => {
     });
 
     if (!spot) {
-      //makes the directory for the images to be put in
-      fs.mkdirSync(path.join(uploadsFolder, req.body.name));
-
-      //sets up a list used to store the image paths
-      const imageNames = [];
-
-      // console.log(req.files)
-      const files = req.files;
-      //adds the images to the uploads the folder and to the image path list
-      for (let image in files) {
-        console.log(files[image].mv);
-        files[image].mv(
-          path.join(uploadsFolder, req.body.name, files[image].name),
-        );
-        imageNames.push(files[image].name);
-      }
-
-      //creates the image to store the spot in the database
-      let dbObject = {
+      const dbObject = {
         ...req.body,
-        imagePaths: imageNames,
         likes: 0,
         likedBy: [],
         comments: [],
       };
-      
+
       //saves the new spot
       const newDocument = new Spot(dbObject);
       await newDocument.save();
@@ -77,22 +57,6 @@ const getAll = async (req: Request, res: Response): Promise<void> => {
     //gets all spots
     const allSpots: HydratedDocument<Spot[]> = await Spot.find();
     res.status(200).send(allSpots);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-const getImage = async (req: Request, res: Response): Promise<void> => {
-  try {
-    //gets a specific image based on the parameters passed
-    res
-      .status(200)
-      .sendFile(
-        path.join(
-          uploadsFolder,
-          `${req.params.spotName}/${req.params.imageName}`,
-        ),
-      );
   } catch (error) {
     console.log(error);
   }
@@ -130,7 +94,7 @@ const like = async (req: Request, res: Response): Promise<void> => {
     let newList = [...spot.likedBy];
     newList.push(req.body.user);
     await Spot.updateOne({ name: req.params.spotName }, { likedBy: newList });
-    res.send({ working: "this works" })
+    res.send({ working: "this works" });
     res.status(200);
   } catch (error) {
     console.log(error);
@@ -201,7 +165,6 @@ const getLikedSpots = async (req: Request, res: Response): Promise<void> => {
 const spotController: SpotController = {
   addSpot,
   getAll,
-  getImage,
   getSpot,
   getAuthorSpot,
   like,
