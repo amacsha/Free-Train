@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import axios from "axios";
+import { AxiosResponse } from "axios"
 import auth from "../auth/auth";
 import { RootState } from "../store";
 
@@ -43,8 +44,7 @@ function NewSpotForm() {
   }
 
   function createCloudinaryURL(): string {
-    const cloudinaryName: any = process.env.CLOUDINARYNAME;
-    console.log(cloudinaryName)
+    const cloudinaryName: string = import.meta.env.VITE_CLOUDINARYNAME;
     if (cloudinaryName) {
       return `https://api.cloudinary.com/v1_1/${cloudinaryName}/image/upload`;
     } else {
@@ -84,7 +84,7 @@ function NewSpotForm() {
 
     const CLOUDINARYURL: string = createCloudinaryURL();
 
-    const imagePromises = [];
+    const imagePromises: Promise<AxiosResponse<any, any>>[] = [];
     for (let image of files) {
       const imageData = new FormData();
       imageData.append("file", image);
