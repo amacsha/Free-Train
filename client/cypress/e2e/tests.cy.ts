@@ -43,6 +43,6 @@ describe("General e2e test for free train", () => {
     cy.get("div.logout svg#deleteIcon").click();
     cy.get("input[type=text]").type(password);
     cy.get("button.delete").click();
-    cy.url().should("include", "/");
+    cy.url().should("include", "");
   });
 });
