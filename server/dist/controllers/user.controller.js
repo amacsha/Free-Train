@@ -42,7 +42,7 @@ const checkUser = (req, res) =>
       //checks that the required user does exist
       let user = yield User.findOne({ email: req.body.email });
       if (user == null) {
-        res.status(418).send({ status: "incorrect details" });
+        res.status(418).send({ status: "user does not exist" });
       } else {
         let passwordCheck = yield bcrypt.compare(
           req.body.password,

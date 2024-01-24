@@ -46,23 +46,7 @@ const addSpot = (req, res) =>
         name: req.body.name,
       });
       if (!spot) {
-        //makes the directory for the images to be put in
-        fs.mkdirSync(path.join(uploadsFolder, req.body.name));
-        //sets up a list used to store the image paths
-        const imageNames = [];
-        // console.log(req.files)
-        const files = req.files;
-        //adds the images to the uploads the folder and to the image path list
-        for (let image in files) {
-          console.log(files[image].mv);
-          files[image].mv(
-            path.join(uploadsFolder, req.body.name, files[image].name),
-          );
-          imageNames.push(files[image].name);
-        }
-        //creates the image to store the spot in the database
-        let dbObject = Object.assign(Object.assign({}, req.body), {
-          imagePaths: imageNames,
+        const dbObject = Object.assign(Object.assign({}, req.body), {
           likes: 0,
           likedBy: [],
           comments: [],
@@ -84,22 +68,6 @@ const getAll = (req, res) =>
       //gets all spots
       const allSpots = yield Spot.find();
       res.status(200).send(allSpots);
-    } catch (error) {
-      console.log(error);
-    }
-  });
-const getImage = (req, res) =>
-  __awaiter(void 0, void 0, void 0, function* () {
-    try {
-      //gets a specific image based on the parameters passed
-      res
-        .status(200)
-        .sendFile(
-          path.join(
-            uploadsFolder,
-            `${req.params.spotName}/${req.params.imageName}`,
-          ),
-        );
     } catch (error) {
       console.log(error);
     }
@@ -210,7 +178,6 @@ const getLikedSpots = (req, res) =>
 const spotController = {
   addSpot,
   getAll,
-  getImage,
   getSpot,
   getAuthorSpot,
   like,
