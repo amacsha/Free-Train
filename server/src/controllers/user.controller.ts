@@ -1,5 +1,6 @@
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
+require("dotenv").config();
 
 import { Request, Response } from "express";
 
@@ -52,7 +53,7 @@ const createUser = async (req: Request, res: Response): Promise<void> => {
       //sets the session id and saves to the database
       if (process.env.ENV != 'test') req.session.userId = newUser.username;
       await newUser.save();
-      
+
       res.status(200);
       res.send({ status: "complete" });
 

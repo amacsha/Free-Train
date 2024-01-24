@@ -1,4 +1,5 @@
 const User = require("../models/user.model");
+require("dotenv").config();
 
 import { Request, Response, NextFunction } from "express";
 import { Session } from "express-session";

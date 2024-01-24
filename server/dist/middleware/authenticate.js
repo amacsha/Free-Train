@@ -10,12 +10,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const User = require("../models/user.model");
+require("dotenv").config();
 function authenticate(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         if (process.env.ENV == 'test')
             return next();
         try {
             //gets the session id\
+            console.log('ENV test not working');
             const userId = req.session.userId;
             //the session id is the username so checks if a user exists
             const checkUser = yield User.findOne({ username: userId });

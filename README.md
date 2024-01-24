@@ -31,3 +31,4 @@
 - Express session (authentication)
 - mongoose and mongoDB (database and access)
 - Bcrypt (password hashing)
+- Set the test script if on mac to: "ENV=test mocha './dist/test/server.test.js'" and on Windows: "ENV=test && mocha './dist/test/server.test.js'". Also ensure you have uploads folders on both 
