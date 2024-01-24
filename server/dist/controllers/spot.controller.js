@@ -46,7 +46,23 @@ const addSpot = (req, res) =>
         name: req.body.name,
       });
       if (!spot) {
-        const dbObject = Object.assign(Object.assign({}, req.body), {
+        //makes the directory for the images to be put in
+        fs.mkdirSync(path.join(uploadsFolder, req.body.name));
+        //sets up a list used to store the image paths
+        const imageNames = [];
+        // console.log(req.files)
+        const files = req.files;
+        //adds the images to the uploads the folder and to the image path list
+        for (let image in files) {
+          console.log(files[image].mv);
+          files[image].mv(
+            path.join(uploadsFolder, req.body.name, files[image].name),
+          );
+          imageNames.push(files[image].name);
+        }
+        //creates the image to store the spot in the database
+        let dbObject = Object.assign(Object.assign({}, req.body), {
+          imagePaths: imageNames,
           likes: 0,
           likedBy: [],
           comments: [],
@@ -121,7 +137,8 @@ const like = (req, res) =>
       let newList = [...spot.likedBy];
       newList.push(req.body.user);
       yield Spot.updateOne({ name: req.params.spotName }, { likedBy: newList });
-      res.status(200).send({ working: "this works" });
+      res.send({ working: "this works" });
+      res.status(200);
     } catch (error) {
       console.log(error);
     }

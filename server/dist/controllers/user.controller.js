@@ -35,6 +35,7 @@ var __awaiter =
 Object.defineProperty(exports, "__esModule", { value: true });
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
+require("dotenv").config();
 const checkUser = (req, res) =>
   __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -49,7 +50,7 @@ const checkUser = (req, res) =>
         );
         if (passwordCheck == true) {
           //sets the session id to the username
-          req.session.userId = user.username;
+          if (process.env.ENV != "test") req.session.userId = user.username;
           res.status(200).send({ username: user.username });
         } else {
           res.status(418);
@@ -75,7 +76,7 @@ const createUser = (req, res) =>
           }),
         );
         //sets the session id and saves to the database
-        req.session.userId = newUser.username;
+        if (process.env.ENV != "test") req.session.userId = newUser.username;
         yield newUser.save();
         res.status(200);
         res.send({ status: "complete" });
@@ -105,7 +106,6 @@ const logout = (req, res) =>
 const deleteUser = (req, res) =>
   __awaiter(void 0, void 0, void 0, function* () {
     try {
-      console.log(req.body);
       const user = yield User.findOne({ username: req.body.user });
       if (user == null) {
         res.status(418).send({ status: "could not delete account" });

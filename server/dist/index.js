@@ -4,7 +4,9 @@ const cors = require("cors");
 const fileUpload = require("express-fileupload");
 const routerMain = require("./router");
 const session = require("express-session");
-require("dotenv").config();
+require("dotenv").config({
+  path: `.env${process.env.ENV == "test" ? ".test" : ""}`,
+});
 //port
 const port = process.env.PORT || 3000;
 //secret

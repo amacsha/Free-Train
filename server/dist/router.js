@@ -8,3 +8,4 @@ router.use("/spot", authenticate, spotRouter);
 router.use("/challenge", authenticate, challengeRouter);
 router.use("/user", userRouter);
 module.exports = router;
+// export default router;

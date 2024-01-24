@@ -111,7 +111,8 @@ const like = async (req: Request, res: Response): Promise<void> => {
     let newList = [...spot.likedBy];
     newList.push(req.body.user);
     await Spot.updateOne({ name: req.params.spotName }, { likedBy: newList });
-    res.status(200).send({ working: "this works" });
+    res.send({ working: "this works" });
+    res.status(200);
   } catch (error) {
     console.log(error);
   }

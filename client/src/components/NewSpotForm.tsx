@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import axios from "axios";
-import { AxiosResponse } from "axios"
+import { AxiosResponse } from "axios";
 import auth from "../auth/auth";
 import { RootState } from "../store";
 
@@ -117,7 +117,7 @@ function NewSpotForm() {
   }
 
   return (
-    <div id="new-spot-form">
+    <div id="new-spot-form" data-testid="new-spot-form">
       <Link to="/mapScreen" className="back-link">
         <IoArrowBackCircleOutline size="40" color="black" />
       </Link>
