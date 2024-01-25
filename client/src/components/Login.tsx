@@ -55,6 +55,7 @@ function Login() {
       })
       .then((res) => {
         if (res) {
+          localStorage.setItem("user", res.data.username);
           dispatch(setUser(res.data.username));
           dispatch(setAuth(true));
           navigate("/mapScreen");

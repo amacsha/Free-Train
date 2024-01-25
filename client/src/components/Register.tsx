@@ -65,8 +65,8 @@ function Register() {
         withCredentials: true,
       })
       .then((res) => {
+        localStorage.setItem("user", username);
         dispatch(setUser(username));
-        localStorage.setItem("username", username);
         dispatch(setAuth(true));
         navigate("/mapScreen");
       })

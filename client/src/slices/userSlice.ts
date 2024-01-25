@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState: { value: string | null } = {
-  value: null,
+  value: localStorage.getItem("user"),
 };
 export const userSlice = createSlice({
   name: "user",

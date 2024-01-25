@@ -80,6 +80,7 @@ function Profile() {
         withCredentials: true,
       })
       .then((res) => {
+        localStorage.removeItem("user");
         dispatch(setUser(null));
         navigate("/");
       })
@@ -117,6 +118,7 @@ function Profile() {
         },
       )
       .then((res) => {
+        localStorage.removeItem("user");
         dispatch(setUser(null));
         window.location.replace("/");
       })

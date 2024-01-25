@@ -32,6 +32,7 @@ function MapScreen() {
         withCredentials: true,
       })
       .then((res) => {
+        console.log(res.data);
         dispatch(setSpotListR([...res.data]));
       })
       .catch((err) => {

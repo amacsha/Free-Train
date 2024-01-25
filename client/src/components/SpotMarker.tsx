@@ -22,6 +22,7 @@ const notOwnedIcon = new L.Icon({
 
 function SpotMarker({ spot, key }: { spot: Spot; key: string }) {
   let user = useSelector((state: RootState) => state.user);
+  let authFlag = useSelector((state: RootState) => state.auth);
 
   return (
     <div>

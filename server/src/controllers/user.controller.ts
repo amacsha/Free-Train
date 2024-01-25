@@ -4,6 +4,15 @@ require("dotenv").config();
 
 import { Request, Response } from "express";
 
+declare module "express-session" {
+  export interface SessionData {
+    uid: string; // Define the custom property `uid`
+  }
+}
+interface SessionData extends Request {
+  uid: string;
+}
+
 interface UserController {
   checkUser(req: Request, res: Response): Promise<void>;
   createUser(req: Request, res: Response): Promise<void>;
@@ -11,7 +20,7 @@ interface UserController {
   deleteUser(req: Request, res: Response): Promise<void>;
 }
 
-const checkUser = async (req: Request, res: Response): Promise<void> => {
+const checkUser = async (req: SessionData, res: Response): Promise<void> => {
   try {
     //checks that the required user does exist
     let user = await User.findOne({ email: req.body.email });
@@ -25,12 +34,10 @@ const checkUser = async (req: Request, res: Response): Promise<void> => {
 
       if (passwordCheck == true) {
         //sets the session id to the username
-        if (process.env.ENV != "test") req.session.userId = user.username;
         req.session.uid = user._id;
         res.status(200).send({ username: user.username });
       } else {
-        res.status(418);
-        res.send({ status: "incorrect details" });
+        res.status(418).send({ status: "incorrect details" });
       }
     }
   } catch (error) {
@@ -53,18 +60,15 @@ const createUser = async (req: Request, res: Response): Promise<void> => {
 
       //sets the session id and saves to the database
       req.session.uid = newUser._id;
-      if (process.env.ENV != "test") req.session.userId = newUser.username;
       await newUser.save();
 
       res.status(200).send({ status: "complete" });
 
       //next two if else statements tell the user what needs changing
     } else if (userEmail != null) {
-      res.status(400);
-      res.send({ status: "email already exists" });
+      res.status(400).send({ status: "email already exists" });
     } else if (userName != null) {
-      res.status(400);
-      res.send({ status: "username already exists" });
+      res.status(400).send({ status: "username already exists" });
     }
   } catch (error) {
     console.log(error);
@@ -76,8 +80,7 @@ const logout = async (req: Request, res: Response): Promise<void> => {
     if (error) {
       res.status(400).send({ status: "could not log out" });
     } else {
-      res.clearCookie("sid");
-      res.status(200).send({ status: "logged out" });
+      res.clearCookie("sid").status(200).send({ status: "logged out" });
     }
   });
 };
@@ -85,19 +88,20 @@ const logout = async (req: Request, res: Response): Promise<void> => {
 const deleteUser = async (req: Request, res: Response): Promise<void> => {
   try {
     const user = await User.findOne({ username: req.body.user });
-    if (user == null) {
+    if (user === null) {
       res.status(418).send({ status: "could not delete account" });
     } else {
       let passwordCheck = await bcrypt.compare(
         req.body.password,
         user.password,
       );
-      if (passwordCheck == true) {
-        await User.deleteOne({ username: req.body.user });
-        res.status(200).send({ status: "account deleted" });
-      } else {
-        res.status(418).send({ status: "could not delete account" });
-      }
+      req.session.destroy((error) => {
+        if (error) {
+          res.status(400).send({ status: "could not delete account" });
+        } else {
+          res.clearCookie("sid").status(200).send({ status: "deleted accout" });
+        }
+      });
     }
   } catch (error) {
     console.log(error);
