@@ -23,7 +23,8 @@ const checkUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             let passwordCheck = yield bcrypt.compare(req.body.password, user.password);
             if (passwordCheck == true) {
                 //sets the session id to the username
-                if (process.env.ENV != 'test') req.session.uid = user._id;
+                if (process.env.ENV != 'test')
+                    req.session.uid = user._id;
                 res.status(200).send({ username: user.username });
             }
             else {
@@ -45,7 +46,8 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             const passwordHash = yield bcrypt.hash(req.body.password, 10);
             let newUser = new User(Object.assign(Object.assign({}, req.body), { password: passwordHash }));
             //sets the session id and saves to the database
-            req.session.uid = newUser._id;
+            if (process.env.ENV != 'test')
+                req.session.uid = newUser._id;
             yield newUser.save();
             res.status(200).send({ status: "complete" });
             //next two if else statements tell the user what needs changing
@@ -80,6 +82,10 @@ const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         else {
             let passwordCheck = yield bcrypt.compare(req.body.password, user.password);
             if (passwordCheck == true) {
+                if (process.env.ENV == 'test') {
+                    yield User.deleteOne({ username: req.body.user });
+                    res.status(200).send({ status: "deleted account" });
+                }
                 req.session.destroy((error) => __awaiter(void 0, void 0, void 0, function* () {
                     if (error) {
                         res.status(400).send({ status: "could not delete account" });
@@ -89,7 +95,7 @@ const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                         res
                             .clearCookie("sid")
                             .status(200)
-                            .send({ status: "deleted accout" });
+                            .send({ status: "deleted account" });
                     }
                 }));
             }

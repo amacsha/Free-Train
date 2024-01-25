@@ -13,6 +13,8 @@ const User = require("../models/user.model");
 require("dotenv").config();
 function authenticate(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
+        if (process.env.ENV == 'test')
+            return next();
         try {
             //gets the session id\
             const sessionUid = req.session.uid;

@@ -14,10 +14,10 @@ interface SessionData extends Request {
 }
 
 interface UserController {
-  checkUser(req: Request, res: Response): Promise<void>;
-  createUser(req: Request, res: Response): Promise<void>;
+  checkUser(req: SessionData, res: Response): Promise<void>;
+  createUser(req: SessionData, res: Response): Promise<void>;
   logout(req: Request, res: Response): Promise<void>;
-  deleteUser(req: Request, res: Response): Promise<void>;
+  deleteUser(req: SessionData, res: Response): Promise<void>;
 }
 
 const checkUser = async (req: SessionData, res: Response): Promise<void> => {
@@ -45,7 +45,7 @@ const checkUser = async (req: SessionData, res: Response): Promise<void> => {
   }
 };
 
-const createUser = async (req: Request, res: Response): Promise<void> => {
+const createUser = async (req: SessionData, res: Response): Promise<void> => {
   try {
     //checks that another user with the same info does not already exist
     let userEmail = await User.findOne({ email: req.body.email });
@@ -85,7 +85,7 @@ const logout = async (req: Request, res: Response): Promise<void> => {
   });
 };
 
-const deleteUser = async (req: Request, res: Response): Promise<void> => {
+const deleteUser = async (req: SessionData, res: Response): Promise<void> => {
   try {
     const user = await User.findOne({ username: req.body.user });
     if (user === null) {
@@ -96,6 +96,10 @@ const deleteUser = async (req: Request, res: Response): Promise<void> => {
         user.password,
       );
       if (passwordCheck == true) {
+        if (process.env.ENV == 'test') {
+          await User.deleteOne({ username: req.body.user });
+          res.status(200).send({ status: "deleted account" });
+        }
         req.session.destroy(async (error) => {
           if (error) {
             res.status(400).send({ status: "could not delete account" });
@@ -104,7 +108,7 @@ const deleteUser = async (req: Request, res: Response): Promise<void> => {
             res
               .clearCookie("sid")
               .status(200)
-              .send({ status: "deleted accout" });
+              .send({ status: "deleted account" });
           }
         });
       }

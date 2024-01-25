@@ -60,7 +60,7 @@ describe("Backend Tests", function () {
       const res = await request
         .post("/user/deleteUser")
         .send({ user: "test", password: "test" });
-      assert.equal(res.body.status, "account deleted");
+      assert.equal(res.body.status, "deleted account");
       const foundUser = await User.findOne({ username: "test" });
       assert.equal(foundUser, null);
     });
