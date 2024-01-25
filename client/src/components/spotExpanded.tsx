@@ -204,22 +204,29 @@ function SpotExpanded() {
 
   return (
     <div id="spot-expanded">
-      <div id="spot-expanded-body">
-        <div className="spot-expanded-top">
+      <div className="spot-expanded-top">
           <Link to="/mapScreen">
             <IoArrowBackCircleOutline size="40" color="black" />
           </Link>
           <h1 className="expanded-item">{parkourSpot?.name}</h1>
           <h2 className="expanded-item">Found by {parkourSpot?.author}</h2>
         </div>
+      <div id="spot-expanded-body">
+        
         <div className="spot-info-div">
           <div className="spot-expanded-image">
             {imagePaths.length == 1 ? 
             <img className="img-single" src={imagePaths[0]}/> : 
             <div className="multiImg">
-              <button className="left">{"<"}</button>
+              <button className="left" onClick={() => {
+                setActivePicIndex(activePicIndex == 0 ? imagePaths.length - 1 : activePicIndex -1)
+              }} 
+              style={{backgroundImage: 'url(' + imagePaths[activePicIndex == 0 ? imagePaths.length - 1 : activePicIndex -1] + ')'}}/>
               <img className="img-single" src={imagePaths[activePicIndex]}/> 
-              <button className="right">{">"}</button>
+              <button className="right" onClick={() => {
+                setActivePicIndex(activePicIndex == imagePaths.length -1 ? 0 : activePicIndex + 1)
+              }}
+              style={{backgroundImage: 'url(' + imagePaths[activePicIndex == imagePaths.length -1 ? 0 : activePicIndex + 1] + ')'}}/>
             </div>}
           </div>
           <div className="DescDiv">
