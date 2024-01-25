@@ -21,6 +21,7 @@ import userSlice from "../slices/userSlice";
 import spotListSlice from "../slices/spotList";
 import search from "../slices/searchSlice";
 import newSpotPositionSlice from "../slices/newSpotPositionSlice";
+import authSlice from "../slices/authenticateSlice";
 import { http, HttpResponse } from "msw";
 import { setupServer } from "msw/node";
 import { BrowserRouter } from "react-router-dom";
@@ -73,6 +74,7 @@ function renderWithProviders(
         spotListR: spotListSlice,
         search: search,
         newSpotPosition: newSpotPositionSlice,
+        auth: authSlice,
       },
       preloadedState,
     }),

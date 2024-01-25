@@ -7,6 +7,7 @@ import axios from "axios";
 import logo from "../assets/FreeTrainLogo.png";
 import { setUser } from "../slices/userSlice";
 import { RootState } from "../store";
+import { setAuth } from "../slices/authenticateSlice";
 
 import './Register.css'
 
@@ -66,8 +67,9 @@ function Register() {
         withCredentials: true,
       })
       .then((res) => {
+        localStorage.setItem("user", username);
         dispatch(setUser(username));
-        localStorage.setItem("username", username);
+        dispatch(setAuth(true));
         navigate("/mapScreen");
       })
       .catch((error) => {
@@ -123,7 +125,7 @@ function Register() {
               type="password"
               onChange={(e) => updateState(setConfirmPassword, e)}
               value={confirmPassword}
-              id="confimPassword"
+              id="confirmPassword"
             />
           </div>
           {problem == "" ? null : (

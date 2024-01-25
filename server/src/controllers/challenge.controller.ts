@@ -23,8 +23,7 @@ const addChallenge = async (req: Request, res: Response): Promise<void> => {
       newChallengeObj,
     );
     await newChallenge.save();
-    res.status(200);
-    res.send({ status: "this works" });
+    res.status(200).send({ status: "this works" });
   } catch (error) {
     console.log(error);
   }

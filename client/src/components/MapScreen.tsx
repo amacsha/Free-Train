@@ -9,8 +9,10 @@ import SearchField from "./SearchField";
 import auth from "../auth/auth";
 import axios from "axios";
 import { setSpotListR } from "../slices/spotList";
+import { setAuth } from "../slices/authenticateSlice";
 import { RootState } from "../store";
 import { Spot } from "../types/spot";
+import { useContext } from "react";
 
 import './MapScreen.css'
 
@@ -22,18 +24,29 @@ function MapScreen() {
   let spotList = useSelector((state: RootState) => state.spotListR);
   let search = useSelector((state: RootState) => state.search);
   let user = useSelector((state: RootState) => state.user);
+  const authFlag = useSelector((state: RootState) => state.auth);
 
   useEffect(() => {
     //authenticates user and then gets all spots from the database to display on the map
-    auth(user.value);
+
     axios
       .get<Spot[]>("http://localhost:3000/spot/getAll", {
         withCredentials: true,
       })
       .then((res) => {
         dispatch(setSpotListR([...res.data]));
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          dispatch(setAuth(false));
+          console.log("user not authenticaed please log in");
+        } else {
+          console.log(err, "test");
+        }
       });
   }, []);
+
+  auth(authFlag.value);
 
   return (
     <div id="map-screen" data-testid="map-screen">

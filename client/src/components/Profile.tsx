@@ -12,6 +12,7 @@ import auth from "../auth/auth";
 import { RootState } from "../store";
 import { Spot } from "../types/spot";
 import { Challenge } from "../types/challenge";
+import { setAuth } from "../slices/authenticateSlice";
 
 import './Profile.css'
 
@@ -22,6 +23,7 @@ function Profile() {
 
   //global states
   const user = useSelector((state: RootState) => state.user);
+  const authFlag = useSelector((state: RootState) => state.auth);
 
   //local states
   let [spots, setSpots] = useState<Spot[]>([]);
@@ -32,7 +34,6 @@ function Profile() {
 
   useEffect(() => {
     //authenticates user and then gets a list of spots that they found
-    auth(user.value);
     let foundSpots = axios.get<Spot[]>(
       `http://localhost:3000/spot/getAuthorSpots/${user.value}`,
       {
@@ -60,10 +61,17 @@ function Profile() {
         setSpots(foundSpots.data);
         setChallenges(challenges.data);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        if (err.response.status === 401) {
+          dispatch(setAuth(false));
+          console.log("user not authenticaed please log in");
+        } else {
+          console.log(err, "test");
+        }
       });
   }, []);
+
+  auth(authFlag.value);
 
   function logout() {
     //sets the users name to empty string, tells the server to log out and then sends the user back to the login page
@@ -74,6 +82,7 @@ function Profile() {
         withCredentials: true,
       })
       .then((res) => {
+        localStorage.removeItem("user");
         dispatch(setUser(null));
         navigate("/");
       })
@@ -109,6 +118,7 @@ function Profile() {
         },
       )
       .then((res) => {
+        localStorage.removeItem("user");
         dispatch(setUser(null));
         window.location.replace("/");
       })
@@ -156,6 +166,7 @@ function Profile() {
           <h1 className="profile-item">{user.value}</h1>
           <div className="logout">
             <MdDelete
+              id="deleteIcon"
               size="40"
               color="black"
               onClick={() => setDeleteUser(true)}
@@ -173,7 +184,7 @@ function Profile() {
               spots.map((spot: Spot) => {
                 return (
                   <Link to={`/spotExpanded/${spot.name}`}>
-                  <div key={spot.name} className="profile-spot">
+                  <div key={spot.name} className="profile-spot" title={spot.name} >
                     <div className="profile-spot-info">
                       <h3>{spot.name}</h3>
                       <h3>likes: {spot.likedBy.length}</h3>

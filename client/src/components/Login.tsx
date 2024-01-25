@@ -6,6 +6,7 @@ import logo from "../assets/FreeTrainLogo.png";
 import { setUser } from "../slices/userSlice";
 import { User } from "../types/user";
 import { RootState } from "../store";
+import { setAuth } from "../slices/authenticateSlice";
 
 import './Login.css'
 
@@ -55,8 +56,12 @@ function Login() {
         withCredentials: true,
       })
       .then((res) => {
-        dispatch(setUser(res.data.username));
-        navigate("/mapScreen");
+        if (res) {
+          localStorage.setItem("user", res.data.username);
+          dispatch(setUser(res.data.username));
+          dispatch(setAuth(true));
+          navigate("/mapScreen");
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -103,7 +108,7 @@ function Login() {
               Log in
             </button>
             <Link to="/register">
-              <button className="login-button">Register</button>
+              <button className="login-button" title="register">Register</button>
             </Link>
           </div>
         </form>

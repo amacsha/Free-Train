@@ -140,11 +140,6 @@ describe("Backend Tests", function () {
 
     this.afterAll(async () => {
       await Spot.deleteMany();
-      fs.rmdir(`${__dirname}/../uploads/test 1`, () => {});
-      fs.rmdir(`${__dirname}/../uploads/test 2`, () => {});
-      fs.rmdir(`${__dirname}/../uploads/test 3`, () => {
-        console.log("Spot tests done");
-      });
     });
   });
 

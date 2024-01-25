@@ -1,3 +1,5 @@
+import "express-session";
+
 export interface ChallengeType {
   challenge: String;
   spotName: String;
@@ -5,7 +7,7 @@ export interface ChallengeType {
   _id?: String;
 }
 
-interface Comment {
+export interface Comment {
   madeBy: String;
   comment: String;
 }
