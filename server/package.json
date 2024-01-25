@@ -17,7 +17,8 @@
     "express-fileupload": "^1.4.3",
     "express-session": "^1.17.3",
     "mongodb": "^6.3.0",
-    "mongoose": "^8.0.4"
+    "mongoose": "^8.0.4",
+    "socket.io": "^4.7.4"
   },
   "devDependencies": {
     "@types/expect": "^24.3.0",
