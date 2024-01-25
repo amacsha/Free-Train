@@ -560,3 +560,16 @@
   border: none;
   border-radius: 5px;
 }
+
+.beacon-remaining-time {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  top: 10px;
+  left: 10px;
+  background-color: white;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid black;
+  z-index: 1000;
+  font-size: 20px;
+}

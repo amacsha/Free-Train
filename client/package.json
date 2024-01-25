@@ -15,6 +15,7 @@
     "@cloudinary/react": "^1.11.2",
     "@cloudinary/url-gen": "^1.16.0",
     "@reduxjs/toolkit": "^2.0.1",
+    "@types/socket.io-client": "^3.0.0",
     "axios": "^1.6.5",
     "leaflet": "^1.9.4",
     "leaflet-geosearch": "^3.11.0",
@@ -24,7 +25,8 @@
     "react-leaflet": "^4.2.1",
     "react-redux": "^9.0.4",
     "react-router-dom": "^6.21.1",
-    "redux": "^5.0.1"
+    "redux": "^5.0.1",
+    "socket.io-client": "^4.7.4"
   },
   "devDependencies": {
     "@react-types/searchfield": "^3.5.2",

@@ -95,13 +95,19 @@ const deleteUser = async (req: Request, res: Response): Promise<void> => {
         req.body.password,
         user.password,
       );
-      req.session.destroy((error) => {
-        if (error) {
-          res.status(400).send({ status: "could not delete account" });
-        } else {
-          res.clearCookie("sid").status(200).send({ status: "deleted accout" });
-        }
-      });
+      if (passwordCheck == true) {
+        req.session.destroy(async (error) => {
+          if (error) {
+            res.status(400).send({ status: "could not delete account" });
+          } else {
+            await User.deleteOne({ username: req.body.user });
+            res
+              .clearCookie("sid")
+              .status(200)
+              .send({ status: "deleted accout" });
+          }
+        });
+      }
     }
   } catch (error) {
     console.log(error);
