@@ -6,7 +6,8 @@ A unique "beacon" feature elevates community interaction by allowing users to ac
 
 Frontend
 - Vite with React, Typescript, Socket.IO
-- Cypress and Vitest 
+- Cypress and Vitest
+
 Backend
 - Express, MongoDB, Mongoose ORM
 - Supertest with Jest
@@ -44,3 +45,14 @@ Backend
 - mongoose and mongoDB (database and access)
 - Bcrypt (password hashing)
 - Set the test script if on mac to: "ENV=test mocha './dist/test/server.test.js'" and on Windows: "ENV=test && mocha './dist/test/server.test.js'". Also ensure you have uploads folders on both
+
+### Author
+
+Sam Peevor
+
+
+### Contributors:
+Oliver Clyde - [LinkedIn](https://www.linkedin.com/in/oliver-clyde/) [GitHub](https://github.com/ollieclyde)
+Andrew MacShane -
+Dana Yachini -
+
