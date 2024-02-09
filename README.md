@@ -1,10 +1,18 @@
 # Free Train
 
-#### This project is like instagram for parkour, users can upload and view training locations.
+Free Train is an innovative web application tailored for parkour enthusiasts, enabling users to explore, upload, and view training locations. It provides a platform for users to contribute new spots by adding locations and sharing photos, enriching the community's knowledge base. The app includes a "like" feature for users to save and highlight their preferred locations, fostering a sense of discovery and personalization.
 
-#### Users have the ability to add locations and upload pictures for others to view.
+A unique "beacon" feature elevates community interaction by allowing users to activate a beacon on specific spots, signaling an open invitation for others to join in or take on challenges at those locations. This encourages real-time engagement and collaboration, making Free Train not just a resource for finding parkour spots but also a hub for community-driven events and challenges. Through these features, Free Train connects parkour practitioners worldwide, promoting shared experiences and the growth of the sport.
 
-#### They can save their locations using the like feature and are able to share challenges for others to complete.
+Frontend
+- Vite with React, Typescript, Socket.IO
+- Cypress and Vitest 
+Backend
+- Express, MongoDB, Mongoose ORM
+- Supertest with Jest
+
+
+
 
 ![mapScreen](./readmeAssets/mapScreen.png)
 ![profileScreen](./readmeAssets/Profile.png)
