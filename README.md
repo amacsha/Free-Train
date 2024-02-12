@@ -53,6 +53,6 @@ Sam Peevor
 
 ### Contributors:
 Oliver Clyde - [LinkedIn](https://www.linkedin.com/in/oliver-clyde/) [GitHub](https://github.com/ollieclyde)
-Andrew MacShane -
-Dana Yachini -
+Andrew MacShane - [LinkedIn](https://www.linkedin.com/in/amacsha/) [GitHub](https://github.com/amacsha)
+Dana Yachini - 
 
